@@ -28,7 +28,6 @@ export class ToastrService {
       enableHtml: true,
       timeOut: 30000,
       closeButton: true,
-      tapToDismiss: true,
       positionClass: 'toast-top-right',
     });
   }
@@ -37,6 +36,7 @@ export class ToastrService {
     this.toastr.error(message, title, {
       closeButton: true,
       timeOut: 30000,
+      tapToDismiss: true,
       positionClass: 'toast-top-right',
     });
   }

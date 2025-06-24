@@ -7,7 +7,8 @@
     "start": "nx serve aquachain",
     "build": "nx build aquachain",
     "test": "nx test aquachain",
-    "e2e": "nx e2e aquachain-e2e"
+    "e2e": "nx e2e aquachain-e2e",
+    "serve": "serve -s dist/apps/aquachain"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +25,7 @@
     "@cosmjs/cosmwasm-stargate": "^0.33.1",
     "@cosmjs/stargate": "^0.33.1",
     "@fortawesome/angular-fontawesome": "^2.0.1",
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "bootstrap": "^5.3.7",

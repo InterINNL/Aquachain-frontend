@@ -39,47 +39,78 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>Model</th>
-                    <th>Location</th>
-                    <th>Registration Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th class="projectid">ID</th>
+                    <th class="type">Type</th>
+                    <th class="expandable">Model</th>
+                    <th class="expandable">Location</th>
+                    <th class="date">Registration Date</th>
+                    <th class="centered status">Status</th>
+                    <th class="actions">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>WaterQuality</td>
-                    <td>AquaTest Pro</td>
-                    <td>River North</td>
-                    <td>May 1, 2025</td>
-                    <td><span class="badge bg-success">Active</span></td>
+                  <tr *ngFor="let sensor of sensors; let i = index">
+                    <td [title]="sensor.id" class="aligned">{{ sensor.id }}</td>
+                    <td [title]="sensor.type" class="aligned">
+                      {{ sensor.type }}
+                    </td>
+                    <td [title]="sensor.model" class="aligned">
+                      {{ truncate(sensor.model) }}
+                    </td>
+                    <td
+                      [title]="sensor.location ? sensor.location.description : ''"
+                      class="aligned"
+                    >
+                      {{ truncate(sensor.location ? sensor.location.description
+                      : '-') }}
+                    </td>
+                    <td class="aligned">{{ sensor.created_at | date }}</td>
+                    <td class="centered">
+                      <span
+                        class="badge"
+                        [ngClass]="{
+        'bg-success': sensor.status === 'active',
+        'bg-secondary': sensor.status === 'inactive',
+        'bg-warning': sensor.status === 'proposed'
+      }"
+                      >
+                        {{ sensor.status }}
+                      </span>
+                    </td>
                     <td>
                       <div class="btn-group btn-group-sm">
                         <button
                           class="btn btn-outline-primary"
-                          (click)="setView()"
+                          (click)="setView(sensor)"
                         >
-                          View</button
-                        ><button
-                          class="btn btn-outline-success"
-                          (click)="setSubmitData()"
-                        >
-                          Submit Data
+                          View
                         </button>
                         <button
-                          class="btn btn-outline-secondary"
-                          (click)="activate()"
+                          class="btn btn-outline-success"
+                          (click)="setSubmitData(sensor)"
+                          [disabled]="sensor.status !== 'active'"
+                        >
+                          Submit&nbsp;Data
+                        </button>
+                        <button
+                          class="btn btn-outline-secondary btn-toggle-size"
+                          *ngIf="sensor.status !== 'active'"
+                          (click)="activate(sensor)"
                         >
                           Activate
                         </button>
                         <button
-                          class="btn btn-outline-secondary"
-                          (click)="deactivate()"
+                          class="btn btn-outline-secondary btn-toggle-size"
+                          *ngIf="sensor.status === 'active'"
+                          (click)="deactivate(sensor)"
                         >
                           Deactivate
+                        </button>
+                        <button
+                          class="btn btn-outline-dark"
+                          (click)="deleteSensor(sensor)"
+                        >
+                          <i class="fas fa-trash-alt"></i>
                         </button>
                       </div>
                     </td>
@@ -97,12 +128,43 @@
           <div class="card-header">
             <h5 class="mb-0" [ngSwitch]="mode">
               <span *ngSwitchCase="'register'">Register New Sensor</span>
-              <span *ngSwitchCase="'submit'">Submit Data</span>
-              <span *ngSwitchCase="'view'">View Data</span>
+              <span *ngSwitchCase="'submit'"
+                >Submit&nbsp;Data for sensor {{selectedSensor?.id}}</span
+              >
+              <span *ngSwitchCase="'view'"
+                >View Data for sensor {{selectedSensor?.id}}</span
+              >
               <span *ngSwitchDefault></span>
             </h5>
           </div>
-          <div class="card-body">
+          <div class="card-body" *ngIf="mode === 'view'">
+            <span class="me-3"
+              ><strong>Type:</strong> {{ selectedSensor?.type }}</span
+            >
+            <span class="me-3"
+              ><strong>Model:</strong> {{ selectedSensor?.model }}</span
+            >
+            <span class="me-3">
+              <strong>Location:</strong>
+              Lat: {{ selectedSensor?.location?.lat }}, Lng: {{
+              selectedSensor?.location?.lng }}
+            </span>
+            <span class="me-3">
+              <strong>Description:</strong> {{
+              selectedSensor?.location?.description }}
+            </span>
+            <span class="me-3"
+              ><strong>Status:</strong> {{ selectedSensor?.status }}</span
+            >
+            <span class="me-3"
+              ><strong>Owner:</strong> {{ selectedSensor?.owner }}</span
+            >
+            <span class="me-3">
+              <strong>Created:</strong> {{ selectedSensor?.created_at | date:
+              'short' }}
+            </span>
+          </div>
+          <div class="card-body" *ngIf="mode !== 'view'">
             <form
               [formGroup]="sensorForm"
               (ngSubmit)="onRegisterSensor()"
@@ -118,12 +180,12 @@
                 >
                   >
                   <option value="">Select sensor type</option>
-                  <option value="WaterQuality">Water Quality</option>
-                  <option value="WaterQuantity">Water Quantity</option>
-                  <option value="WaterPressure">Water Pressure</option>
-                  <option value="WaterTemperature">Water Temperature</option>
-                  <option value="WaterPH">Water pH</option>
-                  <option value="WaterTurbidity">Water Turbidity</option>
+                  <option value="Water Quality">Water Quality</option>
+                  <option value="Water Quantity">Water Quantity</option>
+                  <option value="Water Pressure">Water Pressure</option>
+                  <option value="Water Temperature">Water Temperature</option>
+                  <option value="Water PH">Water pH</option>
+                  <option value="Water Turbidity">Water Turbidity</option>
                 </select>
               </div>
               <div class="mb-3">
@@ -172,13 +234,14 @@
                 <button
                   type="submit"
                   class="btn btn-primary"
-                  [disabled]="loading"
+                  [disabled]="loadingRegisterSensor"
                 >
-                  <ng-container *ngIf="!loading; else loadingTpl"
+                  <ng-container *ngIf="!loadingRegisterSensor; else loadingTpl"
                     >Register Sensor</ng-container
                   >
                   <ng-template #loadingTpl>
-                    <i class="fas fa-spinner fa-spin"></i> Registering...
+                    <i class="fas fa-spinner fa-spin text-white"></i>
+                    Registering...
                   </ng-template>
                 </button>
               </div>
@@ -204,25 +267,48 @@
                 </ng-template>
               </div> -->
             </form>
-            <form *ngIf="mode === 'submit'">
+            <form *ngIf="mode === 'submit' && selectedSensor">
               <div class="mb-3">
-                <label for="sensorType" class="form-label">Sensor Type</label
-                ><select class="form-select" id="sensorType" required="">
-                  <option value="">Select sensor type</option>
-                </select>
+                <label class="form-label me-2">Sensor Type:</label>
+                <span class="form-control-plaintext d-inline"
+                  >{{ selectedSensor.type }}</span
+                >
               </div>
               <div class="mb-3">
-                <label for="sensorModel" class="form-label">Sensor Model</label
+                <label class="form-label me-2">Sensor Model:</label>
+                <span class="form-control-plaintext d-inline"
+                  >{{ selectedSensor.model }}</span
+                >
+              </div>
+              <div class="mb-3">
+                <label class="form-label me-2">Location:</label>
+                <span class="form-control-plaintext d-inline">
+                  Lat: {{ selectedSensor.location.lat }}, Lng: {{
+                  selectedSensor.location.lng }}
+                </span>
+              </div>
+              <div class="mb-3">
+                <label for="sensorValue" class="form-label">Sensor Value</label
                 ><input
                   type="text"
                   class="form-control"
-                  id="sensorModel"
+                  id="sensorValue"
                   required=""
                 />
               </div>
               <div class="d-grid">
-                <button type="submit" class="btn btn-primary">
-                  Submit Sensor Data
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="loadingSubmitData"
+                >
+                  <ng-container *ngIf="!loadingSubmitData; else loadingSubTpl"
+                    >Submit&nbsp;Sensor&nbsp;Data</ng-container
+                  >
+                  <ng-template #loadingSubTpl>
+                    <i class="fas fa-spinner fa-spin text-white"></i>
+                    Submitting...
+                  </ng-template>
                 </button>
               </div>
             </form>
