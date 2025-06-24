@@ -1,0 +1,11 @@
+{
+  "/rpc": {
+    "target": "http://localhost:26657",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/rpc": ""
+    }
+  }
+}

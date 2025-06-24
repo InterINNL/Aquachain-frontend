@@ -1,0 +1,81 @@
+.section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.image-container {
+  position: relative;
+  height: 400px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 0;
+  }
+  .image-container {
+    height: 250px;
+    margin-top: 30px;
+  }
+  .features-section,
+  .technology-section,
+  .cta-section {
+    padding: 40px 0;
+  }
+  .module-header {
+    padding: 30px 0;
+  }
+}
+
+.home-image {
+  // background-image: url(/water-management.svg);
+  // background-size: contain;
+  // background-position: center;
+  // background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+.features-section {
+  padding: 80px 0;
+  background-color: var(--light-color);
+}
+.feature-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px #0000001a;
+}
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px #00000026;
+}
+.feature-icon {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.technology-section {
+  padding: 80px 0;
+}
+.tech-image {
+  max-height: 400px;
+}
+.tech-feature {
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #0275d80d;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+.tech-feature:hover {
+  background-color: #0275d81a;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, var(--success-color) 0%, #449d44 100%);
+  padding: 80px 0;
+}
