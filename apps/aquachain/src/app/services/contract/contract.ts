@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { GasPrice } from '@cosmjs/stargate';
 import { WalletService } from '../wallet/wallet';
 import { environment } from '@env/environment';
+import { GasPrice } from '@cosmjs/stargate';
 
 export interface Sensor {
   id: number;
@@ -24,7 +24,25 @@ export interface SensorSubmission {
   location: SensorLocation;
 }
 
+export interface DataEntry {
+  id: number;
+  sensor_id: number;
+  submitter: string;
+  data_str: string;
+  verified: boolean;
+  verifier?: string | null;
+  rewarded: boolean;
+  created_at: number;
+  updated_at: number;
+}
+
 export interface ParsedSensor extends Sensor, SensorSubmission {}
+
+export interface ParsedDataEntry extends DataEntry {
+  value: string;
+}
+
+export const pageSize = 10;
 
 @Injectable({ providedIn: 'root' })
 export class ContractService {
@@ -102,7 +120,7 @@ export class ContractService {
     owner?: string,
     status?: string,
     start_after?: number,
-    limit: number = 20,
+    limit: number = pageSize,
   ): Promise<Sensor[]> {
     const query = {
       list_sensors: {
@@ -112,7 +130,34 @@ export class ContractService {
         status,
       },
     };
-    const client = await this.getSigningClient();
+    const client = await this.getqueryClient();
+    return await client.queryContractSmart(contract, query);
+  }
+
+  async listDataEntries(
+    contract: string,
+    options?: {
+      submitter?: string;
+      sensor_id?: number;
+      start_after?: number;
+      limit?: number;
+    },
+  ): Promise<any[]> {
+    const query = {
+      list_data_entries: {
+        start_after: options?.start_after,
+        limit: options?.limit ?? pageSize,
+        submitter: options?.submitter,
+        sensor_id: options?.sensor_id,
+      },
+    };
+    const client = await this.getqueryClient();
+    return await client.queryContractSmart(contract, query);
+  }
+
+  async getTotalSensors(contract: string, owner?: string): Promise<number> {
+    const query = owner ? { count_sensors: { owner } } : { count_sensors: {} };
+    const client = await this.getqueryClient();
     return await client.queryContractSmart(contract, query);
   }
 }

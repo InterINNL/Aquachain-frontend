@@ -5,11 +5,13 @@
 .centered {
   text-align: center;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .aligned {
   text-align: left;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .expandable {
@@ -28,4 +30,9 @@
 
 .btn-toggle-size {
   min-width: 100px;
+}
+
+.pagination .page-link:focus {
+  outline: none;
+  box-shadow: none;
 }

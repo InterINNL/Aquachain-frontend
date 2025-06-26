@@ -15,7 +15,12 @@
         "outputPath": "dist/apps/aquachain",
         "browser": "apps/aquachain/src/main.ts",
         "polyfills": [
-          "zone.js"
+          "zone.js",
+          "apps/aquachain/src/polyfills.ts"
+        ],
+        "allowedCommonJsDependencies": [
+          "bootstrap",
+          "@cosmjs"
         ],
         "tsConfig": "apps/aquachain/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
@@ -43,8 +48,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "3mb",
-              "maximumError": "4mb"
+              "maximumWarning": "5mb",
+              "maximumError": "6mb"
             },
             {
               "type": "anyComponentStyle",

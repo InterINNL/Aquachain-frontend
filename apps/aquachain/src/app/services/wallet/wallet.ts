@@ -1,4 +1,5 @@
-import { DOCUMENT, inject, Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import {
   CosmWasmClient,
   SigningCosmWasmClient,
@@ -30,23 +31,27 @@ export class WalletService {
 
   private chainSuggested = false;
 
+  private platformId = inject(PLATFORM_ID);
+
   constructor() {
-    this.queryClientReady = new Promise((resolve) => {
-      this.resolveQueryClientReady = resolve;
-    });
-
-    this.signingClientReady = new Promise((resolve) => {
-      this.resolveSigningClientReady = resolve;
-    });
-
-    SigningCosmWasmClient.connect(this.rpcEndpoint)
-      .then((client) => {
-        this._queryClient = client;
-        this.resolveQueryClientReady();
-      })
-      .catch((err) => {
-        console.error('Failed to initialize query client:', err);
+    if (isPlatformBrowser(this.platformId)) {
+      this.queryClientReady = new Promise((resolve) => {
+        this.resolveQueryClientReady = resolve;
       });
+
+      this.signingClientReady = new Promise((resolve) => {
+        this.resolveSigningClientReady = resolve;
+      });
+
+      SigningCosmWasmClient.connect(this.rpcEndpoint)
+        .then((client) => {
+          this._queryClient = client;
+          this.resolveQueryClientReady();
+        })
+        .catch((err) => {
+          console.error('Failed to initialize query client:', err);
+        });
+    }
   }
 
   async getQueryClient(): Promise<CosmWasmClient> {
@@ -65,7 +70,8 @@ export class WalletService {
       !this.window?.keplr ||
       !this.window?.getOfflineSigner
     ) {
-      throw new Error('Keplr extension not found or running outside browser');
+      console.warn('Keplr extension not found or running outside browser');
+      return;
     }
 
     if (!this.chainSuggested) {

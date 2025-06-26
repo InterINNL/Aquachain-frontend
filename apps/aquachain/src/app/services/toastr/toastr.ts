@@ -29,16 +29,36 @@ export class ToastrService {
       timeOut: 30000,
       closeButton: true,
       positionClass: 'toast-top-right',
+      toastClass: 'ngx-toastr no-scroll-toast',
     });
   }
 
   showError(message: string = 'Unknown error', title = 'Transaction Failed') {
-    this.toastr.error(message, title, {
+    const cleanMessage = this.extractRelevantError(message);
+
+    this.toastr.error(cleanMessage, title, {
+      enableHtml: true,
       closeButton: true,
       timeOut: 30000,
       tapToDismiss: true,
       positionClass: 'toast-top-right',
+      toastClass: 'ngx-toastr no-scroll-toast',
     });
+  }
+
+  extractRelevantError(message: string): string {
+    // Split by newlines
+    const lines = message.split('\n').map((line) => line.trim());
+
+    // Find last line that starts with "rpc error: code"
+    for (const line of lines) {
+      if (line.includes('rpc error: code')) {
+        return line;
+      }
+    }
+
+    // Fallback: return full trimmed message if no rpc error line found
+    return message.trim();
   }
 
   private getTxUrl(txHash: string): string {

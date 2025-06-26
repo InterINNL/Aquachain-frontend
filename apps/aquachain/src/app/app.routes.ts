@@ -2,7 +2,6 @@ import { Route } from '@angular/router';
 import { Demo } from './components/demo/demo';
 import { WaterUtilities } from './components/water-utilities/water-utilities';
 import { Home } from './components/home/home';
-import { CitizenScience } from './components/citizen-science/citizen-science';
 
 export const appRoutes: Route[] = [
   {
@@ -23,6 +22,9 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'citizen-science',
-    component: CitizenScience,
+    loadComponent: () =>
+      import('./components/citizen-science/citizen-science').then(
+        (m) => m.CitizenScience,
+      ),
   },
 ];

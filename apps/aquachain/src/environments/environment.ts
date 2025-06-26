@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   CitizenScienceContractAddress:
-    'wasm1uw2jv4mkqsr8qk2827qjwfwv685kwcqe9dzlhrdrftut2qp7ca3q9r4dfs',
+    'wasm12p8v7ctj3nh5a7rkft6h96jguyc7znm9vjxu0w25yn6g6zuxspzszcrlas',
   explorerBaseUrl: 'https://your-explorer-url',
   gasPrice: '0.025ustake',
   gasMultiplier: 1.5,
