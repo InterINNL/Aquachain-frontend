@@ -33,12 +33,47 @@
   background: var(--ac-teal);
   color: var(--ac-white);
   font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.ac-header__mark--amber {
+  background: var(--ac-amber);
+}
+
+.ac-header__mark--slate {
+  background: var(--ac-slate);
 }
 
 .ac-header__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem;
   font-family: var(--ac-display);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
+  line-height: 1.2;
+}
+
+.ac-header__product {
+  color: var(--ac-navy);
+}
+
+.ac-header__sep {
+  color: var(--ac-slate-muted);
+  font-weight: 500;
+}
+
+.ac-header__module {
+  color: var(--ac-teal);
+}
+
+.ac-header__module--amber {
+  color: var(--ac-amber);
+}
+
+.ac-header__module--slate {
+  color: var(--ac-slate);
 }
 
 .ac-header__nav {

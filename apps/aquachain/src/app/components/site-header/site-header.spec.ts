@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router, Routes } from '@angular/router';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -7,16 +7,23 @@ import {
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { SiteHeader } from './site-header';
 
+const headerRoutes: Routes = [
+  { path: 'citizen-science', component: SiteHeader },
+  { path: '**', component: SiteHeader },
+];
+
 describe('SiteHeader', () => {
   let fixture: ComponentFixture<SiteHeader>;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SiteHeader, FontAwesomeModule],
-      providers: [provideRouter([]), FaIconLibrary],
+      providers: [provideRouter(headerRoutes), FaIconLibrary],
     }).compileComponents();
 
     TestBed.inject(FaIconLibrary).addIconPacks(fas);
+    router = TestBed.inject(Router);
     fixture = TestBed.createComponent(SiteHeader);
     fixture.detectChanges();
   });
@@ -27,5 +34,12 @@ describe('SiteHeader', () => {
 
   it('should show AquaChain brand', () => {
     expect(fixture.nativeElement.textContent).toContain('AquaChain');
+  });
+
+  it('should show module name on citizen science route', async () => {
+    await router.navigateByUrl('/citizen-science');
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Citizen Science');
   });
 });

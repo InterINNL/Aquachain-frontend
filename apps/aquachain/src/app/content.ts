@@ -29,6 +29,12 @@ export interface AcModule {
   photo: AcPhoto;
 }
 
+export interface HeaderBrand {
+  label: string;
+  icon: string;
+  accent: 'teal' | 'amber' | 'slate';
+}
+
 export const aquachainContent = {
   name: 'AquaChain',
   tagline: 'Trusted water data on Cosmos',
@@ -38,6 +44,29 @@ export const aquachainContent = {
   githubFrontend: 'https://github.com/InterINNL/Aquachain-frontend',
   githubContracts: 'https://github.com/InterINNL/Aquachain-contracts',
   copyrightYear: 2025,
+
+  headerBrands: {
+    '/citizen-science': {
+      label: 'Citizen Science',
+      icon: 'microscope',
+      accent: 'teal',
+    },
+    '/water-well-initiative': {
+      label: 'Water Well Initiative',
+      icon: 'hand-holding-droplet',
+      accent: 'amber',
+    },
+    '/water-utilities': {
+      label: 'Water Utilities',
+      icon: 'chart-line',
+      accent: 'slate',
+    },
+    '/contact': {
+      label: 'Contact',
+      icon: 'envelope',
+      accent: 'teal',
+    },
+  } satisfies Record<string, HeaderBrand>,
 
   hero: {
     kicker: 'Open source · Cosmos · InterINNL',
@@ -54,10 +83,8 @@ export const aquachainContent = {
 
   context: {
     title: 'Why water needs a shared record',
-    lead:
-      'Water quality and access vary sharply between regions. Field readings, funding pledges, and utility savings are often scattered across spreadsheets and siloed systems.',
-    body:
-      'AquaChain demos how Cosmos smart contracts can anchor that data so donors, regulators, and communities read the same numbers from one on-chain source.',
+    lead: 'Water quality and access vary sharply between regions. Field readings, funding pledges, and utility savings are often scattered across spreadsheets and siloed systems.',
+    body: 'AquaChain demos how Cosmos smart contracts can anchor that data so donors, regulators, and communities read the same numbers from one on-chain source.',
     photo: {
       src: local('context-monitoring.jpg'),
       alt: 'Water quality monitoring dashboard with smart sensor readings',

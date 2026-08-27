@@ -1,10 +1,21 @@
 <header class="ac-header">
   <div class="ac-header__inner ac-container">
     <a class="ac-header__brand" routerLink="/" (click)="close()">
-      <span class="ac-header__mark" aria-hidden="true">
-        <fa-icon [icon]="['fas', 'droplet']"></fa-icon>
+      <span
+        class="ac-header__mark ac-header__mark--{{ brandAccent(moduleBrand()) }}"
+        aria-hidden="true"
+      >
+        <fa-icon [icon]="['fas', brandIcon(moduleBrand())]"></fa-icon>
       </span>
-      <span class="ac-header__name">{{ content.name }}</span>
+      <span class="ac-header__name">
+        <span class="ac-header__product">{{ content.name }}</span>
+        @if (moduleBrand(); as brand) {
+          <span class="ac-header__sep" aria-hidden="true">·</span>
+          <span class="ac-header__module ac-header__module--{{ brand.accent }}">
+            {{ brand.label }}
+          </span>
+        }
+      </span>
     </a>
 
     <nav class="ac-header__nav" aria-label="AquaChain">
