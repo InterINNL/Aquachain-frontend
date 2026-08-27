@@ -26,12 +26,5 @@ export const interinnlContent = {
     githubOrg: 'https://github.com/InterINNL',
     site: 'https://interinnl.interchouette.net/',
     linkedinGroup: 'https://www.linkedin.com/groups/42420002/',
-    partner: {
-      name: 'Grevix',
-      blurb:
-        'Grevix is a small collective exploring AI/ML, software engineering and open source. Partner of InterINNL.',
-      github: 'https://github.com/Grevix',
-      linkedin: 'https://www.linkedin.com/company/grevix-org/',
-    },
   },
 };

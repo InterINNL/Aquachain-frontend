@@ -19,10 +19,9 @@ describe('Landing', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should show InterINNL mission and Grevix partner', () => {
+  it('should show InterINNL mission and AquaChain', () => {
     const text = fixture.nativeElement.textContent as string;
     expect(text).toContain('Mission');
     expect(text).toContain('AquaChain');
-    expect(text).toContain('Grevix');
   });
 });
