@@ -13,7 +13,7 @@
       <p class="innl-hero__line">{{ content.heroLine }}</p>
       <ul class="innl-focus" aria-label="Focus areas">
         @for (topic of content.focus; track topic) {
-          <li>{{ topic }}</li>
+        <li>{{ topic }}</li>
         }
       </ul>
       <div class="innl-hero__actions">
@@ -127,7 +127,11 @@
         <h2>{{ content.events.title }}</h2>
         <p class="innl-event-card__when">{{ content.events.when }}</p>
         <p>{{ content.events.blurb }}</p>
-        <a class="innl-btn innl-btn--primary" [href]="content.events.ctaHref"
+        <a
+          class="innl-btn innl-btn--primary"
+          [href]="content.events.ctaHref"
+          rel="noopener noreferrer"
+          target="_blank"
           >{{ content.events.ctaLabel }}</a
         >
       </article>

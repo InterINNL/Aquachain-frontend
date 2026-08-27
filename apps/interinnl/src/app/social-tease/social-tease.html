@@ -4,7 +4,11 @@
     <span class="innl-social__badge">{{ social.badge }}</span>
     <h2>{{ social.title }}</h2>
     <p>{{ social.body }}</p>
-    <a class="innl-social__cta" [href]="social.notifyHref"
+    <a
+      class="innl-social__cta"
+      [href]="social.notifyHref"
+      rel="noopener noreferrer"
+      target="_blank"
       >{{ social.notifyLabel }}</a
     >
   </div>

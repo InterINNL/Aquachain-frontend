@@ -5,6 +5,8 @@ const u = (id: string, w = 900) =>
 
 const local = (name: string) => `/photos/${name}`;
 
+const linkedinGroup = 'https://www.linkedin.com/groups/42420002/';
+
 export const interinnlContent = {
   name: 'InterINNL',
   tagline: 'INDIA • NETHERLANDS • NEXT LEVEL',
@@ -219,8 +221,7 @@ export const interinnlContent = {
       '48 hours to build tech for water challenges with AI, LLMs, IoT and blockchain. India and the Netherlands, remote + Amsterdam. Public GitHub output. Real problems, not slides.',
     when: 'Date to be announced',
     ctaLabel: 'Register interest',
-    ctaHref:
-      'mailto:contact@interchouette.net?subject=AquaChain%20Hackathon%20interest',
+    ctaHref: linkedinGroup,
   },
   founders: [
     {
@@ -233,7 +234,7 @@ export const interinnlContent = {
     {
       name: 'Reham Abdul Rauf',
       role: 'Co-founder',
-      location: 'India / Netherlands',
+      location: 'India / Netherlands / HK',
       linkedin: 'https://www.linkedin.com/in/reham-abdul-rauf-a0634b140/',
       initials: 'RA',
     },
@@ -243,12 +244,11 @@ export const interinnlContent = {
     title: 'Community coming to life',
     body: "We're building a federated community space for InterINNL members. Share AI, LLM and blockchain projects, ask questions, and find collaborators across India and the Netherlands. No feed algorithm. Just people.",
     notifyLabel: 'Notify me',
-    notifyHref:
-      'mailto:contact@interchouette.net?subject=InterINNL%20community%20notify',
+    notifyHref: linkedinGroup,
   },
   links: {
     githubOrg: 'https://github.com/InterINNL',
     site: 'https://interinnl.interchouette.net/',
-    linkedinGroup: 'https://www.linkedin.com/groups/42420002/',
+    linkedinGroup,
   },
 };
