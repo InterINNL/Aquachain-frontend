@@ -13,7 +13,7 @@ CosmWasm contracts live in a sibling checkout: `../aquachain/contracts` ([Aquach
 
 | App           | Role                                                                    |
 | ------------- | ----------------------------------------------------------------------- |
-| **interinnl** | Community hub (mission, projects, join, Grevix partner)                 |
+| **interinnl** | Community hub (AI, LLMs, blockchain, mission, projects, join)           |
 | **aquachain** | Water management CosmWasm demo (Citizen Science, Water Well, Utilities) |
 
 ## Stack
