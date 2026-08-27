@@ -116,7 +116,7 @@ From each crate directory:
 
 ```sh
 make deploy
-# address is written to contract_addr.txt — paste into environment.ts
+# address is written to contract_addr.txt  -  paste into environment.ts
 ```
 
 Osmosis testnet: see the contracts repo README (deploy + seed scripts under `scripts/`).
