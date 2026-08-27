@@ -64,31 +64,20 @@ export const interinnlContent = {
       },
     },
     {
-      name: 'Arjun, Neel & Lars',
-      origin: 'Hyderabad · Mumbai · Utrecht',
-      role: 'Builders · India × NL',
+      name: 'Arjun K.',
+      origin: 'Hyderabad → Eindhoven',
+      role: 'Embedded Systems',
       quote:
         'The Netherlands has a deep tech shortage. I moved for work; InterINNL helped me land among engineers who already live that gap every day.',
       photo: {
-        src: local('canal-meetup.png'),
-        alt: 'Two Indian engineers and a blond Dutch colleague collaborating outdoors',
+        src: u('photo-1507003211169-0a1dd7228f2d', 600),
+        alt: 'Portrait of a South Asian man in a city setting',
       },
     },
     {
-      name: 'Dev squad',
-      origin: 'India → Netherlands tech',
-      role: 'AI · Backend · Full stack',
-      quote:
-        'Late nights on LLMs and CosmWasm. Finding a room of Indian engineers who already live the NL move changed everything.',
-      photo: {
-        src: local('team-office.png'),
-        alt: 'Four Indian engineers collaborating at desks with code on large monitors',
-      },
-    },
-    {
-      name: 'Ananya',
+      name: 'Ananya & Vikram',
       origin: 'Pune → Rotterdam',
-      role: 'Family · Relocating for tech',
+      role: 'Family · Tech',
       quote:
         'We relocated for careers in NL tech. Meeting other Indian families already in Dutch companies made the move feel real, not theoretical.',
       photo: {
