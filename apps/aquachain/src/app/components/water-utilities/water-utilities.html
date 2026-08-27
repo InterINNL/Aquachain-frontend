@@ -1,1 +1,449 @@
-<p>water-utilities worksqdqsds!</p>
+<div class="module-header text-white py-4">
+  <div class="container">
+    <h1>
+      <fa-icon [icon]="['fas', 'chart-line']" class="me-2"></fa-icon>
+      Water Utilities
+    </h1>
+    <p class="lead mb-0">
+      Register utilities, log usage and savings, validate, and issue footprint
+      certificates
+    </p>
+  </div>
+</div>
+
+<div
+  *ngIf="walletWarning"
+  class="alert alert-warning d-flex align-items-center container py-4 mb-2"
+  role="alert"
+>
+  <i class="fas fa-exclamation-triangle me-2 text-danger fs-4"></i>
+  <span class="text-danger-emphasis">
+    <strong>Keplr Wallet required:</strong> Please install the extension from
+    <a
+      href="https://www.keplr.app/download"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="alert-link"
+      >keplr.app</a
+    >.
+  </span>
+</div>
+
+<div
+  *ngIf="missingContract"
+  class="alert alert-info container mt-3"
+  role="alert"
+>
+  Set <code>UtilityWaterFootprintContractAddress</code> in
+  <code>apps/aquachain/src/environments/environment.ts</code> after
+  <code>make deploy</code> in the utility-water-footprint contract crate
+  (address is written to <code>contract_addr.txt</code>).
+</div>
+
+<div class="container py-4" *ngIf="!missingContract">
+  <div class="row g-3">
+    <div class="col-lg-5">
+      <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Companies</h5>
+          <span class="badge bg-primary" *ngIf="amVerifier">Verifier</span>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loadingCompanies" class="text-center py-3">
+            <i class="fas fa-spinner fa-spin me-2"></i> Loading…
+          </div>
+          <div class="table-responsive" *ngIf="!loadingCompanies">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Sector</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let company of companies"
+                  [class.table-active]="selected?.id === company.id"
+                >
+                  <td>{{ company.id }}</td>
+                  <td>{{ truncate(company.name, 22) }}</td>
+                  <td>{{ truncate(company.sector, 14) }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-primary"
+                      (click)="selectCompany(company)"
+                    >
+                      Open
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="companies.length === 0">
+                  <td colspan="4" class="text-muted text-center py-3">
+                    No companies yet
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav class="mt-2" *ngIf="companies.length > 0 || companyPage > 1">
+            <ul class="pagination pagination-sm justify-content-center mb-0">
+              <li class="page-item" [class.disabled]="!canGoPrev(companyPage)">
+                <button
+                  class="page-link"
+                  (click)="prevCompanies()"
+                  [disabled]="!canGoPrev(companyPage)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item disabled">
+                <span class="page-link">Page {{ companyPage }}</span>
+              </li>
+              <li
+                class="page-item"
+                [class.disabled]="!canGoNextPage(companyHasNext)"
+              >
+                <button
+                  class="page-link"
+                  (click)="nextCompanies()"
+                  [disabled]="!canGoNextPage(companyHasNext)"
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header"><h5 class="mb-0">Register company</h5></div>
+        <div class="card-body">
+          <form [formGroup]="registerForm" (ngSubmit)="onRegisterCompany()">
+            <div class="mb-3">
+              <label class="form-label" for="coName">Name</label>
+              <input id="coName" class="form-control" formControlName="name" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="coSector">Sector</label>
+              <input
+                id="coSector"
+                class="form-control"
+                formControlName="sector"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="coRegion">Region</label>
+              <input
+                id="coRegion"
+                class="form-control"
+                formControlName="region"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="coNotes">Notes</label>
+              <textarea
+                id="coNotes"
+                class="form-control"
+                rows="2"
+                formControlName="notes"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="registerForm.invalid || busyAction"
+            >
+              Register
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h5 class="mb-0">Verifiers (admin)</h5></div>
+        <div class="card-body">
+          <div class="input-group mb-2">
+            <input
+              class="form-control"
+              [(ngModel)]="verifierAddress"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="wasm1… / osmo1…"
+            />
+          </div>
+          <div class="d-flex gap-2">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-success"
+              (click)="onAddVerifier()"
+              [disabled]="busyAction"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              (click)="onRemoveVerifier()"
+              [disabled]="busyAction"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <div class="card mb-3 sticky-top-detail">
+        <div class="card-header"><h5 class="mb-0">Company detail</h5></div>
+        <div class="card-body" *ngIf="selected; else pickCompany">
+          <p class="mb-1">
+            <strong>#{{ selected.id }}</strong> {{ selected.name }}
+          </p>
+          <p class="mb-1">
+            <strong>Owner:</strong> {{ truncate(selected.owner, 36) }}
+          </p>
+          <p class="mb-1"><strong>Sector:</strong> {{ selected.sector }}</p>
+          <p class="mb-3"><strong>Region:</strong> {{ selected.region }}</p>
+
+          <h6>Log usage</h6>
+          <form
+            class="row g-2 mb-3"
+            [formGroup]="logForm"
+            (ngSubmit)="onLogUsage()"
+          >
+            <div class="col-md-4">
+              <input
+                class="form-control"
+                formControlName="period"
+                placeholder="Period e.g. 2026-Q1"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                class="form-control"
+                formControlName="usage"
+                placeholder="Usage"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                class="form-control"
+                formControlName="savings"
+                placeholder="Savings"
+              />
+            </div>
+            <div class="col-md-2">
+              <button
+                type="submit"
+                class="btn btn-primary w-100"
+                [disabled]="logForm.invalid || busyAction"
+              >
+                Log
+              </button>
+            </div>
+          </form>
+          <p class="form-text">
+            Owner-only. Savings cannot exceed usage. Certificates need ≥10%
+            validated savings ratio for the period.
+          </p>
+
+          <h6 class="mt-3">Usage logs</h6>
+          <div *ngIf="loadingLogs" class="text-center py-2">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+          <div class="table-responsive" *ngIf="!loadingLogs">
+            <table class="table table-sm table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Period</th>
+                  <th>Usage</th>
+                  <th>Savings</th>
+                  <th>Validated</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let log of logs">
+                  <td>{{ log.id }}</td>
+                  <td>{{ log.period }}</td>
+                  <td>{{ log.usage }}</td>
+                  <td>{{ log.savings }}</td>
+                  <td>
+                    <span
+                      class="badge"
+                      [ngClass]="
+                        log.validated ? 'bg-success' : 'bg-secondary'
+                      "
+                      >{{ log.validated ? 'Yes' : 'No' }}</span
+                    >
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-success"
+                      *ngIf="!log.validated"
+                      (click)="onValidateLog(log)"
+                      [disabled]="busyAction"
+                    >
+                      Validate
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="logs.length === 0">
+                  <td colspan="6" class="text-muted text-center py-2">
+                    No logs
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav *ngIf="logs.length > 0 || logPage > 1">
+            <ul class="pagination pagination-sm justify-content-center">
+              <li class="page-item" [class.disabled]="!canGoPrev(logPage)">
+                <button
+                  class="page-link"
+                  (click)="prevLogs()"
+                  [disabled]="!canGoPrev(logPage)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item disabled">
+                <span class="page-link">Page {{ logPage }}</span>
+              </li>
+              <li
+                class="page-item"
+                [class.disabled]="!canGoNextPage(logHasNext)"
+              >
+                <button
+                  class="page-link"
+                  (click)="nextLogs()"
+                  [disabled]="!canGoNextPage(logHasNext)"
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <h6 class="mt-3">Issue certificate</h6>
+          <div class="input-group mb-3">
+            <input
+              class="form-control"
+              [(ngModel)]="issuePeriod"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Period e.g. 2026-Q1"
+            />
+            <button
+              type="button"
+              class="btn btn-warning"
+              (click)="onIssueCertificate()"
+              [disabled]="busyAction"
+            >
+              Issue
+            </button>
+          </div>
+
+          <h6>Certificates</h6>
+          <div *ngIf="loadingCerts" class="text-center py-2">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+          <div class="table-responsive" *ngIf="!loadingCerts">
+            <table class="table table-sm table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Period</th>
+                  <th>Usage</th>
+                  <th>Savings</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let cert of certificates"
+                  [class.table-active]="selectedCert?.id === cert.id"
+                >
+                  <td>{{ cert.id }}</td>
+                  <td>{{ cert.period }}</td>
+                  <td>{{ cert.total_usage }}</td>
+                  <td>{{ cert.total_savings }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-primary"
+                      (click)="selectCertificate(cert)"
+                    >
+                      Detail
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="certificates.length === 0">
+                  <td colspan="5" class="text-muted text-center py-2">
+                    No certificates
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav *ngIf="certificates.length > 0 || certPage > 1">
+            <ul class="pagination pagination-sm justify-content-center mb-0">
+              <li class="page-item" [class.disabled]="!canGoPrev(certPage)">
+                <button
+                  class="page-link"
+                  (click)="prevCerts()"
+                  [disabled]="!canGoPrev(certPage)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item disabled">
+                <span class="page-link">Page {{ certPage }}</span>
+              </li>
+              <li
+                class="page-item"
+                [class.disabled]="!canGoNextPage(certHasNext)"
+              >
+                <button
+                  class="page-link"
+                  (click)="nextCerts()"
+                  [disabled]="!canGoNextPage(certHasNext)"
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="border rounded p-3 mt-3" *ngIf="selectedCert">
+            <h6 class="mb-2">Certificate #{{ selectedCert.id }}</h6>
+            <p class="mb-1"><strong>Period:</strong> {{ selectedCert.period }}</p>
+            <p class="mb-1">
+              <strong>Total usage:</strong> {{ selectedCert.total_usage }}
+            </p>
+            <p class="mb-1">
+              <strong>Total savings:</strong> {{ selectedCert.total_savings }}
+            </p>
+            <p class="mb-1">
+              <strong>Issuer:</strong> {{ truncate(selectedCert.issuer, 36) }}
+            </p>
+            <p class="mb-0">
+              <strong>Issued:</strong>
+              {{ formatLogTime(selectedCert.issued_at) | date: 'short' }}
+            </p>
+          </div>
+        </div>
+        <ng-template #pickCompany>
+          <div class="card-body text-muted">
+            Select a company to log usage, validate, and issue certificates.
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

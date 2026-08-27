@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-import { WaterUtilities } from './components/water-utilities/water-utilities';
 import { Home } from './components/home/home';
 
 export const appRoutes: Route[] = [
@@ -14,7 +13,10 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'water-utilities',
-    component: WaterUtilities,
+    loadComponent: () =>
+      import('./components/water-utilities/water-utilities').then(
+        (m) => m.WaterUtilities,
+      ),
   },
   {
     path: 'water-well-initiative',

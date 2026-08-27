@@ -9,7 +9,7 @@ Blockchain-secured decision support for smart water management. AquaChain combin
 | Module                    | Purpose                                                           | UI status                 |
 | ------------------------- | ----------------------------------------------------------------- | ------------------------- |
 | **Citizen Science**       | Register sensors, submit readings, earn rewards for verified data | Wired to CosmWasm + Keplr |
-| **Water Utilities**       | On-chain sensor feeds and sustainability credits                  | Landing / stub            |
+| **Water Utilities**       | Register utilities, log usage/savings, issue footprint certificates | Wired to CosmWasm + Keplr |
 | **Water Well Initiative** | Track funding for water projects and stake on AquaChain           | Wired to CosmWasm + Keplr |
 
 ## Stack
@@ -138,9 +138,11 @@ gasPrice: '0.025ustake',
 npm run start
 ```
 
-Open [http://localhost:4200/citizen-science](http://localhost:4200/citizen-science) or [http://localhost:4200/water-well-initiative](http://localhost:4200/water-well-initiative), approve the suggested chain, fund the Keplr account with `ustake` if needed, then exercise the module flows.
+Open [http://localhost:4200/citizen-science](http://localhost:4200/citizen-science), [http://localhost:4200/water-well-initiative](http://localhost:4200/water-well-initiative), or [http://localhost:4200/water-utilities](http://localhost:4200/water-utilities), approve the suggested chain, fund the Keplr account with `ustake` if needed, then exercise the module flows.
 
 Water Well demo path: create project → admin validate → donate (with funds) → admin unlock → owner/admin disburse.
+
+Water Utilities demo path: register company → log usage/savings → admin/verifier validate → issue certificate (≥10% validated savings ratio for the period).
 
 ### Still missing in-repo (for a one-command boot)
 
@@ -150,7 +152,6 @@ These are not shipped as a single script yet:
 - Local faucet for Keplr accounts
 - Deploy Makefile defaults aligned to local `testing` / `ustake` (Citizen Science Makefile currently targets another network)
 - Automatic write-back of `contract_addr.txt` into `environment.ts`
-- Wired UI for Water Utilities
 
 Until those exist, follow the checklist above manually.
 
