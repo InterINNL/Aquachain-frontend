@@ -1,10 +1,11 @@
 import {
-  AfterViewInit,
+  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   DOCUMENT,
   ElementRef,
   inject,
+  NgZone,
   OnInit,
   PLATFORM_ID,
   ViewChild,
@@ -41,7 +42,7 @@ import { ToastrService } from '@services/toastr/toastr';
   styleUrl: './citizen-science.scss',
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class CitizenScience implements OnInit, AfterViewInit {
+export class CitizenScience implements OnInit {
   activeTab = 1;
   loadingRegisterSensor = false;
   loadingSubmitData = false;
@@ -78,6 +79,8 @@ export class CitizenScience implements OnInit, AfterViewInit {
   private platformId = inject(PLATFORM_ID);
   private contractService = inject(ContractService);
   private toastrService = inject(ToastrService);
+  private cdr = inject(ChangeDetectorRef);
+  private ngZone = inject(NgZone);
   private document = inject(DOCUMENT);
   private window = this.document.defaultView as
     | (Window &
@@ -105,14 +108,9 @@ export class CitizenScience implements OnInit, AfterViewInit {
     this.submitDataForm = this.fb.group({
       value: ['', Validators.required],
     });
-  }
 
-  async ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // if (!this.walletAddress) {
-      //   await this.connectWallet();
-      // }
-      this.loadSensors();
+      await this.loadSensors();
     }
   }
 
@@ -362,6 +360,7 @@ export class CitizenScience implements OnInit, AfterViewInit {
 
   async loadSensors(): Promise<void> {
     this.loadingSensors = true;
+    this.cdr.markForCheck();
     try {
       await this.loadTotalSensors();
 
@@ -378,7 +377,7 @@ export class CitizenScience implements OnInit, AfterViewInit {
         this.pageSize,
       );
 
-      this.sensors = rawSensors
+      const sensors = rawSensors
         .map((sensor): ParsedSensor | null => {
           try {
             let parsed;
@@ -398,29 +397,40 @@ export class CitizenScience implements OnInit, AfterViewInit {
         })
         .filter((s): s is ParsedSensor => s !== null);
 
-      const lastSensor = this.sensors[this.sensors.length - 1];
-
-      if (this.sensors.length === this.pageSize) {
-        this.pageCursors[this.currentPage - 1] = lastSensor.id;
-      }
+      this.ngZone.run(() => {
+        this.sensors = sensors;
+        const lastSensor = this.sensors[this.sensors.length - 1];
+        if (this.sensors.length === this.pageSize && lastSensor) {
+          this.pageCursors[this.currentPage - 1] = lastSensor.id;
+        }
+        this.loadingSensors = false;
+        this.cdr.detectChanges();
+      });
     } catch (err) {
       console.error('Failed to load sensors:', err);
-    } finally {
-      this.loadingSensors = false;
+      this.ngZone.run(() => {
+        this.loadingSensors = false;
+        this.cdr.detectChanges();
+      });
     }
   }
 
   async loadTotalSensors(): Promise<void> {
     try {
-      this.totalSensors = await this.contractService.getTotalSensors(
+      const total = await this.contractService.getTotalSensors(
         this.citizenScienceContractAddress,
         this.showOnlyMine ? this.walletAddress : undefined,
       );
-      this.totalPages = Math.ceil(this.totalSensors / this.pageSize) || 1;
+      this.ngZone.run(() => {
+        this.totalSensors = total;
+        this.totalPages = Math.ceil(this.totalSensors / this.pageSize) || 1;
+      });
     } catch (err) {
       console.error('Failed to load total sensors count:', err);
-      this.totalSensors = 0;
-      this.totalPages = 1;
+      this.ngZone.run(() => {
+        this.totalSensors = 0;
+        this.totalPages = 1;
+      });
     }
   }
 
@@ -455,7 +465,7 @@ export class CitizenScience implements OnInit, AfterViewInit {
         queryOptions,
       );
 
-      this.dataEntries = rawDataEntries
+      const dataEntries = rawDataEntries
         .map((entry): ParsedDataEntry | null => {
           try {
             let parsed;
@@ -478,10 +488,13 @@ export class CitizenScience implements OnInit, AfterViewInit {
           }
         })
         .filter((entry): entry is ParsedDataEntry => entry !== null);
-      console.log(this.dataEntries);
+
+      this.ngZone.run(() => {
+        this.dataEntries = dataEntries;
+        this.cdr.detectChanges();
+      });
     } catch (err) {
       console.error('Failed to load data entries:', err);
-      // this.toastrService.showError('Could not fetch data entries');
     }
   }
 

@@ -26,6 +26,7 @@ export class WalletService {
   private readonly restEndpoint = environment.restEndpoint;
   private queryClientReady!: Promise<void>;
   private resolveQueryClientReady!: () => void;
+  private rejectQueryClientReady!: (err: Error) => void;
   private signingClientReady!: Promise<void>;
   private resolveSigningClientReady!: () => void;
 
@@ -35,8 +36,9 @@ export class WalletService {
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      this.queryClientReady = new Promise((resolve) => {
+      this.queryClientReady = new Promise((resolve, reject) => {
         this.resolveQueryClientReady = resolve;
+        this.rejectQueryClientReady = reject;
       });
 
       this.signingClientReady = new Promise((resolve) => {
@@ -50,6 +52,9 @@ export class WalletService {
         })
         .catch((err) => {
           console.error('Failed to initialize query client:', err);
+          this.rejectQueryClientReady(
+            err instanceof Error ? err : new Error(String(err)),
+          );
         });
     }
   }
