@@ -15,6 +15,15 @@ export const interinnlContent = {
     'We bring together students, developers and engineers across India and the Netherlands to build open-source projects with real-world impact: AI, Rust, Python, and water / climate tech. From Bengaluru to Amsterdam, from Hyderabad to Eindhoven: talent travels, ideas stay shared.',
   bridge:
     'Indian talent ↔ engineers already in the Netherlands ↔ Dutch builders ↔ open source. The India–Netherlands connection is the point.',
+  focus: [
+    'AI',
+    'LLMs',
+    'Blockchain',
+    'Rust',
+    'Python',
+    'Open source',
+    'Water & climate',
+  ],
   heroPhotos: [
     {
       src: u('photo-1581091226825-a6a2a5aee158', 1200),
@@ -217,14 +226,14 @@ export const interinnlContent = {
     {
       name: 'Gregory Roussac',
       role: 'Co-founder',
-      location: 'Netherlands',
+      location: 'Netherlands / France',
       linkedin: 'https://www.linkedin.com/in/gregoryroussac/',
       initials: 'GR',
     },
     {
       name: 'Reham Abdul Rauf',
       role: 'Co-founder',
-      location: 'India / Netherlands',
+      location: 'India / Netherlands / HK',
       linkedin: 'https://www.linkedin.com/in/reham-abdul-rauf-a0634b140/',
       initials: 'RA',
     },
