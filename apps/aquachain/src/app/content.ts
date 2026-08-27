@@ -45,8 +45,8 @@ export const aquachainContent = {
     lead: 'Citizens deploy sensors, communities fund wells, utilities log usage and earn certificates. Every step can be recorded on-chain for transparency.',
     photo: {
       src: local('hero-river.jpg'),
-      alt: 'Lake and forest landscape at dawn with calm water surface',
-      objectPosition: 'center 35%',
+      alt: 'Mountain lake at dawn with forest shoreline and calm reflective water',
+      objectPosition: 'center 40%',
     },
     primaryCta: { label: 'Explore Citizen Science', route: '/citizen-science' },
     secondaryCta: { label: 'How it works', anchor: '#how-it-works' },
@@ -54,30 +54,15 @@ export const aquachainContent = {
 
   context: {
     title: 'Why water needs a shared record',
-    paragraphs: [
-      'Water quality, groundwater levels, and access to safe drinking water vary sharply between regions and seasons. Field teams capture readings in notebooks, donors track pledges in spreadsheets, and utilities report savings in internal dashboards. None of these sources agree by default, and none of them give communities a durable proof that work was done or money was spent as promised.',
-      'AquaChain is an InterINNL hackathon demo that shows how a Cosmos chain can act as a neutral ledger for water data. CosmWasm smart contracts store sensor registrations, well project state, donation balances, and utility footprint entries so every participant reads the same numbers from the same contract state.',
-      'The frontend is an Angular app connected through CosmJS and Keplr. You can walk through three modules without changing how the contracts behave: register field hardware, crowdfund wells, or log corporate water savings and certificates.',
-    ],
-  },
-
-  platform: {
-    title: 'What you can explore in the demo',
-    lead: 'Each module maps to a deployed CosmWasm contract. Tabs, tables, and maps are UI only; writes go through wallet-signed transactions.',
-    points: [
-      {
-        title: 'Citizen Science',
-        body: 'Register sensors with location and metadata, submit water quality or quantity readings, and route them through an on-chain verification flow. Approved data can trigger token rewards so contributors see a direct link between accurate field work and settlement.',
-      },
-      {
-        title: 'Water Well Initiative',
-        body: 'Communities propose well projects with targets and milestones. Donors pledge funds that stay in contract escrow until validators confirm progress photos, drill depth, or pump installation. Released funds disburse to beneficiaries with an auditable history of every transfer.',
-      },
-      {
-        title: 'Water Utilities',
-        body: 'Industrial and municipal actors register companies, log baseline usage, record conservation measures, and request validation of savings. Successful reviews issue footprint certificates that summarize verified reductions without exposing raw operational detail on every public query.',
-      },
-    ],
+    lead:
+      'Water quality and access vary sharply between regions. Field readings, funding pledges, and utility savings are often scattered across spreadsheets and siloed systems.',
+    body:
+      'AquaChain demos how Cosmos smart contracts can anchor that data so donors, regulators, and communities read the same numbers from one on-chain source.',
+    photo: {
+      src: local('context-monitoring.jpg'),
+      alt: 'Water quality monitoring dashboard with smart sensor readings',
+      objectPosition: 'center center',
+    },
   },
 
   modules: [
@@ -129,11 +114,8 @@ export const aquachainContent = {
   howItWorks: {
     title: 'How AquaChain works',
     lead: 'The demo follows one pattern across all three modules: capture intent on-chain, let independent verifiers approve it, then settle outcomes automatically.',
-    intro: [
-      'Field contributors, donors, and utility operators each interact through the same wallet flow. CosmJS builds transactions, Keplr signs them, and wasmd executes CosmWasm logic that no single frontend can rewrite after submission.',
-      'That separation matters for water programs where trust is scarce. A community sees pledged well funds locked in contract escrow, not in a database row. A regulator can query certificate issuance without trusting a vendor portal. A sensor owner can prove a reading hash was recorded before a dispute arises.',
-      'Below is the lifecycle every module shares. Citizen Science emphasizes collection and rewards, Water Well emphasizes escrow and disbursement, and Water Utilities emphasizes audited savings and certificates.',
-    ],
+    intro:
+      'Field contributors, donors, and utility operators sign transactions with Keplr. CosmWasm on wasmd stores the state so no single frontend can rewrite history after submission.',
     steps: [
       {
         title: 'Collect',
@@ -162,29 +144,30 @@ export const aquachainContent = {
 
   technology: {
     title: 'Powered by advanced technology',
+    photo: {
+      src: local('field-irrigation.jpg'),
+      alt: 'Irrigation sprinklers watering crops in a green field',
+      objectPosition: 'center 55%',
+    },
     items: [
       {
         title: 'Blockchain Security',
-        body:
-          'All data and transactions are secured on the Cosmos blockchain, ensuring transparency and immutability.',
+        body: 'All data and transactions are secured on the Cosmos blockchain, ensuring transparency and immutability.',
         icon: 'link',
       },
       {
         title: 'AI-Powered Analytics',
-        body:
-          'Advanced algorithms analyze water data to provide insights and recommendations for sustainable practices.',
+        body: 'Advanced algorithms analyze water data to provide insights and recommendations for sustainable practices.',
         icon: 'brain',
       },
       {
         title: 'IoT Integration',
-        body:
-          'Seamless connection with IoT sensors for real-time water quality and quantity monitoring.',
+        body: 'Seamless connection with IoT sensors for real-time water quality and quantity monitoring.',
         icon: 'satellite-dish',
       },
       {
         title: 'Reward Mechanisms',
-        body:
-          'Token-based incentives for sustainable water management practices and data contributions.',
+        body: 'Token-based incentives for sustainable water management practices and data contributions.',
         icon: 'award',
       },
     ],
@@ -192,35 +175,45 @@ export const aquachainContent = {
 
   integratedModules: {
     title: 'Three Integrated Modules',
-    lead:
-      'Blockchain-secured workflows for utilities, community wells, and citizen sensors. Each path is a live CosmWasm demo you can open below.',
+    lead: 'Blockchain-secured workflows for utilities, community wells, and citizen sensors. Each path is a live CosmWasm demo you can open below.',
     items: [
       {
         id: 'utilities',
         title: 'Water Utilities',
-        body:
-          'Sensor data is sent to the blockchain and utilities receive water credits for complying with sustainability requirements.',
+        body: 'Sensor data is sent to the blockchain and utilities receive water credits for complying with sustainability requirements.',
         route: '/water-utilities',
         icon: 'chart-line',
         accent: 'slate' as const,
+        photo: {
+          src: local('utilities-well-monitoring.jpg'),
+          alt: 'Industrial IoT sensors monitoring production water well levels',
+          objectPosition: 'center 45%',
+        },
       },
       {
         id: 'water-well',
         title: 'Water Well Initiative',
-        body:
-          'Donors and investors can track where their money is going for water projects and stake tokens in AquaChain.',
+        body: 'Donors and investors can track where their money is going for water projects and stake tokens in AquaChain.',
         route: '/water-well-initiative',
         icon: 'hand-holding-droplet',
         accent: 'amber' as const,
+        photo: {
+          src: local('community-well.jpg'),
+          alt: 'Community hand pump and well used for daily water access',
+        },
       },
       {
         id: 'citizen-science',
         title: 'Citizen Science',
-        body:
-          'Citizens can buy specific sensors to monitor water quality or quantity and get rewarded for verified data.',
+        body: 'Citizens can buy specific sensors to monitor water quality or quantity and get rewarded for verified data.',
         route: '/citizen-science',
         icon: 'microscope',
         accent: 'teal' as const,
+        photo: {
+          src: local('citizen-sensor-kit.jpg'),
+          alt: 'Portable water quality sensor kit for field measurements',
+          objectPosition: 'center 45%',
+        },
       },
     ],
   },

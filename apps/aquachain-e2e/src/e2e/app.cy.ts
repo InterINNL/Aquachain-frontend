@@ -8,7 +8,7 @@ describe('aquachain-e2e', () => {
       'contain.text',
       'Water decisions backed by verifiable data',
     );
-    cy.get('.ac-home-hero__bg').should('be.visible');
+    cy.get('.ac-home-hero__visual img').should('be.visible');
   });
 
   it('should navigate via header links', () => {
