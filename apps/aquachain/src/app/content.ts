@@ -1,8 +1,5 @@
 /** AquaChain site copy and photo catalog (English). */
 
-const u = (id: string, w = 1200) =>
-  `https://images.unsplash.com/${id}?w=${w}&q=80&fit=crop&auto=format`;
-
 const local = (name: string) => `photos/${name}`;
 
 export interface AcPhoto {
@@ -19,7 +16,9 @@ export interface ModuleHero {
 }
 
 export type ModuleHeroKey =
-  'citizen-science' | 'water-well-initiative' | 'water-utilities';
+  | 'citizen-science'
+  | 'water-well-initiative'
+  | 'water-utilities';
 
 export interface AcModule {
   id: string;
@@ -46,10 +45,10 @@ export const aquachainContent = {
     title: 'Water decisions backed by verifiable data',
     lead: 'Citizens deploy sensors, communities fund wells, utilities log usage and earn certificates. Every step can be recorded on-chain for transparency.',
     photo: {
-      src: u('photo-1548839140-b79d966adcfa', 1400),
-      alt: 'Clear river water flowing over rocks in natural light',
-      objectPosition: 'center 40%',
-    } as AcPhoto,
+      src: local('hero-river.jpg'),
+      alt: 'Lake and forest landscape at dawn with calm water surface',
+      objectPosition: 'center 35%',
+    },
     primaryCta: { label: 'Explore Citizen Science', route: '/citizen-science' },
     secondaryCta: { label: 'How it works', anchor: '#how-it-works' },
   },
@@ -58,9 +57,9 @@ export const aquachainContent = {
     title: 'Why water needs a shared record',
     body: 'Water quality and access vary sharply between regions. Field readings, funding pledges, and utility savings are often scattered across spreadsheets and siloed systems. AquaChain demos how Cosmos smart contracts can anchor that data so donors, regulators, and communities read the same numbers.',
     photo: {
-      src: local('canal-meetup.png'),
-      alt: 'Indian and Dutch builders meeting outdoors by a canal in the Netherlands',
-    } as AcPhoto,
+      src: local('context-monitoring.jpg'),
+      alt: 'Water quality monitoring dashboard with smart sensor readings',
+    },
   },
 
   modules: [
@@ -74,8 +73,8 @@ export const aquachainContent = {
       icon: 'microscope',
       accent: 'teal' as const,
       photo: {
-        src: local('agri-drone.jpg'),
-        alt: 'Agricultural drone surveying crops for precision water management',
+        src: local('module-citizen-sensors.png'),
+        alt: 'Network diagram of IoT water quality sensors in the field',
       },
     },
     {
@@ -88,8 +87,8 @@ export const aquachainContent = {
       icon: 'hand-holding-droplet',
       accent: 'amber' as const,
       photo: {
-        src: local('community-dinner.jpg'),
-        alt: 'Community members sharing a meal together at an InterINNL gathering',
+        src: local('community-well.jpg'),
+        alt: 'Community hand pump and well used for daily water access',
       },
     },
     {
@@ -102,8 +101,8 @@ export const aquachainContent = {
       icon: 'chart-line',
       accent: 'slate' as const,
       photo: {
-        src: local('students-workshop.jpg'),
-        alt: 'Students collaborating at a workshop with laptops and notes',
+        src: local('utilities-well-monitoring.jpg'),
+        alt: 'Industrial IoT sensors monitoring production water well levels',
       },
     },
   ] satisfies AcModule[],
@@ -149,11 +148,11 @@ export const aquachainContent = {
     },
   },
 
-  teamStrip: {
+  fieldStrip: {
     photo: {
-      src: local('team-office-logo-right.png'),
-      alt: 'Indian engineers collaborating around a laptop with InterINNL sticker on the lid',
-    } as AcPhoto,
+      src: local('field-irrigation.jpg'),
+      alt: 'IoT-based irrigation system monitoring soil moisture and water flow',
+    },
   },
 
   nav: [
@@ -169,8 +168,8 @@ export const aquachainContent = {
       title: 'Citizen Science',
       lead: 'Monitor water quality and quantity. Submit readings and earn rewards when data is verified.',
       photo: {
-        src: local('drone-india-field.jpg'),
-        alt: 'Drone over agricultural fields in India for water and crop monitoring',
+        src: local('citizen-sensor-kit.jpg'),
+        alt: 'Portable water quality sensor kit for field measurements',
       },
     },
     'water-well-initiative': {
@@ -178,8 +177,8 @@ export const aquachainContent = {
       title: 'Water Well Initiative',
       lead: 'Crowdfund well projects on-chain: create, validate, donate, unlock, and disburse.',
       photo: {
-        src: u('photo-1593115915325-f973ccfaec75', 1400),
-        alt: 'Village water pump with people collecting water at a communal tap',
+        src: local('community-well.jpg'),
+        alt: 'Community hand pump and well used for daily water access',
         objectPosition: 'center center',
       },
     },
@@ -188,8 +187,8 @@ export const aquachainContent = {
       title: 'Water Utilities',
       lead: 'Register utilities, log usage and savings, validate entries, and issue footprint certificates.',
       photo: {
-        src: local('community-networking-nl.jpg'),
-        alt: 'Professionals networking at a community event in the Netherlands',
+        src: local('hero-utilities-plant.jpg'),
+        alt: 'Water treatment facility with pipes and monitoring equipment',
       },
     },
   } satisfies Record<ModuleHeroKey, ModuleHero>,
