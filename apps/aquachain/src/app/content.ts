@@ -160,6 +160,71 @@ export const aquachainContent = {
       'Connect Keplr on the configured test chain to try the full loop. Read-only views still load contract state through CosmJS queries so you can inspect maps, KPIs, and tables before signing anything.',
   },
 
+  technology: {
+    title: 'Powered by advanced technology',
+    items: [
+      {
+        title: 'Blockchain Security',
+        body:
+          'All data and transactions are secured on the Cosmos blockchain, ensuring transparency and immutability.',
+        icon: 'link',
+      },
+      {
+        title: 'AI-Powered Analytics',
+        body:
+          'Advanced algorithms analyze water data to provide insights and recommendations for sustainable practices.',
+        icon: 'brain',
+      },
+      {
+        title: 'IoT Integration',
+        body:
+          'Seamless connection with IoT sensors for real-time water quality and quantity monitoring.',
+        icon: 'satellite-dish',
+      },
+      {
+        title: 'Reward Mechanisms',
+        body:
+          'Token-based incentives for sustainable water management practices and data contributions.',
+        icon: 'award',
+      },
+    ],
+  },
+
+  integratedModules: {
+    title: 'Three Integrated Modules',
+    lead:
+      'Blockchain-secured workflows for utilities, community wells, and citizen sensors. Each path is a live CosmWasm demo you can open below.',
+    items: [
+      {
+        id: 'utilities',
+        title: 'Water Utilities',
+        body:
+          'Sensor data is sent to the blockchain and utilities receive water credits for complying with sustainability requirements.',
+        route: '/water-utilities',
+        icon: 'chart-line',
+        accent: 'slate' as const,
+      },
+      {
+        id: 'water-well',
+        title: 'Water Well Initiative',
+        body:
+          'Donors and investors can track where their money is going for water projects and stake tokens in AquaChain.',
+        route: '/water-well-initiative',
+        icon: 'hand-holding-droplet',
+        accent: 'amber' as const,
+      },
+      {
+        id: 'citizen-science',
+        title: 'Citizen Science',
+        body:
+          'Citizens can buy specific sensors to monitor water quality or quantity and get rewarded for verified data.',
+        route: '/citizen-science',
+        icon: 'microscope',
+        accent: 'teal' as const,
+      },
+    ],
+  },
+
   stack: {
     title: 'Built with',
     items: [
@@ -205,7 +270,8 @@ export const aquachainContent = {
     ],
     recipientEmail: 'contact@interchouette.net',
     successMessage: 'Thanks. Your message was sent.',
-    errorMessage: 'Could not send your message. Try again or use the email link below.',
+    errorMessage:
+      'Could not send your message. Try again or use the email link below.',
   },
 
   closingCta: {

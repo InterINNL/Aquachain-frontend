@@ -107,6 +107,51 @@
   </div>
 </section>
 
+<section class="ac-section ac-home-technology">
+  <div class="ac-container">
+    <h2 class="ac-section-title ac-section-title--center">
+      {{ content.technology.title }}
+    </h2>
+    <div class="ac-home-technology__grid">
+      @for (item of content.technology.items; track item.title) {
+        <article class="ac-home-technology__card">
+          <div class="ac-home-technology__icon">
+            <fa-icon [icon]="['fas', item.icon]"></fa-icon>
+          </div>
+          <h3 class="ac-home-technology__title">{{ item.title }}</h3>
+          <p class="ac-home-technology__body">{{ item.body }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="ac-section ac-home-integrated">
+  <div class="ac-container">
+    <h2 class="ac-section-title ac-section-title--center">
+      {{ content.integratedModules.title }}
+    </h2>
+    <p class="ac-lead ac-home-integrated__lead">
+      {{ content.integratedModules.lead }}
+    </p>
+    <div class="ac-home-integrated__grid">
+      @for (mod of content.integratedModules.items; track mod.id) {
+        <article class="ac-integrated-card ac-integrated-card--{{ mod.accent }}">
+          <div class="ac-integrated-card__icon">
+            <fa-icon [icon]="['fas', mod.icon]"></fa-icon>
+          </div>
+          <h3 class="ac-integrated-card__title">{{ mod.title }}</h3>
+          <p class="ac-integrated-card__body">{{ mod.body }}</p>
+          <a class="ac-btn ac-btn--ghost ac-btn--sm" [routerLink]="mod.route">
+            Learn more
+            <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
+          </a>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
 <section class="ac-section ac-home-cta">
   <div class="ac-container ac-home-cta__inner">
     <div>

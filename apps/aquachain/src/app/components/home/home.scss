@@ -240,6 +240,123 @@
   border-top: 1px solid var(--ac-sand-dark);
 }
 
+.ac-home-technology {
+  background: var(--ac-white);
+  border-top: 1px solid var(--ac-sand-dark);
+  padding: var(--ac-space-2xl) 0;
+}
+
+.ac-home-technology__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--ac-space-lg);
+}
+
+.ac-home-technology__card {
+  padding: var(--ac-space-lg);
+  background: var(--ac-sand);
+  border: 1px solid var(--ac-sand-dark);
+  border-radius: var(--ac-radius-lg);
+}
+
+.ac-home-technology__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--ac-radius);
+  background: rgb(26 107 122 / 12%);
+  color: var(--ac-teal);
+  font-size: 1.2rem;
+  margin-bottom: var(--ac-space-md);
+}
+
+.ac-home-technology__title {
+  font-family: var(--ac-display);
+  font-size: 1.0625rem;
+  color: var(--ac-navy);
+  margin: 0 0 var(--ac-space-sm);
+}
+
+.ac-home-technology__body {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ac-slate);
+  margin: 0;
+}
+
+.ac-home-integrated {
+  background: var(--ac-sand);
+  border-top: 1px solid var(--ac-sand-dark);
+  padding: var(--ac-space-2xl) 0;
+}
+
+.ac-home-integrated__lead {
+  max-width: 40rem;
+  margin: -0.75rem auto var(--ac-space-xl);
+  text-align: center;
+}
+
+.ac-home-integrated__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--ac-space-lg);
+}
+
+.ac-integrated-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--ac-space-xl) var(--ac-space-lg);
+  background: var(--ac-white);
+  border: 1px solid var(--ac-sand-dark);
+  border-radius: var(--ac-radius-lg);
+  box-shadow: var(--ac-shadow-sm);
+}
+
+.ac-integrated-card--teal {
+  border-top: 3px solid var(--ac-teal);
+}
+
+.ac-integrated-card--amber {
+  border-top: 3px solid var(--ac-amber);
+}
+
+.ac-integrated-card--slate {
+  border-top: 3px solid var(--ac-slate);
+}
+
+.ac-integrated-card__icon {
+  font-size: 2.25rem;
+  margin-bottom: var(--ac-space-md);
+  color: var(--ac-teal);
+}
+
+.ac-integrated-card--amber .ac-integrated-card__icon {
+  color: var(--ac-amber);
+}
+
+.ac-integrated-card--slate .ac-integrated-card__icon {
+  color: var(--ac-slate);
+}
+
+.ac-integrated-card__title {
+  font-family: var(--ac-display);
+  font-size: 1.25rem;
+  color: var(--ac-navy);
+  margin: 0 0 var(--ac-space-sm);
+}
+
+.ac-integrated-card__body {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ac-slate);
+  margin: 0 0 var(--ac-space-lg);
+  flex-grow: 1;
+}
+
 .ac-home-steps {
   display: grid;
   grid-template-columns: 1fr;
@@ -319,9 +436,17 @@
   min-width: 14rem;
 }
 
+@media (max-width: 1100px) {
+  .ac-home-technology__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 900px) {
   .ac-home-platform__grid,
-  .ac-home-modules {
+  .ac-home-modules,
+  .ac-home-technology__grid,
+  .ac-home-integrated__grid {
     grid-template-columns: 1fr;
   }
 
