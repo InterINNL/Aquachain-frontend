@@ -1,0 +1,71 @@
+.innl-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, #f7fafc 88%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--innl-navy) 10%, transparent);
+}
+
+.innl-nav__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.innl-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: var(--innl-navy);
+}
+
+.innl-nav__logo {
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+}
+
+.innl-nav__name {
+  font-family: var(--innl-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.innl-nav__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1.1rem;
+  font-size: 0.92rem;
+}
+
+.innl-nav__links a {
+  color: var(--innl-navy);
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.innl-nav__links a:hover {
+  opacity: 1;
+}
+
+.innl-nav__cta {
+  padding: 0.35rem 0.85rem;
+  border-radius: 0.45rem;
+  background: var(--innl-navy);
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 640px) {
+  .innl-nav__links a:not(.innl-nav__cta) {
+    display: none;
+  }
+}

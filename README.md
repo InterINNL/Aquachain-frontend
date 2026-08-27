@@ -2,15 +2,18 @@
 
 Blockchain-secured decision support for smart water management. AquaChain combines Cosmos / CosmWasm, AI analytics, and IoT so utilities, donors, and citizens can share verified water data and earn rewards for sustainable practices.
 
-**Live demo:** [interinnl.interchouette.net](https://interinnl.interchouette.net)
+**Live hub:** [interinnl.interchouette.net](https://interinnl.interchouette.net/)
+**AquaChain demo:** [interinnl.interchouette.net/aquachain](https://interinnl.interchouette.net/aquachain)
+
+The domain root is the InterINNL community site. AquaChain lives under `/aquachain`.
 
 ## Modules
 
-| Module                    | Purpose                                                           | UI status                 |
-| ------------------------- | ----------------------------------------------------------------- | ------------------------- |
-| **Citizen Science**       | Register sensors, submit readings, earn rewards for verified data | Wired to CosmWasm + Keplr |
+| Module                    | Purpose                                                             | UI status                 |
+| ------------------------- | ------------------------------------------------------------------- | ------------------------- |
+| **Citizen Science**       | Register sensors, submit readings, earn rewards for verified data   | Wired to CosmWasm + Keplr |
 | **Water Utilities**       | Register utilities, log usage/savings, issue footprint certificates | Wired to CosmWasm + Keplr |
-| **Water Well Initiative** | Track funding for water projects and stake on AquaChain           | Wired to CosmWasm + Keplr |
+| **Water Well Initiative** | Track funding for water projects and stake on AquaChain             | Wired to CosmWasm + Keplr |
 
 ## Stack
 
@@ -106,11 +109,11 @@ curl -s http://localhost:1317/cosmos/base/tendermint/v1beta1/node_info | head
 
 Build and instantiate against this node (`CHAIN_ID=testing`, `NODE=http://localhost:26657`, `DENOM=ustake`):
 
-| Module                | Contract crate             | Env key                                 |
-| --------------------- | -------------------------- | --------------------------------------- |
-| Citizen Science       | `citizen-science-registry` | `CitizenScienceContractAddress`         |
-| Water Well Initiative | `water-well-initiative`    | `WaterWellContractAddress`              |
-| Water Utilities       | `utility-water-footprint`  | `UtilityWaterFootprintContractAddress`  |
+| Module                | Contract crate             | Env key                                |
+| --------------------- | -------------------------- | -------------------------------------- |
+| Citizen Science       | `citizen-science-registry` | `CitizenScienceContractAddress`        |
+| Water Well Initiative | `water-well-initiative`    | `WaterWellContractAddress`             |
+| Water Utilities       | `utility-water-footprint`  | `UtilityWaterFootprintContractAddress` |
 
 From each crate directory:
 

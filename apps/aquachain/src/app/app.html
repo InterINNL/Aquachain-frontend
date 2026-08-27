@@ -1,22 +1,33 @@
-<div class="app-container">
-  <navbar></navbar>
+<div class="app-container" [class.app-container--hub]="!isAquachain()">
+  @if (isAquachain()) {
+    <navbar></navbar>
+  } @else {
+    <interinnl-nav></interinnl-nav>
+  }
   <main class="flex-grow-1">
     <router-outlet></router-outlet>
   </main>
-  <footer class="bg-dark text-light py-4">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <h5>AquaChain</h5>
-          <p>
-            Blockchain secured decision support system for smart water
-            management
-          </p>
-        </div>
-        <div class="col-md-6 text-md-end">
-          <p>© 2025 AquaChain. All rights reserved.</p>
+  @if (isAquachain()) {
+    <footer class="bg-dark text-light py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>AquaChain</h5>
+            <p>
+              Blockchain secured decision support system for smart water
+              management
+            </p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p>
+              <a class="link-light" routerLink="/">InterINNL</a>
+              · © 2026 AquaChain
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+  } @else {
+    <interinnl-footer></interinnl-footer>
+  }
 </div>

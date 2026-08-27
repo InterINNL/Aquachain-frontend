@@ -1,0 +1,116 @@
+<div class="innl-page">
+  <section class="innl-hero">
+    <div class="innl-hero__glow" aria-hidden="true"></div>
+    <div class="innl-hero__waves" aria-hidden="true"></div>
+    <div class="innl-hero__content">
+      <img
+        class="innl-hero__logo"
+        src="/interinnl-logo.png"
+        width="280"
+        height="280"
+        alt="InterINNL logo: India and Netherlands bridge"
+      />
+      <p class="innl-hero__tag">{{ content.tagline }}</p>
+      <p class="innl-hero__line">{{ content.heroLine }}</p>
+      <div class="innl-hero__actions">
+        <a class="innl-btn innl-btn--primary" href="#join">Join the community</a>
+        <a class="innl-btn innl-btn--ghost" [routerLink]="aquachain.demoPath"
+          >Open AquaChain</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <section id="mission" class="innl-section">
+    <div class="innl-section__inner">
+      <h2>Mission</h2>
+      <p class="innl-lead">{{ content.mission }}</p>
+      <p>{{ content.bridge }}</p>
+      <p class="innl-motto">{{ content.motto }}</p>
+    </div>
+  </section>
+
+  <section id="projects" class="innl-section innl-section--tint">
+    <div class="innl-section__inner">
+      <h2>First project</h2>
+      <article class="innl-project">
+        <h3>{{ aquachain.name }}</h3>
+        <p>{{ aquachain.blurb }}</p>
+        <div class="innl-project__actions">
+          <a class="innl-btn innl-btn--primary" [routerLink]="aquachain.demoPath"
+            >Live demo</a
+          >
+          <a
+            class="innl-btn innl-btn--ghost"
+            [href]="aquachain.githubFrontend"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Frontend on GitHub</a
+          >
+          <a
+            class="innl-btn innl-btn--ghost"
+            [href]="aquachain.githubContracts"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Contracts on GitHub</a
+          >
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="events" class="innl-section">
+    <div class="innl-section__inner">
+      <h2>Events</h2>
+      <p class="innl-lead">{{ content.events }}</p>
+    </div>
+  </section>
+
+  <section id="join" class="innl-section innl-section--tint">
+    <div class="innl-section__inner">
+      <h2>Join</h2>
+      <p class="innl-lead">
+        Build with us on GitHub. Meet people across India and the Netherlands.
+      </p>
+      <div class="innl-join">
+        <a
+          class="innl-btn innl-btn--primary"
+          [href]="content.links.githubOrg"
+          rel="noopener noreferrer"
+          target="_blank"
+          >GitHub · InterINNL</a
+        >
+        @if (content.links.linkedinGroup) {
+          <a
+            class="innl-btn innl-btn--ghost"
+            [href]="content.links.linkedinGroup"
+            rel="noopener noreferrer"
+            target="_blank"
+            >LinkedIn group</a
+          >
+        }
+      </div>
+
+      <div class="innl-partner">
+        <h3>Partner · {{ content.links.partner.name }}</h3>
+        <p>{{ content.links.partner.blurb }}</p>
+        <div class="innl-join">
+          <a
+            class="innl-btn innl-btn--ghost"
+            [href]="content.links.partner.github"
+            rel="noopener noreferrer"
+            target="_blank"
+            >github.com/Grevix</a
+          >
+          <a
+            class="innl-btn innl-btn--ghost"
+            [href]="content.links.partner.linkedin"
+            rel="noopener noreferrer"
+            target="_blank"
+            >LinkedIn · Grevix</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

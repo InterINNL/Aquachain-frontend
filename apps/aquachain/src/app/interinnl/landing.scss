@@ -1,0 +1,236 @@
+.innl-page {
+  color: var(--innl-navy);
+}
+
+.innl-hero {
+  position: relative;
+  min-height: min(92vh, 52rem);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      120% 80% at 50% -10%,
+      color-mix(in srgb, var(--innl-saffron) 22%, transparent),
+      transparent 55%
+    ),
+    linear-gradient(
+      165deg,
+      #e8f1fa 0%,
+      #f7fafc 42%,
+      color-mix(in srgb, var(--innl-water) 18%, #f7fafc) 100%
+    );
+}
+
+.innl-hero__glow {
+  position: absolute;
+  inset: 18% auto auto 55%;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--innl-india-green) 16%, transparent);
+  filter: blur(48px);
+  pointer-events: none;
+  animation: innl-float 9s ease-in-out infinite;
+}
+
+.innl-hero__waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 7rem;
+  background:
+    radial-gradient(
+        ellipse 80% 60% at 20% 100%,
+        color-mix(in srgb, var(--innl-water) 35%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 70% 50% at 70% 110%,
+        color-mix(in srgb, var(--innl-navy) 18%, transparent),
+        transparent 70%
+      );
+  animation: innl-wave 7s ease-in-out infinite alternate;
+}
+
+.innl-hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 40rem;
+  padding: 2.5rem 1.25rem 4rem;
+  text-align: center;
+  animation: innl-rise 0.9s ease-out both;
+}
+
+.innl-hero__logo {
+  width: min(18rem, 72vw);
+  height: auto;
+  margin: 0 auto 1.25rem;
+  filter: drop-shadow(0 18px 28px color-mix(in srgb, var(--innl-navy) 18%, transparent));
+}
+
+.innl-hero__tag {
+  margin: 0;
+  font-family: var(--innl-display);
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--innl-navy);
+}
+
+.innl-hero__line {
+  margin: 1rem auto 1.75rem;
+  max-width: 34rem;
+  font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--innl-navy) 88%, #000);
+}
+
+.innl-hero__actions,
+.innl-project__actions,
+.innl-join {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.innl-section {
+  padding: 4.5rem 1.25rem;
+}
+
+.innl-section--tint {
+  background: color-mix(in srgb, var(--innl-water) 10%, #fff);
+}
+
+.innl-section__inner {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.innl-section h2 {
+  font-family: var(--innl-display);
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  margin: 0 0 1rem;
+}
+
+.innl-section h3 {
+  font-family: var(--innl-display);
+  font-size: 1.35rem;
+  margin: 0 0 0.65rem;
+}
+
+.innl-lead {
+  font-size: 1.12rem;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+.innl-motto {
+  margin-top: 1.5rem;
+  letter-spacing: 0.16em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--innl-india-green);
+}
+
+.innl-project {
+  padding-top: 0.25rem;
+}
+
+.innl-project__actions {
+  margin-top: 1.25rem;
+  justify-content: flex-start;
+}
+
+.innl-partner {
+  margin-top: 2.75rem;
+  padding-top: 2rem;
+  border-top: 1px solid color-mix(in srgb, var(--innl-navy) 12%, transparent);
+}
+
+.innl-partner .innl-join {
+  margin-top: 1rem;
+  justify-content: flex-start;
+}
+
+.innl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.15rem;
+  border-radius: 0.45rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.innl-btn:hover {
+  transform: translateY(-1px);
+}
+
+.innl-btn--primary {
+  background: var(--innl-navy);
+  color: #fff;
+}
+
+.innl-btn--primary:hover {
+  background: color-mix(in srgb, var(--innl-navy) 88%, #000);
+}
+
+.innl-btn--ghost {
+  background: transparent;
+  color: var(--innl-navy);
+  border: 1.5px solid color-mix(in srgb, var(--innl-navy) 35%, transparent);
+}
+
+.innl-btn--ghost:hover {
+  border-color: var(--innl-navy);
+}
+
+@keyframes innl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes innl-float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-1.5rem, 1rem);
+  }
+}
+
+@keyframes innl-wave {
+  from {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-0.4rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .innl-hero__glow,
+  .innl-hero__waves,
+  .innl-hero__content,
+  .innl-btn {
+    animation: none !important;
+    transition: none !important;
+  }
+}

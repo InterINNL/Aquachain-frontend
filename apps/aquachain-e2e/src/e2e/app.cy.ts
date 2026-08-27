@@ -1,9 +1,12 @@
-import { getGreeting } from '../support/app.po';
-
 describe('aquachain-e2e', () => {
-  beforeEach(() => cy.visit('/'));
+  it('should show InterINNL on the hub root', () => {
+    cy.visit('/');
+    cy.get('h2').first().should('contain.text', 'Mission');
+    cy.contains('InterINNL').should('exist');
+  });
 
-  it('should display welcome message', () => {
-    cy.get('h1').should('contain.text', 'Aquachain');
+  it('should show AquaChain under /aquachain', () => {
+    cy.visit('/aquachain');
+    cy.get('h1').should('contain.text', 'AquaChain');
   });
 });

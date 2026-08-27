@@ -1,0 +1,42 @@
+.innl-footer {
+  margin-top: auto;
+  background: var(--innl-navy);
+  color: #e8eef8;
+  padding: 2.5rem 1.25rem;
+}
+
+.innl-footer__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.innl-footer p {
+  margin: 0.35rem 0 0;
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+.innl-footer__motto {
+  letter-spacing: 0.12em;
+  font-size: 0.75rem !important;
+  text-transform: uppercase;
+}
+
+.innl-footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.innl-footer__links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.innl-footer__links a:hover {
+  text-decoration: underline;
+}

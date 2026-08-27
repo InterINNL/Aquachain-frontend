@@ -1,0 +1,28 @@
+<footer class="innl-footer">
+  <div class="innl-footer__inner">
+    <div>
+      <strong>{{ content.name }}</strong>
+      <p>{{ content.tagline }}</p>
+      <p class="innl-footer__motto">{{ content.motto }}</p>
+    </div>
+    <div class="innl-footer__links">
+      <a [href]="content.links.githubOrg" rel="noopener noreferrer" target="_blank"
+        >GitHub</a
+      >
+      @if (content.links.linkedinGroup) {
+        <a
+          [href]="content.links.linkedinGroup"
+          rel="noopener noreferrer"
+          target="_blank"
+          >LinkedIn group</a
+        >
+      }
+      <a
+        [href]="content.links.partner.github"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Partner: Grevix</a
+      >
+    </div>
+  </div>
+</footer>

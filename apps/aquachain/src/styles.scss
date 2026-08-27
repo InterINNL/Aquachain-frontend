@@ -7,18 +7,19 @@
   --danger-color: #d9534f;
   --light-color: #f8f9fa;
   --dark-color: #343a40;
+
+  --innl-saffron: #ff9933;
+  --innl-india-green: #138808;
+  --innl-dutch-red: #ae1c28;
+  --innl-navy: #0b2c5c;
+  --innl-water: #4a90c8;
+  --innl-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --innl-body: 'Source Sans 3', 'Segoe UI', Tahoma, sans-serif;
 }
 
 body {
-  // font-family: 'Roboto', Tahoma, Geneva, Verdana, sans-serif;
-  font-family:
-    Segoe UI,
-    Tahoma,
-    Geneva,
-    Verdana,
-    sans-serif;
+  font-family: var(--innl-body);
   line-height: 1.6;
-  // letter-spacing: 0.02em;
 }
 
 .module-header {
