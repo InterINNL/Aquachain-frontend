@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-import { Demo } from './components/demo/demo';
 import { WaterUtilities } from './components/water-utilities/water-utilities';
 import { Home } from './components/home/home';
 
@@ -10,7 +9,8 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'demo',
-    component: Demo,
+    redirectTo: 'citizen-science',
+    pathMatch: 'full',
   },
   {
     path: 'water-utilities',
