@@ -8,20 +8,12 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/aquachain",
         "browser": "apps/aquachain/src/main.ts",
-        "polyfills": [
-          "zone.js",
-          "apps/aquachain/src/polyfills.ts"
-        ],
-        "allowedCommonJsDependencies": [
-          "bootstrap",
-          "@cosmjs"
-        ],
+        "polyfills": ["zone.js", "apps/aquachain/src/polyfills.ts"],
+        "allowedCommonJsDependencies": ["bootstrap", "@cosmjs"],
         "tsConfig": "apps/aquachain/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -51,7 +43,13 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/aquachain/src/environments/environment.ts",
+              "with": "apps/aquachain/src/environments/environment.prod.ts"
+            }
+          ]
         },
         "development": {
           "optimization": false,
@@ -88,9 +86,7 @@
     },
     "test": {
       "executor": "@nx/vitest:test",
-      "outputs": [
-        "{options.reportsDirectory}"
-      ],
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
         "reportsDirectory": "../../coverage/apps/aquachain"
       }

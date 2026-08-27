@@ -75,37 +75,41 @@ export class WalletService {
     }
 
     if (!this.chainSuggested) {
+      const prefix = environment.bech32Prefix;
+      const denom = environment.coinDenom;
+      const minimal = environment.coinMinimalDenom;
+      const decimals = environment.coinDecimals;
       await this.window.keplr.experimentalSuggestChain({
         chainId: this.chainId,
-        chainName: 'Local Testing Chain',
+        chainName: environment.chainName,
         rpc: this.rpcEndpoint,
         rest: this.restEndpoint,
         stakeCurrency: {
-          coinDenom: 'STAKE',
-          coinMinimalDenom: 'ustake',
-          coinDecimals: 6,
+          coinDenom: denom,
+          coinMinimalDenom: minimal,
+          coinDecimals: decimals,
         },
         bip44: { coinType: 118 },
         bech32Config: {
-          bech32PrefixAccAddr: 'wasm',
-          bech32PrefixAccPub: 'wasmpub',
-          bech32PrefixValAddr: 'wasmvaloper',
-          bech32PrefixValPub: 'wasmvaloperpub',
-          bech32PrefixConsAddr: 'wasmvalcons',
-          bech32PrefixConsPub: 'wasmvalconspub',
+          bech32PrefixAccAddr: prefix,
+          bech32PrefixAccPub: `${prefix}pub`,
+          bech32PrefixValAddr: `${prefix}valoper`,
+          bech32PrefixValPub: `${prefix}valoperpub`,
+          bech32PrefixConsAddr: `${prefix}valcons`,
+          bech32PrefixConsPub: `${prefix}valconspub`,
         },
         currencies: [
           {
-            coinDenom: 'STAKE',
-            coinMinimalDenom: 'ustake',
-            coinDecimals: 6,
+            coinDenom: denom,
+            coinMinimalDenom: minimal,
+            coinDecimals: decimals,
           },
         ],
         feeCurrencies: [
           {
-            coinDenom: 'STAKE',
-            coinMinimalDenom: 'ustake',
-            coinDecimals: 6,
+            coinDenom: denom,
+            coinMinimalDenom: minimal,
+            coinDecimals: decimals,
             gasPriceStep: {
               low: 0.01,
               average: 0.025,

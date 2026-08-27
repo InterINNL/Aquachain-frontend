@@ -257,8 +257,9 @@ export class CitizenScience implements OnInit, AfterViewInit {
       type: value.type,
       model: value.model,
       location: {
-        lat: value.latitude,
-        lng: value.longitude,
+        // CosmWasm JSON parsers reject bare floats; keep as strings.
+        lat: String(value.latitude),
+        lng: String(value.longitude),
         description: value.description,
       },
     };
@@ -299,7 +300,8 @@ export class CitizenScience implements OnInit, AfterViewInit {
       submit_data: {
         sensor_id: this.selectedSensor.id,
         data: {
-          value,
+          // CosmWasm JSON parsers reject bare floats; keep as string.
+          value: String(value),
         },
       },
     };

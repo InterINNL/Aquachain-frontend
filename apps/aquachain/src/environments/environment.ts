@@ -6,6 +6,11 @@ export const environment = {
   gasPrice: '0.025ustake',
   gasMultiplier: 1.5,
   chainId: 'testing',
+  chainName: 'Local Testing Chain',
   rpcEndpoint: 'http://localhost:4200/rpc',
   restEndpoint: 'http://localhost:1317',
+  bech32Prefix: 'wasm',
+  coinDenom: 'STAKE',
+  coinMinimalDenom: 'ustake',
+  coinDecimals: 6,
 };
