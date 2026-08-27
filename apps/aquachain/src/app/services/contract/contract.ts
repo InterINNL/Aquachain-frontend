@@ -134,7 +134,7 @@ export class ContractService {
       start_after?: number;
       limit?: number;
     },
-  ): Promise<any[]> {
+  ): Promise<DataEntry[]> {
     const query = {
       list_data_entries: {
         start_after: options?.start_after,
@@ -147,8 +147,34 @@ export class ContractService {
     return await client.queryContractSmart(contract, query);
   }
 
-  async getTotalSensors(contract: string, owner?: string): Promise<number> {
-    const query = owner ? { count_sensors: { owner } } : { count_sensors: {} };
+  async getTotalSensors(
+    contract: string,
+    owner?: string,
+    status?: string,
+  ): Promise<number> {
+    const query = {
+      count_sensors: {
+        ...(owner ? { owner } : {}),
+        ...(status ? { status } : {}),
+      },
+    };
+    const client = await this.getqueryClient();
+    return await client.queryContractSmart(contract, query);
+  }
+
+  async countDataEntries(
+    contract: string,
+    options?: {
+      submitter?: string;
+      sensor_id?: number;
+    },
+  ): Promise<number> {
+    const query = {
+      count_data_entries: {
+        submitter: options?.submitter,
+        sensor_id: options?.sensor_id,
+      },
+    };
     const client = await this.getqueryClient();
     return await client.queryContractSmart(contract, query);
   }

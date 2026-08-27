@@ -6,23 +6,15 @@ Blockchain-secured decision support for smart water management. AquaChain combin
 
 ## Modules
 
-<<<<<<< Updated upstream
-| Module | Purpose | UI status |
-| --- | --- | --- |
-| **Citizen Science** | Register sensors, submit readings, earn rewards for verified data | Wired to CosmWasm + Keplr |
-| **Water Utilities** | On-chain sensor feeds and sustainability credits | Landing / stub |
-| **Water Well Initiative** | Track funding for water projects and stake on AquaChain | Landing / stub |
-=======
 | Module                    | Purpose                                                           | UI status                 |
 | ------------------------- | ----------------------------------------------------------------- | ------------------------- |
 | **Citizen Science**       | Register sensors, submit readings, earn rewards for verified data | Wired to CosmWasm + Keplr |
 | **Water Utilities**       | On-chain sensor feeds and sustainability credits                  | Landing / stub            |
 | **Water Well Initiative** | Track funding for water projects and stake on AquaChain           | Landing / stub            |
->>>>>>> Stashed changes
 
 ## Stack
 
-- Angular 20 + Nx
+- Angular 22 + Nx 23
 - CosmJS (`@cosmjs/cosmwasm-stargate`)
 - Keplr wallet
 - Bootstrap + Font Awesome
@@ -38,21 +30,6 @@ Dev server: [http://localhost:4200](http://localhost:4200)
 
 RPC is proxied: browser calls `/rpc` → Tendermint RPC on `localhost:26657` (see `proxy.conf.json`).
 
-<<<<<<< Updated upstream
-| Script | Action |
-| --- | --- |
-| `npm run start` | Dev server with RPC proxy |
-| `npm run build` | Production build → `dist/apps/aquachain` |
-| `npm run test` | Unit tests |
-| `npm run e2e` | Cypress against `:4200` |
-
-### Render (static site)
-
-| Setting | Value |
-| --- | --- |
-| Branch | `dev` |
-| Build | `npm install; npm run build` |
-=======
 | Script          | Action                                   |
 | --------------- | ---------------------------------------- |
 | `npm run start` | Dev server with RPC proxy                |
@@ -66,7 +43,6 @@ RPC is proxied: browser calls `/rpc` → Tendermint RPC on `localhost:26657` (se
 | ----------------- | ----------------------------- |
 | Branch            | `dev`                         |
 | Build             | `npm install; npm run build`  |
->>>>>>> Stashed changes
 | Publish directory | `dist/apps/aquachain/browser` |
 
 Angular application builder puts `index.html` under `browser/`. Publishing the parent folder leaves `/` without an index and returns 404.
@@ -75,27 +51,15 @@ Angular application builder puts `index.html` under `browser/`. Publishing the p
 
 Citizen Science talks to a CosmWasm-capable node with Keplr. Defaults in `apps/aquachain/src/environments/environment.ts`:
 
-<<<<<<< Updated upstream
-| Setting | Expected value |
-| --- | --- |
-| `chainId` | `testing` |
-| Bech32 prefix | `wasm` |
-| Fee / stake denom | `ustake` (display `STAKE`, 6 decimals) |
-| Tendermint RPC | `http://localhost:26657` (via `/rpc` in the browser) |
-| REST / LCD | `http://localhost:1317` |
-| Gas price | `0.025ustake` |
-| Contract | `CitizenScienceContractAddress` in the env file |
-=======
-| Setting           | Expected value                                       |
-| ----------------- | ---------------------------------------------------- |
-| `chainId`         | `testing`                                            |
-| Bech32 prefix     | `wasm`                                               |
-| Fee / stake denom | `ustake` (display `STAKE`, 6 decimals)               |
-| Tendermint RPC    | `http://localhost:26657` (via `/rpc` in the browser) |
-| REST / LCD        | `http://localhost:1317`                              |
-| Gas price         | `0.025ustake`                                        |
-| Contract          | `CitizenScienceContractAddress` in the env file      |
->>>>>>> Stashed changes
+| Setting           | Expected value                                                                                                      |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `chainId`         | `testing`                                                                                                           |
+| Bech32 prefix     | `wasm`                                                                                                              |
+| Fee / stake denom | `ustake` (display `STAKE`, 6 decimals)                                                                              |
+| Tendermint RPC    | `http://localhost:26657` (via `/rpc` in the browser)                                                                |
+| REST / LCD        | `http://localhost:1317`                                                                                             |
+| Gas price         | `0.025ustake`                                                                                                       |
+| Contracts         | `CitizenScienceContractAddress`, `WaterWellContractAddress`, `UtilityWaterFootprintContractAddress` in the env file |
 
 Keplr is suggested as **Local Testing Chain** with those parameters (`wallet` service).
 
@@ -148,6 +112,8 @@ Set in `apps/aquachain/src/environments/environment.ts`:
 
 ```ts
 CitizenScienceContractAddress: '<deployed-wasm-address>',
+WaterWellContractAddress: '',
+UtilityWaterFootprintContractAddress: '',
 chainId: 'testing',
 rpcEndpoint: 'http://localhost:4200/rpc',
 restEndpoint: 'http://localhost:1317',
@@ -176,19 +142,11 @@ Until those exist, follow the checklist above manually.
 
 ## Configuration files
 
-<<<<<<< Updated upstream
-| File | Role |
-| --- | --- |
-| `apps/aquachain/src/environments/environment.ts` | Dev chain + contract address |
-| `apps/aquachain/src/environments/environment.prod.ts` | Production build env |
-| `proxy.conf.json` | Dev proxy `/rpc` → `localhost:26657` |
-=======
 | File                                                  | Role                                 |
 | ----------------------------------------------------- | ------------------------------------ |
-| `apps/aquachain/src/environments/environment.ts`      | Dev chain + contract address         |
+| `apps/aquachain/src/environments/environment.ts`      | Dev chain + contract addresses       |
 | `apps/aquachain/src/environments/environment.prod.ts` | Production build env                 |
 | `proxy.conf.json`                                     | Dev proxy `/rpc` → `localhost:26657` |
->>>>>>> Stashed changes
 
 ## License
 

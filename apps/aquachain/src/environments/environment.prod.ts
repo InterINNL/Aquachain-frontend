@@ -2,6 +2,8 @@ export const environment = {
   production: true,
   CitizenScienceContractAddress:
     'osmo1nqqev3y5l8sjgrghuplagy0td3tdcy0cklx9mqnze27j2ynu7jrqram74j',
+  WaterWellContractAddress: '',
+  UtilityWaterFootprintContractAddress: '',
   explorerBaseUrl: 'https://www.mintscan.io/osmosis-testnet',
 
   gasPrice: '0.1uosmo',

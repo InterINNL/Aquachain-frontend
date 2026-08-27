@@ -40,7 +40,141 @@
       </button>
     </li>
   </ul>
-  <div class="sensors-tab">
+
+  <!-- Dashboard -->
+  <div *ngIf="activeTab === 0" class="dashboard-tab">
+    <div *ngIf="loadingDashboard" class="text-center py-5">
+      <i class="fas fa-spinner fa-spin me-2"></i> Loading dashboard…
+    </div>
+    <ng-container *ngIf="!loadingDashboard">
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+          <div class="card kpi-card h-100">
+            <div class="card-body">
+              <div class="text-muted small">Total sensors</div>
+              <div class="fs-3 fw-semibold">{{ dashboardTotal }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card kpi-card h-100">
+            <div class="card-body">
+              <div class="text-muted small">Active</div>
+              <div class="fs-3 fw-semibold text-success">
+                {{ dashboardActive }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card kpi-card h-100">
+            <div class="card-body">
+              <div class="text-muted small">Proposed</div>
+              <div class="fs-3 fw-semibold text-warning">
+                {{ dashboardProposed }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card kpi-card h-100">
+            <div class="card-body">
+              <div class="text-muted small">Inactive</div>
+              <div class="fs-3 fw-semibold text-secondary">
+                {{ dashboardInactive }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h5 class="mb-0">Recent sensors</h5>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th>Created</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let sensor of dashboardRecentSensors">
+                      <td>{{ sensor.id }}</td>
+                      <td>{{ sensor.type }}</td>
+                      <td>
+                        <span
+                          class="badge"
+                          [ngClass]="statusClass(sensor.status)"
+                        >
+                          {{ sensor.status }}
+                        </span>
+                      </td>
+                      <td>{{ sensor.created_at | date: 'shortDate' }}</td>
+                    </tr>
+                    <tr *ngIf="dashboardRecentSensors.length === 0">
+                      <td colspan="4" class="text-muted text-center py-3">
+                        No sensors yet
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between">
+              <h5 class="mb-0">Recent data entries</h5>
+              <span class="badge bg-secondary align-self-center"
+                >{{ dashboardUnverified }} unverified on this page</span
+              >
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Sensor</th>
+                      <th>Value</th>
+                      <th>Verified</th>
+                      <th>Rewarded</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let entry of dashboardRecentEntries">
+                      <td>{{ entry.id }}</td>
+                      <td>{{ entry.sensor_id }}</td>
+                      <td>{{ truncate(entry.value, 12) }}</td>
+                      <td>{{ entry.verified ? 'Yes' : 'No' }}</td>
+                      <td>{{ entry.rewarded ? 'Yes' : 'No' }}</td>
+                    </tr>
+                    <tr *ngIf="dashboardRecentEntries.length === 0">
+                      <td colspan="5" class="text-muted text-center py-3">
+                        No data entries yet
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Sensors -->
+  <div *ngIf="activeTab === 1" class="sensors-tab">
     <div class="row mb-4">
       <div class="col-12">
         <div class="card">
@@ -49,8 +183,8 @@
           >
             <div class="d-flex align-items-center justify-content-between mb-2">
               <h5 class="mb-0 me-2">
-                {{ showOnlyMine ? 'Mine' : 'All' }}&nbsp;Sensors
-                ({{totalSensors}})
+                {{ showOnlyMine ? 'Mine' : 'All' }}&nbsp;Sensors ({{
+                totalSensors }})
               </h5>
               <button
                 type="button"
@@ -65,7 +199,10 @@
             </button>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
+            <div *ngIf="loadingSensors" class="text-center py-3">
+              <i class="fas fa-spinner fa-spin me-2"></i> Loading…
+            </div>
+            <div class="table-responsive" *ngIf="!loadingSensors">
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -79,7 +216,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let sensor of sensors; let i = index">
+                  <tr *ngFor="let sensor of sensors">
                     <td [title]="sensor.id" class="aligned">{{ sensor.id }}</td>
                     <td [title]="sensor.type" class="aligned">
                       {{ sensor.type }}
@@ -88,21 +225,19 @@
                       {{ truncate(sensor.model) }}
                     </td>
                     <td
-                      [title]="sensor.location ? sensor.location.description : ''"
+                      [title]="
+                        sensor.location ? sensor.location.description : ''
+                      "
                       class="aligned"
                     >
-                      {{ truncate(sensor.location ? sensor.location.description
-                      : '-') }}
+                      {{ truncate( sensor.location ? sensor.location.description
+                      : '-' ) }}
                     </td>
                     <td class="aligned">{{ sensor.created_at | date }}</td>
                     <td class="centered">
                       <span
                         class="badge"
-                        [ngClass]="{
-        'bg-success': sensor.status === 'active',
-        'bg-secondary': sensor.status === 'inactive',
-        'bg-warning': sensor.status === 'proposed'
-      }"
+                        [ngClass]="statusClass(sensor.status)"
                       >
                         {{ sensor.status }}
                       </span>
@@ -118,20 +253,26 @@
                         <button
                           class="btn btn-outline-success"
                           (click)="setSubmitData(sensor)"
-                          [disabled]="sensor.status !== 'active'"
+                          [disabled]="
+                            (sensor.status || '').toLowerCase() !== 'active'
+                          "
                         >
                           Submit&nbsp;Data
                         </button>
                         <button
                           class="btn btn-outline-secondary btn-toggle-size"
-                          *ngIf="sensor.status !== 'active'"
+                          *ngIf="
+                            (sensor.status || '').toLowerCase() !== 'active'
+                          "
                           (click)="activate(sensor)"
                         >
                           Activate
                         </button>
                         <button
                           class="btn btn-outline-secondary btn-toggle-size"
-                          *ngIf="sensor.status === 'active'"
+                          *ngIf="
+                            (sensor.status || '').toLowerCase() === 'active'
+                          "
                           (click)="deactivate(sensor)"
                         >
                           Deactivate
@@ -148,23 +289,39 @@
                 </tbody>
               </table>
             </div>
-            <nav class="mt-2" *ngIf="totalPages > 1">
-              <ul class="pagination justify-content-center">
-                <li class="page-item" [class.disabled]="currentPage === 1">
-                  <button class="page-link" (click)="prevPage()">
+            <nav class="mt-2" *ngIf="totalSensors > 0">
+              <ul
+                class="pagination justify-content-center align-items-center mb-0"
+              >
+                <li
+                  class="page-item"
+                  [class.disabled]="!canGoPrev(currentPage)"
+                >
+                  <button
+                    class="page-link"
+                    (click)="prevPage()"
+                    [disabled]="!canGoPrev(currentPage)"
+                  >
                     Previous
                   </button>
                 </li>
-
-                <li class="page-item active">
-                  <span class="page-link">{{ currentPage }}</span>
+                <li class="page-item disabled">
+                  <span class="page-link"
+                    >Page {{ currentPage }} of {{ totalPages }} ({{ totalSensors
+                    }} total)</span
+                  >
                 </li>
-
                 <li
                   class="page-item"
-                  [class.disabled]="sensors.length < pageSize"
+                  [class.disabled]="!canGoNext(currentPage, totalPages)"
                 >
-                  <button class="page-link" (click)="nextPage()">Next</button>
+                  <button
+                    class="page-link"
+                    (click)="nextPage()"
+                    [disabled]="!canGoNext(currentPage, totalPages)"
+                  >
+                    Next
+                  </button>
                 </li>
               </ul>
             </nav>
@@ -179,10 +336,10 @@
             <h5 class="mb-0" [ngSwitch]="mode">
               <span *ngSwitchCase="'register'">Register New Sensor</span>
               <span *ngSwitchCase="'submit'"
-                >Submit&nbsp;Data for sensor {{selectedSensor?.id}}</span
+                >Submit&nbsp;Data for sensor {{ selectedSensor?.id }}</span
               >
               <span *ngSwitchCase="'view'"
-                >View Data for sensor {{selectedSensor?.id}}</span
+                >View Data for sensor {{ selectedSensor?.id }}</span
               >
               <span *ngSwitchDefault></span>
             </h5>
@@ -200,8 +357,8 @@
               selectedSensor?.location?.lng }}
             </span>
             <span class="me-3">
-              <strong>Description:</strong> {{
-              selectedSensor?.location?.description }}
+              <strong>Description:</strong>
+              {{ selectedSensor?.location?.description }}
             </span>
             <span class="me-3"
               ><strong>Status:</strong> {{ selectedSensor?.status }}</span
@@ -210,13 +367,13 @@
               ><strong>Owner:</strong> {{ selectedSensor?.owner }}</span
             >
             <span class="me-3">
-              <strong>Created:</strong> {{ selectedSensor?.created_at | date:
-              'short' }}
+              <strong>Created:</strong>
+              {{ selectedSensor?.created_at | date: 'short' }}
             </span>
 
             <div>
-              <strong>Updated At:</strong> {{ selectedSensor?.updated_at | date:
-              'short' }}
+              <strong>Updated At:</strong>
+              {{ selectedSensor?.updated_at | date: 'short' }}
             </div>
 
             <hr />
@@ -239,8 +396,8 @@
                   <strong>Rewarded:</strong> {{ entry.rewarded ? 'Yes' : 'No' }}
                 </div>
                 <div>
-                  <strong>Created At:</strong> {{ entry.created_at | date:
-                  'short' }}
+                  <strong>Created At:</strong>
+                  {{ entry.created_at | date: 'short' }}
                 </div>
               </div>
             </div>
@@ -255,14 +412,13 @@
               *ngIf="mode === 'register'"
             >
               <div class="mb-3">
-                <label for="sensorType" class="form-label">Sensor Type</label
-                ><select
+                <label for="sensorType" class="form-label">Sensor Type</label>
+                <select
                   class="form-select"
                   id="sensorType"
                   formControlName="type"
                   required
                 >
-                  >
                   <option value="">Select sensor type</option>
                   <option value="Water Quality">Water Quality</option>
                   <option value="Water Quantity">Water Quantity</option>
@@ -273,8 +429,8 @@
                 </select>
               </div>
               <div class="mb-3">
-                <label for="sensorModel" class="form-label">Sensor Model</label
-                ><input
+                <label for="sensorModel" class="form-label">Sensor Model</label>
+                <input
                   type="text"
                   class="form-control"
                   id="sensorModel"
@@ -284,7 +440,8 @@
               <div class="mb-3">
                 <label for="locationLatitude" class="form-label"
                   >Location Latitude</label
-                ><input
+                >
+                <input
                   type="text"
                   class="form-control"
                   id="locationLatitude"
@@ -295,7 +452,8 @@
               <div class="mb-3">
                 <label for="locationLongitude" class="form-label"
                   >Location Longitude</label
-                ><input
+                >
+                <input
                   type="text"
                   class="form-control"
                   id="locationLongitude"
@@ -306,7 +464,8 @@
               <div class="mb-3">
                 <label for="locationDescription" class="form-label"
                   >Location Description</label
-                ><input
+                >
+                <input
                   type="text"
                   class="form-control"
                   id="locationDescription"
@@ -329,27 +488,6 @@
                   </ng-template>
                 </button>
               </div>
-              <!-- <div *ngIf="transactionResult" class="mt-3">
-                <div *ngIf="transactionResult.transactionHash; else errorTpl">
-                  <strong>Transaction Hash:</strong>
-                  <a
-                    [href]="getTxUrl(transactionResult.transactionHash)"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {{ transactionResult.transactionHash }}
-                  </a>
-                  <br />
-                  <small>Height: {{ transactionResult.height }}</small>
-                  <br />
-                  <small>Gas Used: {{ transactionResult.gasUsed }}</small>
-                </div>
-                <ng-template #errorTpl>
-                  <div class="text-danger">
-                    <strong>Error:</strong> {{ transactionError }}
-                  </div>
-                </ng-template>
-              </div> -->
             </form>
             <form
               *ngIf="mode === 'submit' && selectedSensor"
@@ -432,6 +570,162 @@
             <div class="list-group"></div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map View -->
+  <div *ngIf="activeTab === 2" class="map-tab">
+    <div *ngIf="loadingMap" class="text-center py-5">
+      <i class="fas fa-spinner fa-spin me-2"></i> Loading map…
+    </div>
+    <div class="row g-3" *ngIf="!loadingMap">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between">
+            <h5 class="mb-0">Sensor map</h5>
+            <span class="text-muted small align-self-center"
+              >{{ mapMarkerCount }} markers (up to {{ pageSize * 5 }}
+              sensors)</span
+            >
+          </div>
+          <div class="card-body p-0">
+            <div #mapContainer class="sensor-map"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card h-100">
+          <div class="card-header">
+            <h5 class="mb-0">Sensor detail</h5>
+          </div>
+          <div class="card-body" *ngIf="mapSelected; else pickMarker">
+            <p><strong>ID:</strong> {{ mapSelected.id }}</p>
+            <p><strong>Type:</strong> {{ mapSelected.type }}</p>
+            <p><strong>Model:</strong> {{ mapSelected.model }}</p>
+            <p>
+              <strong>Status:</strong>
+              <span class="badge" [ngClass]="statusClass(mapSelected.status)">
+                {{ mapSelected.status }}
+              </span>
+            </p>
+            <p>
+              <strong>Location:</strong>
+              {{ mapSelected.location.description || '—' }}
+            </p>
+            <p>
+              <strong>Coords:</strong>
+              {{ mapSelected.location.lat }}, {{ mapSelected.location.lng }}
+            </p>
+            <p><strong>Owner:</strong> {{ truncate(mapSelected.owner, 24) }}</p>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-primary"
+              (click)="openMapSensorInSensors()"
+            >
+              Open in Sensors
+            </button>
+          </div>
+          <ng-template #pickMarker>
+            <div class="card-body text-muted">
+              Click a marker to see sensor details.
+              <span *ngIf="mapMarkerCount === 0"
+                >No sensors with valid lat/lng in the loaded pages.</span
+              >
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rewards -->
+  <div *ngIf="activeTab === 3" class="rewards-tab">
+    <div class="card">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <h5 class="mb-0">Verified / rewarded entries</h5>
+        <span class="text-muted small">{{ rewardsTotal }} total</span>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loadingRewards" class="text-center py-3">
+          <i class="fas fa-spinner fa-spin me-2"></i> Loading…
+        </div>
+        <div class="table-responsive" *ngIf="!loadingRewards">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Sensor</th>
+                <th>Submitter</th>
+                <th>Value</th>
+                <th>Verified</th>
+                <th>Rewarded</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entry of rewardEntries">
+                <td>{{ entry.id }}</td>
+                <td>{{ entry.sensor_id }}</td>
+                <td>{{ truncate(entry.submitter, 16) }}</td>
+                <td>{{ truncate(entry.value, 12) }}</td>
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="entry.verified ? 'bg-success' : 'bg-secondary'"
+                    >{{ entry.verified ? 'Yes' : 'No' }}</span
+                  >
+                </td>
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="entry.rewarded ? 'bg-info' : 'bg-secondary'"
+                    >{{ entry.rewarded ? 'Yes' : 'No' }}</span
+                  >
+                </td>
+                <td>{{ entry.created_at | date: 'short' }}</td>
+              </tr>
+              <tr *ngIf="rewardEntries.length === 0">
+                <td colspan="7" class="text-muted text-center py-3">
+                  No data entries found
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <nav class="mt-2" *ngIf="rewardsTotal > 0">
+          <ul class="pagination justify-content-center align-items-center mb-0">
+            <li class="page-item" [class.disabled]="!canGoPrev(rewardsPage)">
+              <button
+                class="page-link"
+                (click)="prevRewardsPage()"
+                [disabled]="!canGoPrev(rewardsPage)"
+              >
+                Previous
+              </button>
+            </li>
+            <li class="page-item disabled">
+              <span class="page-link"
+                >Page {{ rewardsPage }} of {{ rewardsTotalPages }} ({{
+                rewardsTotal }} total)</span
+              >
+            </li>
+            <li
+              class="page-item"
+              [class.disabled]="!canGoNext(rewardsPage, rewardsTotalPages)"
+            >
+              <button
+                class="page-link"
+                (click)="nextRewardsPage()"
+                [disabled]="!canGoNext(rewardsPage, rewardsTotalPages)"
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>

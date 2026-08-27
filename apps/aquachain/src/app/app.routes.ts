@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { Demo } from './components/demo/demo';
 import { WaterUtilities } from './components/water-utilities/water-utilities';
+import { WaterWellInitiative } from './components/water-well-initiative/water-well-initiative';
 import { Home } from './components/home/home';
 
 export const appRoutes: Route[] = [
@@ -18,7 +19,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'water-well-initiative',
-    component: WaterUtilities,
+    component: WaterWellInitiative,
   },
   {
     path: 'citizen-science',

@@ -36,3 +36,13 @@
   outline: none;
   box-shadow: none;
 }
+
+.kpi-card .card-body {
+  padding: 1rem 1.25rem;
+}
+
+.sensor-map {
+  height: 480px;
+  width: 100%;
+  z-index: 0;
+}

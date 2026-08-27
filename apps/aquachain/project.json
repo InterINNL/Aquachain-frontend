@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/aquachain",
         "browser": "apps/aquachain/src/main.ts",
         "polyfills": ["zone.js", "apps/aquachain/src/polyfills.ts"],
-        "allowedCommonJsDependencies": ["bootstrap", "@cosmjs"],
+        "allowedCommonJsDependencies": ["bootstrap", "@cosmjs", "leaflet"],
         "tsConfig": "apps/aquachain/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -26,6 +26,7 @@
           "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
           "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
           "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "node_modules/leaflet/dist/leaflet.css",
           "apps/aquachain/src/styles.scss"
         ]
       },
