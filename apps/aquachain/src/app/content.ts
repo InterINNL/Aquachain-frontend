@@ -16,9 +16,7 @@ export interface ModuleHero {
 }
 
 export type ModuleHeroKey =
-  | 'citizen-science'
-  | 'water-well-initiative'
-  | 'water-utilities';
+  'citizen-science' | 'water-well-initiative' | 'water-utilities';
 
 export interface AcModule {
   id: string;
@@ -39,6 +37,7 @@ export const aquachainContent = {
   interinnlUrl: '/',
   githubFrontend: 'https://github.com/InterINNL/Aquachain-frontend',
   githubContracts: 'https://github.com/InterINNL/Aquachain-contracts',
+  copyrightYear: 2025,
 
   hero: {
     kicker: 'Open source · Cosmos · InterINNL',
@@ -55,11 +54,30 @@ export const aquachainContent = {
 
   context: {
     title: 'Why water needs a shared record',
-    body: 'Water quality and access vary sharply between regions. Field readings, funding pledges, and utility savings are often scattered across spreadsheets and siloed systems. AquaChain demos how Cosmos smart contracts can anchor that data so donors, regulators, and communities read the same numbers.',
-    photo: {
-      src: local('context-monitoring.jpg'),
-      alt: 'Water quality monitoring dashboard with smart sensor readings',
-    },
+    paragraphs: [
+      'Water quality, groundwater levels, and access to safe drinking water vary sharply between regions and seasons. Field teams capture readings in notebooks, donors track pledges in spreadsheets, and utilities report savings in internal dashboards. None of these sources agree by default, and none of them give communities a durable proof that work was done or money was spent as promised.',
+      'AquaChain is an InterINNL hackathon demo that shows how a Cosmos chain can act as a neutral ledger for water data. CosmWasm smart contracts store sensor registrations, well project state, donation balances, and utility footprint entries so every participant reads the same numbers from the same contract state.',
+      'The frontend is an Angular app connected through CosmJS and Keplr. You can walk through three modules without changing how the contracts behave: register field hardware, crowdfund wells, or log corporate water savings and certificates.',
+    ],
+  },
+
+  platform: {
+    title: 'What you can explore in the demo',
+    lead: 'Each module maps to a deployed CosmWasm contract. Tabs, tables, and maps are UI only; writes go through wallet-signed transactions.',
+    points: [
+      {
+        title: 'Citizen Science',
+        body: 'Register sensors with location and metadata, submit water quality or quantity readings, and route them through an on-chain verification flow. Approved data can trigger token rewards so contributors see a direct link between accurate field work and settlement.',
+      },
+      {
+        title: 'Water Well Initiative',
+        body: 'Communities propose well projects with targets and milestones. Donors pledge funds that stay in contract escrow until validators confirm progress photos, drill depth, or pump installation. Released funds disburse to beneficiaries with an auditable history of every transfer.',
+      },
+      {
+        title: 'Water Utilities',
+        body: 'Industrial and municipal actors register companies, log baseline usage, record conservation measures, and request validation of savings. Successful reviews issue footprint certificates that summarize verified reductions without exposing raw operational detail on every public query.',
+      },
+    ],
   },
 
   modules: [
@@ -68,13 +86,14 @@ export const aquachainContent = {
       name: 'Citizen Science',
       kicker: 'Field sensors',
       blurb:
-        'Register sensors, submit readings, and earn rewards when data is verified on-chain.',
+        'Register sensors with GPS and metadata, stream readings into the chain, and earn rewards after validators approve trustworthy data.',
       route: '/citizen-science',
       icon: 'microscope',
       accent: 'teal' as const,
       photo: {
-        src: local('module-citizen-sensors.png'),
-        alt: 'Network diagram of IoT water quality sensors in the field',
+        src: local('citizen-sensor-kit.jpg'),
+        alt: 'Portable water quality sensor kit for field measurements',
+        objectPosition: 'center 45%',
       },
     },
     {
@@ -82,7 +101,7 @@ export const aquachainContent = {
       name: 'Water Well Initiative',
       kicker: 'Community funding',
       blurb:
-        'Create well projects, collect donations, unlock funds when milestones are met, and disburse to beneficiaries.',
+        'Propose wells, collect pledged donations in escrow, unlock tranches when milestones pass review, and disburse to beneficiaries on-chain.',
       route: '/water-well-initiative',
       icon: 'hand-holding-droplet',
       accent: 'amber' as const,
@@ -96,7 +115,7 @@ export const aquachainContent = {
       name: 'Water Utilities',
       kicker: 'Footprint certificates',
       blurb:
-        'Register companies, log water usage and savings, validate entries, and issue footprint certificates.',
+        'Register utility accounts, log usage and savings events, pass validator review, and mint footprint certificates for verified reductions.',
       route: '/water-utilities',
       icon: 'chart-line',
       accent: 'slate' as const,
@@ -108,34 +127,85 @@ export const aquachainContent = {
   ] satisfies AcModule[],
 
   howItWorks: {
-    title: 'How it works',
+    title: 'How AquaChain works',
+    lead: 'The demo follows one pattern across all three modules: capture intent on-chain, let independent verifiers approve it, then settle outcomes automatically.',
+    intro: [
+      'Field contributors, donors, and utility operators each interact through the same wallet flow. CosmJS builds transactions, Keplr signs them, and wasmd executes CosmWasm logic that no single frontend can rewrite after submission.',
+      'That separation matters for water programs where trust is scarce. A community sees pledged well funds locked in contract escrow, not in a database row. A regulator can query certificate issuance without trusting a vendor portal. A sensor owner can prove a reading hash was recorded before a dispute arises.',
+      'Below is the lifecycle every module shares. Citizen Science emphasizes collection and rewards, Water Well emphasizes escrow and disbursement, and Water Utilities emphasizes audited savings and certificates.',
+    ],
     steps: [
       {
         title: 'Collect',
-        body: 'Sensors, donors, and utilities submit readings, pledges, or usage logs.',
+        body: 'Participants register the entities the chain must track: sensors with coordinates, well projects with funding goals, or company accounts with baseline usage. Each registration is a signed transaction that creates on-chain state other users can query immediately.',
         icon: 'satellite-dish',
       },
       {
         title: 'Record',
-        body: 'CosmWasm contracts store proposals, transactions, and state on the chain.',
+        body: 'Day-to-day events land as contract messages: sensor readings, donation pledges, milestone evidence, usage logs, or certificate requests. CosmWasm stores them in contract storage with deterministic ordering so history can be replayed from block events.',
         icon: 'link',
       },
       {
         title: 'Verify',
-        body: 'Verifiers approve sensor data, well milestones, or utility savings.',
+        body: 'Designated verifiers or validators review submissions against policy rules: plausible sensor ranges, photo proof for drilled wells, or reconciled meter data for utility savings. Approval messages flip flags in contract state; rejections keep funds locked or readings unrewarded.',
         icon: 'clipboard-check',
       },
       {
         title: 'Reward',
-        body: 'Tokens, certificates, or disbursements follow verified outcomes.',
+        body: 'Once rules pass, the contract settles: token payouts to sensor operators, escrow releases to well beneficiaries, or footprint certificates summarizing verified savings. Every payout or certificate hash is visible to wallets and indexers without exporting a private CSV.',
         icon: 'award',
       },
     ],
+    closing:
+      'Connect Keplr on the configured test chain to try the full loop. Read-only views still load contract state through CosmJS queries so you can inspect maps, KPIs, and tables before signing anything.',
   },
 
   stack: {
     title: 'Built with',
-    items: ['Cosmos SDK', 'CosmWasm', 'CosmJS', 'Keplr', 'Angular'],
+    items: [
+      {
+        label: 'Cosmos SDK',
+        href: 'https://github.com/cosmos/cosmos-sdk',
+      },
+      {
+        label: 'CosmWasm',
+        href: 'https://cosmwasm.com/',
+      },
+      {
+        label: 'CosmJS',
+        href: 'https://github.com/cosmos/cosmjs',
+      },
+      {
+        label: 'Keplr',
+        href: 'https://www.keplr.app/',
+      },
+      {
+        label: 'Angular',
+        href: 'https://angular.dev/',
+      },
+    ],
+  },
+
+  ecosystem: [
+    { label: 'Cosmos', href: 'https://cosmos.network/' },
+    { label: 'CosmWasm', href: 'https://cosmwasm.com/' },
+    { label: 'wasmd', href: 'https://github.com/CosmWasm/wasmd' },
+    { label: 'Confio', href: 'https://confio.xyz/' },
+  ],
+
+  interchouetteUrl: 'https://interchouette.net/',
+
+  contact: {
+    kicker: 'Get in touch',
+    title: 'Contact AquaChain',
+    lead: 'Questions about the demo, contracts, deployments, or InterINNL collaboration?',
+    paragraphs: [
+      'Use the form to reach Gregory Roussac. Typical topics: wiring AquaChain to your testnet, extending a CosmWasm module, or partnering on water and climate open source through InterINNL.',
+      'Include enough context for a useful reply: which module you tried, chain ID, wallet address (if relevant), and what you expected versus what you saw.',
+    ],
+    recipientEmail: 'contact@interchouette.net',
+    successMessage: 'Thanks. Your message was sent.',
+    errorMessage: 'Could not send your message. Try again or use the email link below.',
   },
 
   closingCta: {
@@ -148,18 +218,33 @@ export const aquachainContent = {
     },
   },
 
-  fieldStrip: {
-    photo: {
-      src: local('field-irrigation.jpg'),
-      alt: 'IoT-based irrigation system monitoring soil moisture and water flow',
-    },
-  },
-
   nav: [
     { label: 'Home', route: '/' },
     { label: 'Citizen Science', route: '/citizen-science' },
     { label: 'Water Well', route: '/water-well-initiative' },
-    { label: 'Utilities', route: '/water-utilities' },
+    { label: 'Water Utilities', route: '/water-utilities' },
+    { label: 'Contact', route: '/contact' },
+  ],
+
+  moduleLinks: [
+    {
+      key: 'citizen-science' as ModuleHeroKey,
+      label: 'Citizen Science',
+      hint: 'Sensors and on-chain rewards',
+      route: '/citizen-science',
+    },
+    {
+      key: 'water-well-initiative' as ModuleHeroKey,
+      label: 'Water Well Initiative',
+      hint: 'Crowdfund well projects',
+      route: '/water-well-initiative',
+    },
+    {
+      key: 'water-utilities' as ModuleHeroKey,
+      label: 'Water Utilities',
+      hint: 'Usage logs and footprint certificates',
+      route: '/water-utilities',
+    },
   ],
 
   moduleHeroes: {

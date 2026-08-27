@@ -7,6 +7,11 @@ export const appRoutes: Route[] = [
     component: Home,
   },
   {
+    path: 'contact',
+    loadComponent: () =>
+      import('./components/contact/contact').then((m) => m.Contact),
+  },
+  {
     path: 'demo',
     redirectTo: 'citizen-science',
     pathMatch: 'full',

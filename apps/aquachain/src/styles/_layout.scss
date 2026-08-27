@@ -26,6 +26,16 @@ img {
   display: block;
 }
 
+.ac-module-card__photo img,
+.ac-home-context__photo img,
+.ac-home-hero__visual img {
+  transition: none;
+}
+
+.ac-module-card:hover .ac-module-card__photo img {
+  transform: none;
+}
+
 .ac-container {
   width: min(100% - 2rem, var(--ac-max));
   margin-inline: auto;

@@ -9,7 +9,20 @@
     <div class="ac-footer__col">
       <h3>Modules</h3>
       @for (mod of content.modules; track mod.id) {
-        <a [routerLink]="mod.route">{{ mod.name }}</a>
+      <a [routerLink]="mod.route">{{ mod.name }}</a>
+      }
+    </div>
+
+    <div class="ac-footer__col">
+      <h3>Cosmos stack</h3>
+      @for (item of content.stack.items; track item.label) {
+      <a [href]="item.href" target="_blank" rel="noopener noreferrer"
+        >{{ item.label }}</a
+      >
+      } @for (item of content.ecosystem; track item.label) {
+      <a [href]="item.href" target="_blank" rel="noopener noreferrer"
+        >{{ item.label }}</a
+      >
       }
     </div>
 
@@ -27,11 +40,18 @@
         rel="noopener noreferrer"
         >Contracts repo</a
       >
-      <a [href]="content.interinnlUrl">Back to InterINNL</a>
+      <a [href]="content.interinnlUrl">InterINNL hub</a>
+      <a routerLink="/contact">Contact</a>
+      <a
+        [href]="content.interchouetteUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Interchouette</a
+      >
     </div>
   </div>
 
   <div class="ac-container ac-footer__bottom">
-    <p>© {{ year }} AquaChain · InterINNL hackathon project</p>
+    <p>© {{ content.copyrightYear }} AquaChain · InterINNL hackathon project</p>
   </div>
 </footer>

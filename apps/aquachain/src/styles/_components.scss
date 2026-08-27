@@ -228,6 +228,7 @@
   align-items: center;
   gap: var(--ac-space-md);
   padding: var(--ac-space-md) var(--ac-space-lg);
+  margin-bottom: var(--ac-space-lg);
   background: #fef3c7;
   border: 1px solid #fbbf24;
   border-radius: var(--ac-radius);
@@ -363,6 +364,57 @@
   font-weight: 600;
   padding: 0.4rem 0.85rem;
   border-radius: var(--ac-radius-sm);
-  background: var(--ac-navy);
+  background: rgb(255 255 255 / 12%);
+  border: 1px solid rgb(255 255 255 / 22%);
   color: var(--ac-white);
+  text-decoration: none;
+  transition:
+    background-color var(--ac-transition),
+    border-color var(--ac-transition);
+}
+
+.ac-stack-badge:hover {
+  background: rgb(255 255 255 / 20%);
+  border-color: rgb(255 255 255 / 35%);
+  color: var(--ac-white);
+}
+
+.ac-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ac-field__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ac-navy);
+}
+
+.ac-field__input {
+  font-family: var(--ac-body);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--ac-sand-dark);
+  border-radius: var(--ac-radius);
+  background: var(--ac-white);
+  color: var(--ac-navy);
+  width: 100%;
+}
+
+.ac-field__input:focus {
+  outline: 2px solid rgb(26 107 122 / 35%);
+  outline-offset: 1px;
+  border-color: var(--ac-teal);
+}
+
+.ac-field__textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.ac-field__error {
+  font-size: 0.8125rem;
+  color: #8b1e1e;
 }

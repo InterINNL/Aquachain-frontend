@@ -1,4 +1,67 @@
-.sticky-top-detail {
+.ac-well-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: var(--ac-space-md);
+  margin-bottom: var(--ac-space-xl);
+}
+
+.ac-well-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ac-space-lg);
+}
+
+@media (min-width: 992px) {
+  .ac-well-layout {
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: start;
+  }
+}
+
+.ac-well-detail {
   position: sticky;
   top: 1rem;
+}
+
+.ac-well-progress {
+  height: 0.65rem;
+  border-radius: var(--ac-radius-sm);
+  background: var(--ac-sand-dark);
+  overflow: hidden;
+  margin-bottom: var(--ac-space-lg);
+}
+
+.ac-well-progress__bar {
+  height: 100%;
+  background: var(--ac-success);
+  border-radius: var(--ac-radius-sm);
+  font-size: 0.625rem;
+  line-height: 0.65rem;
+  color: var(--ac-white);
+  text-align: center;
+  min-width: 2rem;
+  transition: width 0.35s ease;
+}
+
+.ac-well-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ac-space-sm);
+}
+
+.ac-well-meta {
+  font-size: 0.9375rem;
+  color: var(--ac-slate);
+  margin-bottom: var(--ac-space-sm);
+}
+
+.ac-well-meta strong {
+  color: var(--ac-navy);
+}
+
+.ac-well-section-title {
+  font-family: var(--ac-display);
+  font-size: 1.125rem;
+  margin: 0 0 var(--ac-space-md);
+  color: var(--ac-navy);
 }

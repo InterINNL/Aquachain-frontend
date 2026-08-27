@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { aquachainContent, ModuleHero, ModuleHeroKey } from '../../content';
+import { ModuleCrosslinks } from '../shared/module-crosslinks/module-crosslinks';
 
 @Component({
   selector: 'module-shell',
+  imports: [ModuleCrosslinks],
   templateUrl: './module-shell.html',
   styleUrl: './module-shell.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

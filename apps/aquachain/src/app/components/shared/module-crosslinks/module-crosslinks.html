@@ -1,0 +1,11 @@
+<nav class="ac-module-crosslinks" aria-label="Other AquaChain modules">
+  <span class="ac-module-crosslinks__label">Also explore</span>
+  <div class="ac-module-crosslinks__list">
+    @for (link of visibleLinks(); track link.route) {
+      <a class="ac-module-crosslinks__link" [routerLink]="link.route">
+        <span class="ac-module-crosslinks__name">{{ link.label }}</span>
+        <span class="ac-module-crosslinks__hint">{{ link.hint }}</span>
+      </a>
+    }
+  </div>
+</nav>

@@ -11,5 +11,4 @@ import { aquachainContent } from '../../content';
 })
 export class SiteFooter {
   readonly content = aquachainContent;
-  readonly year = new Date().getFullYear();
 }
