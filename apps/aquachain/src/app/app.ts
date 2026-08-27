@@ -4,18 +4,17 @@ import {
   FaIconLibrary,
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
-import { Navbar } from './components/navbar/navbar';
+import { SiteHeader } from './components/site-header/site-header';
+import { SiteFooter } from './components/site-footer/site-footer';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  imports: [RouterModule, FontAwesomeModule, Navbar],
+  imports: [RouterModule, FontAwesomeModule, SiteHeader, SiteFooter],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  protected title = 'AquaChain';
-
   constructor() {
     const library = inject(FaIconLibrary);
     library.addIconPacks(fas);

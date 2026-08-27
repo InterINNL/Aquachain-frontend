@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { aquachainContent } from '../../content';
 
 @Component({
-  selector: 'home',
-  imports: [FontAwesomeModule, RouterModule],
-  templateUrl: './home.html',
-  styleUrl: './home.scss',
+  selector: 'site-footer',
+  imports: [RouterModule],
+  templateUrl: './site-footer.html',
+  styleUrl: './site-footer.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home {
+export class SiteFooter {
   readonly content = aquachainContent;
+  readonly year = new Date().getFullYear();
 }

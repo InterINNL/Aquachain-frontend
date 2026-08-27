@@ -1,196 +1,127 @@
-<section class="section text-light py-5">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6">
-        <h1 class="display-4 fw-bold mb-4">AquaChain</h1>
-        <p class="lead mb-4">
-          A blockchain-secured decision support system for smart water
-          management that integrates Blockchain, AI, and IoT to provide reward
-          mechanisms for sustainable practices.
-        </p>
-        <div class="d-flex gap-3">
-          <a
-            class="btn btn-primary btn-lg"
-            [routerLink]="['/citizen-science']"
-            >View Demo</a
-          ><a
-            class="btn btn-outline-light btn-lg"
-            [routerLink]="['/citizen-science']"
-            >Explore Platform</a
-          >
-        </div>
-      </div>
-      <div class="col-lg-6 d-none d-lg-block">
-        <div class="image-container"><div class="home-image"></div></div>
-      </div>
+<section class="ac-home-hero">
+  <div class="ac-home-hero__copy">
+    <p class="ac-kicker">{{ content.hero.kicker }}</p>
+    <h1 class="ac-home-hero__title">{{ content.hero.title }}</h1>
+    <p class="ac-home-hero__lead">{{ content.hero.lead }}</p>
+    <div class="ac-home-hero__actions">
+      <a
+        class="ac-btn ac-btn--amber ac-btn--lg"
+        [routerLink]="content.hero.primaryCta.route"
+      >
+        {{ content.hero.primaryCta.label }}
+      </a>
+      <a class="ac-btn ac-btn--ghost-light ac-btn--lg" [href]="content.hero.secondaryCta.anchor">
+        {{ content.hero.secondaryCta.label }}
+      </a>
     </div>
   </div>
+  <div class="ac-home-hero__visual">
+    <img
+      [src]="content.hero.photo.src"
+      [alt]="content.hero.photo.alt"
+      [style.object-position]="content.hero.photo.objectPosition ?? 'center'"
+      width="900"
+      height="700"
+      loading="eager"
+    />
+    <div class="ac-home-hero__overlay" aria-hidden="true"></div>
+  </div>
 </section>
-<section class="features-section py-5">
-  <div class="container">
-    <h2 class="text-center mb-5">Three Integrated Modules</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card h-100 feature-card">
-          <div class="card-body text-center">
-            <div class="feature-icon mb-3">
-              <fa-icon
-                [icon]="['fas', 'chart-line']"
-                size="3x"
-                class="text-primary"
-              ></fa-icon>
-            </div>
-            <h3 class="card-title">Water Utilities</h3>
-            <p class="card-text">
-              Sensor data is sent to the blockchain and utilities receive water
-              credits for complying with sustainability requirements.
-            </p>
-            <a
-              class="btn btn-outline-primary mt-3"
-              [routerLink]="['/water-utilities']"
-            >
-              Learn More
-              <fa-icon [icon]="['fas', 'arrow-right']" class="ms-1"></fa-icon>
-            </a>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-4">
-        <div class="card h-100 feature-card">
-          <div class="card-body text-center">
-            <div class="feature-icon mb-3">
-              <fa-icon
-                [icon]="['fas', 'hand-holding-droplet']"
-                size="3x"
-                class="text-primary"
-              ></fa-icon>
-            </div>
-            <h3 class="card-title">Water Well Initiative</h3>
-            <p class="card-text">
-              Donors and investors can track where their money is going for
-              water projects and stake tokens in AquaChain.
-            </p>
-            <a
-              class="btn btn-outline-primary mt-3"
-              [routerLink]="['/water-well-initiative']"
-            >
-              Learn More
-              <fa-icon [icon]="['fas', 'arrow-right']" class="ms-1"></fa-icon>
-            </a>
-          </div>
-        </div>
-      </div>
+<section class="ac-section">
+  <div class="ac-container ac-home-context">
+    <div>
+      <h2 class="ac-section-title">{{ content.context.title }}</h2>
+      <p class="ac-lead">{{ content.context.body }}</p>
+    </div>
+    <div class="ac-home-context__photo">
+      <img
+        [src]="content.context.photo.src"
+        [alt]="content.context.photo.alt"
+        width="600"
+        height="450"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
 
-      <div class="col-md-4">
-        <div class="card h-100 feature-card">
-          <div class="card-body text-center">
-            <div class="feature-icon mb-3">
-              <fa-icon
-                [icon]="['fas', 'microscope']"
-                size="3x"
-                class="text-primary"
-              ></fa-icon>
+<section class="ac-section" style="background: var(--ac-sand-dark)">
+  <div class="ac-container">
+    <h2 class="ac-section-title ac-section-title--center">Three modules</h2>
+    <div class="ac-home-modules">
+      @for (mod of content.modules; track mod.id) {
+        <article class="ac-module-card">
+          <div class="ac-module-card__photo">
+            <img [src]="mod.photo.src" [alt]="mod.photo.alt" width="400" height="200" loading="lazy" />
+          </div>
+          <div class="ac-module-card__body">
+            <p class="ac-kicker">{{ mod.kicker }}</p>
+            <div class="ac-module-card__icon ac-module-card__icon--{{ mod.accent }}">
+              <fa-icon [icon]="['fas', mod.icon]"></fa-icon>
             </div>
-            <h3 class="card-title">Citizen Science</h3>
-            <p class="card-text">
-              Citizens can buy specific sensors to monitor water quality or
-              quantity and get rewarded for verified data.
-            </p>
-            <a
-              class="btn btn-outline-primary mt-3"
-              [routerLink]="['/citizen-science']"
-            >
-              Learn More
-              <fa-icon [icon]="['fas', 'arrow-right']" class="ms-1"></fa-icon>
+            <h3 class="ac-module-card__title">{{ mod.name }}</h3>
+            <p class="ac-module-card__blurb">{{ mod.blurb }}</p>
+            <a class="ac-btn ac-btn--primary ac-btn--sm" [routerLink]="mod.route">
+              Open module
+              <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
             </a>
           </div>
-        </div>
-      </div>
+        </article>
+      }
     </div>
   </div>
 </section>
-<section class="technology-section py-5 bg-light">
-  <div class="container">
-    <h2 class="text-center mb-5">Powered by Advanced Technology</h2>
-    <div class="row align-items-center">
-      <div class="col-lg-6 mb-4 mb-lg-0">
-        <!-- <img
-          src="/blockchain-illustration.svg"
-          alt="Blockchain Technology"
-          class="img-fluid tech-image"
-        /> -->
-      </div>
-      <div class="col-lg-6">
-        <div class="tech-features">
-          <div class="tech-feature mb-4">
-            <h4>
-              <fa-icon
-                [icon]="['fas', 'droplet']"
-                class="text-primary me-2"
-              ></fa-icon>
-              Blockchain Security
-            </h4>
-            <p>
-              All data and transactions are secured on the Cosmos blockchain,
-              ensuring transparency and immutability.
-            </p>
+
+<section class="ac-section" id="how-it-works">
+  <div class="ac-container">
+    <h2 class="ac-section-title">{{ content.howItWorks.title }}</h2>
+    <div class="ac-home-steps">
+      @for (step of content.howItWorks.steps; track step.title) {
+        <div class="ac-step">
+          <div class="ac-step__icon">
+            <fa-icon [icon]="['fas', step.icon]"></fa-icon>
           </div>
-          <div class="tech-feature mb-4">
-            <h4>
-              <fa-icon
-                [icon]="['fas', 'droplet']"
-                class="text-primary me-2"
-              ></fa-icon>
-              AI-Powered Analytics
-            </h4>
-            <p>
-              Advanced algorithms analyze water data to provide insights and
-              recommendations for sustainable practices.
-            </p>
-          </div>
-          <div class="tech-feature mb-4">
-            <h4>
-              <fa-icon
-                [icon]="['fas', 'droplet']"
-                class="text-primary me-2"
-              ></fa-icon>
-              IoT Integration
-            </h4>
-            <p>
-              Seamless connection with IoT sensors for real-time water quality
-              and quantity monitoring.
-            </p>
-          </div>
-          <div class="tech-feature">
-            <h4>
-              <fa-icon
-                [icon]="['fas', 'droplet']"
-                class="text-primary me-2"
-              ></fa-icon>
-              Reward Mechanisms
-            </h4>
-            <p>
-              Token-based incentives for sustainable water management practices
-              and data contributions.
-            </p>
-          </div>
+          <h3 class="ac-step__title">{{ step.title }}</h3>
+          <p class="ac-step__body">{{ step.body }}</p>
         </div>
-      </div>
+      }
     </div>
   </div>
 </section>
-<section class="cta-section py-5 text-light">
-  <div class="container text-center">
-    <h2 class="mb-4">Ready to Revolutionize Water Management?</h2>
-    <p class="lead mb-4">
-      Explore our platform and see how blockchain technology can create a more
-      sustainable water future.
-    </p>
-    <a
-      class="btn btn-light btn-lg"
-      [routerLink]="['/citizen-science']"
-      >View Demo Script</a
-    >
+
+<section class="ac-section ac-home-stack">
+  <div class="ac-container">
+    <p class="ac-kicker">{{ content.stack.title }}</p>
+    <div class="ac-stack-badges">
+      @for (item of content.stack.items; track item) {
+        <span class="ac-stack-badge">{{ item }}</span>
+      }
+    </div>
   </div>
+</section>
+
+<section class="ac-section ac-home-cta">
+  <div class="ac-container">
+    <h2 class="ac-section-title">{{ content.closingCta.title }}</h2>
+    <p class="ac-home-cta__lead">{{ content.closingCta.body }}</p>
+    <div class="ac-home-cta__actions">
+      <a class="ac-btn ac-btn--amber ac-btn--lg" [routerLink]="content.closingCta.primary.route">
+        {{ content.closingCta.primary.label }}
+      </a>
+      <a class="ac-btn ac-btn--ghost-light ac-btn--lg" [routerLink]="content.closingCta.secondary.route">
+        {{ content.closingCta.secondary.label }}
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="ac-section ac-home-team">
+  <img
+    [src]="content.teamStrip.photo.src"
+    [alt]="content.teamStrip.photo.alt"
+    width="900"
+    height="500"
+    loading="lazy"
+  />
 </section>

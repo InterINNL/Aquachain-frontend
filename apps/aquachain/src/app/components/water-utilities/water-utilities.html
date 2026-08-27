@@ -1,59 +1,31 @@
-<div class="module-header text-white py-4">
-  <div class="container">
-    <h1>
-      <fa-icon [icon]="['fas', 'chart-line']" class="me-2"></fa-icon>
-      Water Utilities
-    </h1>
-    <p class="lead mb-0">
-      Register utilities, log usage and savings, validate, and issue footprint
-      certificates
-    </p>
-  </div>
+<module-shell moduleKey="water-utilities">
+  <wallet-banner *ngIf="walletWarning"></wallet-banner>
+
+  <div
+    *ngIf="missingContract"
+    class="ac-alert-banner ac-alert-banner--info"
+    role="alert"
+  >
+  Contract not configured. Deploy the utility-water-footprint contract locally
+  and set <code>UtilityWaterFootprintContractAddress</code> in the app
+  environment.
 </div>
 
-<div
-  *ngIf="walletWarning"
-  class="alert alert-warning d-flex align-items-center container py-4 mb-2"
-  role="alert"
->
-  <i class="fas fa-exclamation-triangle me-2 text-danger fs-4"></i>
-  <span class="text-danger-emphasis">
-    <strong>Keplr Wallet required:</strong> Please install the extension from
-    <a
-      href="https://www.keplr.app/download"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="alert-link"
-      >keplr.app</a
-    >.
-  </span>
-</div>
-
-<div
-  *ngIf="missingContract"
-  class="alert alert-info container mt-3"
-  role="alert"
->
-  Set <code>UtilityWaterFootprintContractAddress</code> in
-  <code>apps/aquachain/src/environments/environment.ts</code> after
-  <code>make deploy</code> in the utility-water-footprint contract crate
-  (address is written to <code>contract_addr.txt</code>).
-</div>
-
-<div class="container py-4" *ngIf="!missingContract">
+<div *ngIf="!missingContract">
   <div class="row g-3">
     <div class="col-lg-5">
-      <div class="card mb-3">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">Companies</h5>
-          <span class="badge bg-primary" *ngIf="amVerifier">Verifier</span>
+      <div class="ac-card mb-3">
+        <div class="ac-card__header d-flex justify-content-between align-items-center">
+          <h5>Companies</h5>
+          <span class="ac-badge" *ngIf="amVerifier">Verifier</span>
         </div>
-        <div class="card-body">
-          <div *ngIf="loadingCompanies" class="text-center py-3">
-            <i class="fas fa-spinner fa-spin me-2"></i> Loading…
+        <div class="ac-card__body">
+          <div *ngIf="loadingCompanies" class="ac-loading">
+            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+            Loading…
           </div>
           <div class="table-responsive" *ngIf="!loadingCompanies">
-            <table class="table table-hover align-middle mb-0">
+            <table class="ac-data-table align-middle mb-0">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -65,7 +37,7 @@
               <tbody>
                 <tr
                   *ngFor="let company of companies"
-                  [class.table-active]="selected?.id === company.id"
+                  [class.is-selected]="selected?.id === company.id"
                 >
                   <td>{{ company.id }}</td>
                   <td>{{ truncate(company.name, 22) }}</td>
@@ -447,3 +419,4 @@
     </div>
   </div>
 </div>
+</module-shell>

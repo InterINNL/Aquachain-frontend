@@ -1,0 +1,37 @@
+<footer class="ac-footer">
+  <div class="ac-container ac-footer__grid">
+    <div class="ac-footer__brand">
+      <strong class="ac-footer__name">{{ content.name }}</strong>
+      <p class="ac-footer__tagline">{{ content.tagline }}</p>
+      <p class="ac-footer__note">{{ content.description }}</p>
+    </div>
+
+    <div class="ac-footer__col">
+      <h3>Modules</h3>
+      @for (mod of content.modules; track mod.id) {
+        <a [routerLink]="mod.route">{{ mod.name }}</a>
+      }
+    </div>
+
+    <div class="ac-footer__col">
+      <h3>Resources</h3>
+      <a
+        [href]="content.githubFrontend"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Frontend repo</a
+      >
+      <a
+        [href]="content.githubContracts"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Contracts repo</a
+      >
+      <a [href]="content.interinnlUrl">Back to InterINNL</a>
+    </div>
+  </div>
+
+  <div class="ac-container ac-footer__bottom">
+    <p>© {{ year }} AquaChain · InterINNL hackathon project</p>
+  </div>
+</footer>

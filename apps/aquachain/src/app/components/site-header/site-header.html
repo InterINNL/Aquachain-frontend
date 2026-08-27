@@ -1,0 +1,63 @@
+<header class="ac-header">
+  <div class="ac-header__inner ac-container">
+    <a class="ac-header__brand" routerLink="/" (click)="close()">
+      <span class="ac-header__mark" aria-hidden="true">
+        <fa-icon [icon]="['fas', 'droplet']"></fa-icon>
+      </span>
+      <span class="ac-header__name">{{ content.name }}</span>
+    </a>
+
+    <nav class="ac-header__nav" aria-label="AquaChain">
+      @for (item of content.nav; track item.route) {
+        <a
+          class="ac-header__link"
+          [routerLink]="item.route"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+        >
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+
+    <a class="ac-header__back" [href]="content.interinnlUrl">InterINNL</a>
+
+    <button
+      type="button"
+      class="ac-header__burger"
+      [attr.aria-expanded]="open()"
+      aria-controls="ac-drawer"
+      aria-label="Menu"
+      (click)="toggle()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  @if (open()) {
+    <button
+      type="button"
+      class="ac-header__overlay"
+      aria-label="Close menu"
+      (click)="close()"
+    ></button>
+    <nav id="ac-drawer" class="ac-header__drawer" aria-label="Mobile">
+      @for (item of content.nav; track item.route) {
+        <a
+          class="ac-header__drawer-link"
+          [routerLink]="item.route"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+          (click)="close()"
+        >
+          {{ item.label }}
+        </a>
+      }
+      <a class="ac-header__drawer-back" [href]="content.interinnlUrl" (click)="close()">
+        Back to InterINNL
+      </a>
+    </nav>
+  }
+</header>

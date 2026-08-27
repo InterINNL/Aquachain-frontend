@@ -30,10 +30,19 @@ import {
   UsageLog,
   WaterFootprintService,
 } from '@services/water-footprint/water-footprint';
+import { ModuleShell } from '../module-shell/module-shell';
+import { WalletBanner } from '../shared/wallet-banner/wallet-banner';
 
 @Component({
   selector: 'water-utilities',
-  imports: [CommonModule, FontAwesomeModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ModuleShell,
+    WalletBanner,
+  ],
   templateUrl: './water-utilities.html',
   styleUrl: './water-utilities.scss',
   changeDetection: ChangeDetectionStrategy.Default,

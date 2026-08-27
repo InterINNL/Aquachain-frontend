@@ -1,102 +1,68 @@
-<div class="module-header bg-info text-white py-4">
-  <div class="container">
-    <h1>
-      <fa-icon [icon]="['fas', 'microscope']" class="me-2"></fa-icon>
-      Citizen Science
-    </h1>
-    <p class="lead mb-0">
-      Monitor water quality and quantity to earn rewards for verified data
-    </p>
+<module-shell moduleKey="citizen-science">
+  <wallet-banner *ngIf="walletWarning"></wallet-banner>
+
+  <div class="ac-tab-bar" role="tablist">
+    <button
+      type="button"
+      class="ac-tab-bar__tab"
+      role="tab"
+      *ngFor="let tab of tabs; let i = index"
+      [class.is-active]="activeTab === i"
+      [attr.aria-selected]="activeTab === i"
+      (click)="setActiveTab(i)"
+    >
+      <fa-icon [icon]="tab.icon" class="me-1"></fa-icon>
+      {{ tab.label }}
+    </button>
   </div>
-</div>
-<div
-  *ngIf="walletWarning"
-  class="alert alert-warning d-flex align-items-center container py-4 mb-2"
-  role="alert"
->
-  <i class="fas fa-exclamation-triangle me-2 text-danger fs-4"></i>
-  <span class="text-danger-emphasis">
-    <strong>Keplr Wallet required:</strong> Please install the extension from
-    <a
-      href="https://www.keplr.app/download"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="alert-link"
-      >keplr.app</a
-    >.
-  </span>
-  <i class="fas fa-exclamation-triangle ms-1 text-danger fs-4"></i>
-</div>
-<div class="container py-4">
-  <ul class="nav nav-tabs mb-4">
-    <li class="nav-item" *ngFor="let tab of tabs; let i = index">
-      <button
-        class="nav-link"
-        [class.active]="activeTab === i"
-        (click)="setActiveTab(i)"
-      >
-        <fa-icon [icon]="tab.icon" class="me-2"></fa-icon>
-        {{ tab.label }}
-      </button>
-    </li>
-  </ul>
 
   <!-- Dashboard -->
   <div *ngIf="activeTab === 0" class="dashboard-tab">
-    <div *ngIf="loadingDashboard" class="text-center py-5">
-      <i class="fas fa-spinner fa-spin me-2"></i> Loading dashboard…
+    <div *ngIf="loadingDashboard" class="ac-loading">
+      <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+      Loading dashboard…
     </div>
     <ng-container *ngIf="!loadingDashboard">
       <div class="row g-3 mb-4">
         <div class="col-6 col-md-3">
-          <div class="card kpi-card h-100">
-            <div class="card-body">
-              <div class="text-muted small">Total sensors</div>
-              <div class="fs-3 fw-semibold">{{ dashboardTotal }}</div>
+          <div class="ac-kpi">
+            <div class="ac-kpi__label">Total sensors</div>
+            <div class="ac-kpi__value">{{ dashboardTotal }}</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="ac-kpi">
+            <div class="ac-kpi__label">Active</div>
+            <div class="ac-kpi__value ac-kpi__value--success">
+              {{ dashboardActive }}
             </div>
           </div>
         </div>
         <div class="col-6 col-md-3">
-          <div class="card kpi-card h-100">
-            <div class="card-body">
-              <div class="text-muted small">Active</div>
-              <div class="fs-3 fw-semibold text-success">
-                {{ dashboardActive }}
-              </div>
+          <div class="ac-kpi">
+            <div class="ac-kpi__label">Proposed</div>
+            <div class="ac-kpi__value ac-kpi__value--warning">
+              {{ dashboardProposed }}
             </div>
           </div>
         </div>
         <div class="col-6 col-md-3">
-          <div class="card kpi-card h-100">
-            <div class="card-body">
-              <div class="text-muted small">Proposed</div>
-              <div class="fs-3 fw-semibold text-warning">
-                {{ dashboardProposed }}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="card kpi-card h-100">
-            <div class="card-body">
-              <div class="text-muted small">Inactive</div>
-              <div class="fs-3 fw-semibold text-secondary">
-                {{ dashboardInactive }}
-              </div>
-            </div>
+          <div class="ac-kpi">
+            <div class="ac-kpi__label">Inactive</div>
+            <div class="ac-kpi__value">{{ dashboardInactive }}</div>
           </div>
         </div>
       </div>
 
       <div class="row g-3">
         <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-header">
-              <h5 class="mb-0">Recent sensors</h5>
+          <div class="ac-card h-100">
+            <div class="ac-card__header">
+              <h5>Recent sensors</h5>
             </div>
-            <div class="card-body p-0">
+            <div class="ac-card__body p-0">
               <div class="table-responsive">
-                <table class="table table-sm table-hover mb-0">
+                <table class="ac-data-table">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -131,16 +97,16 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-header d-flex justify-content-between">
-              <h5 class="mb-0">Recent data entries</h5>
-              <span class="badge bg-secondary align-self-center"
+          <div class="ac-card h-100">
+            <div class="ac-card__header d-flex justify-content-between align-items-center">
+              <h5>Recent data entries</h5>
+              <span class="ac-badge ac-badge--muted"
                 >{{ dashboardUnverified }} unverified on this page</span
               >
             </div>
-            <div class="card-body p-0">
+            <div class="ac-card__body p-0">
               <div class="table-responsive">
-                <table class="table table-sm table-hover mb-0">
+                <table class="ac-data-table">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -641,7 +607,9 @@
             >
           </div>
           <div class="card-body p-0">
-            <div #mapContainer class="sensor-map"></div>
+            <div class="ac-map-frame">
+              <div #mapContainer class="sensor-map"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -780,4 +748,4 @@
       </div>
     </div>
   </div>
-</div>
+</module-shell>

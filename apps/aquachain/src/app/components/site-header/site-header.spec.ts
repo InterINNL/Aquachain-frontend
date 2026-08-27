@@ -5,26 +5,27 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { Navbar } from './navbar';
+import { SiteHeader } from './site-header';
 
-describe('Navbar', () => {
-  let component: Navbar;
-  let fixture: ComponentFixture<Navbar>;
+describe('SiteHeader', () => {
+  let fixture: ComponentFixture<SiteHeader>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Navbar, FontAwesomeModule],
+      imports: [SiteHeader, FontAwesomeModule],
       providers: [provideRouter([]), FaIconLibrary],
     }).compileComponents();
 
     TestBed.inject(FaIconLibrary).addIconPacks(fas);
-
-    fixture = TestBed.createComponent(Navbar);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(SiteHeader);
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('should show AquaChain brand', () => {
+    expect(fixture.nativeElement.textContent).toContain('AquaChain');
   });
 });

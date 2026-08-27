@@ -27,4 +27,10 @@ describe('Home', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show hero title', () => {
+    expect(fixture.nativeElement.textContent).toContain(
+      'Water decisions backed by verifiable data',
+    );
+  });
 });
