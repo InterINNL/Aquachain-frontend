@@ -13,8 +13,8 @@ export interface Sensor {
 }
 
 export interface SensorLocation {
-  lat: number;
-  lng: number;
+  lat: string | number;
+  lng: string | number;
   description?: string;
 }
 
