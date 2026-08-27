@@ -4,6 +4,7 @@ import {
   CosmWasmClient,
   SigningCosmWasmClient,
 } from '@cosmjs/cosmwasm-stargate';
+import { GasPrice } from '@cosmjs/stargate';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -69,7 +70,9 @@ export class WalletService {
 
   async connectWallet(): Promise<string> {
     if (typeof this.window === 'undefined' || !this.window?.keplr) {
-      throw new Error('Keplr extension not found. Install Keplr and unlock it.');
+      throw new Error(
+        'Keplr extension not found. Install Keplr and unlock it.',
+      );
     }
 
     if (!this.chainSuggested) {
@@ -84,6 +87,16 @@ export class WalletService {
 
     await this.window.keplr.enable(this.chainId);
 
+    // Keplr overwrites CosmJS fees with its chain gasPriceStep unless disabled.
+    this.window.keplr.defaultOptions = {
+      ...(this.window.keplr.defaultOptions ?? {}),
+      sign: {
+        ...(this.window.keplr.defaultOptions?.sign ?? {}),
+        preferNoSetFee: true,
+        preferNoSetMemo: true,
+      },
+    };
+
     const offlineSigner =
       this.window.keplr.getOfflineSigner?.(this.chainId) ??
       this.window.getOfflineSigner?.(this.chainId);
@@ -94,7 +107,9 @@ export class WalletService {
 
     const [accounts, signingClient] = await Promise.all([
       offlineSigner.getAccounts(),
-      SigningCosmWasmClient.connectWithSigner(this.rpcEndpoint, offlineSigner),
+      SigningCosmWasmClient.connectWithSigner(this.rpcEndpoint, offlineSigner, {
+        gasPrice: GasPrice.fromString(environment.gasPrice),
+      }),
     ]);
 
     if (!accounts[0]?.address) {
@@ -144,11 +159,11 @@ export class WalletService {
           coinDenom: denom,
           coinMinimalDenom: minimal,
           coinDecimals: decimals,
-            gasPriceStep: {
-              low: 0.05,
-              average: 0.1,
-              high: 0.25,
-            },
+          gasPriceStep: {
+            low: 0.05,
+            average: 0.1,
+            high: 0.25,
+          },
         },
       ],
       features: ['cosmwasm'],
