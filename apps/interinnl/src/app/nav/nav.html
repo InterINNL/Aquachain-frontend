@@ -1,6 +1,6 @@
 <header class="innl-nav">
   <div class="innl-nav__inner">
-    <a class="innl-nav__brand" href="/">
+    <a class="innl-nav__brand" href="/" (click)="close()">
       <img
         src="/interinnl-logo.png"
         alt="InterINNL"
@@ -9,13 +9,48 @@
         height="48"
       />
       <span class="innl-nav__name">InterINNL</span>
+      <innl-flags class="innl-nav__flags" />
     </a>
+
     <nav class="innl-nav__links" aria-label="InterINNL">
       <a href="#mission">Mission</a>
+      <a href="#people">People</a>
       <a href="#projects">Projects</a>
       <a href="#events">Events</a>
+      <a href="#founders">Founders</a>
       <a href="#join">Join</a>
       <a class="innl-nav__cta" href="/aquachain/">AquaChain</a>
     </nav>
+
+    <button
+      type="button"
+      class="innl-nav__burger"
+      [attr.aria-expanded]="open()"
+      aria-controls="innl-drawer"
+      aria-label="Menu"
+      (click)="toggle()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
+
+  @if (open()) {
+    <button
+      type="button"
+      class="innl-nav__overlay"
+      aria-label="Close menu"
+      (click)="close()"
+    ></button>
+    <nav id="innl-drawer" class="innl-nav__drawer" aria-label="Mobile">
+      <a href="#mission" (click)="close()">Mission</a>
+      <a href="#people" (click)="close()">People</a>
+      <a href="#projects" (click)="close()">Projects</a>
+      <a href="#events" (click)="close()">Events</a>
+      <a href="#founders" (click)="close()">Founders</a>
+      <a href="#join" (click)="close()">Join</a>
+      <a class="innl-nav__cta" href="/aquachain/" (click)="close()">AquaChain</a>
+    </nav>
+  }
 </header>

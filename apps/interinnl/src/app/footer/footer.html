@@ -1,12 +1,52 @@
 <footer class="innl-footer">
-  <div class="innl-footer__inner">
-    <div>
+  <div class="innl-footer__grid">
+    <div class="innl-footer__brand">
+      <img
+        src="/interinnl-logo.png"
+        alt=""
+        width="56"
+        height="56"
+        class="innl-footer__logo"
+      />
       <strong>{{ content.name }}</strong>
       <p>{{ content.tagline }}</p>
       <p class="innl-footer__motto">{{ content.motto }}</p>
+      <innl-flags size="lg" />
     </div>
-    <div class="innl-footer__links">
-      <a [href]="content.links.githubOrg" rel="noopener noreferrer" target="_blank"
+
+    <div>
+      <h3>Navigate</h3>
+      <a href="#mission">Mission</a>
+      <a href="#people">People</a>
+      <a href="#projects">Projects</a>
+      <a href="#events">Events</a>
+      <a href="#founders">Founders</a>
+      <a href="#join">Join</a>
+    </div>
+
+    <div>
+      <h3>Projects</h3>
+      <a [href]="aquachain.demoPath">AquaChain demo</a>
+      <a
+        [href]="aquachain.githubFrontend"
+        rel="noopener noreferrer"
+        target="_blank"
+        >AquaChain frontend</a
+      >
+      <a
+        [href]="aquachain.githubContracts"
+        rel="noopener noreferrer"
+        target="_blank"
+        >AquaChain contracts</a
+      >
+    </div>
+
+    <div>
+      <h3>Connect</h3>
+      <a
+        [href]="content.links.githubOrg"
+        rel="noopener noreferrer"
+        target="_blank"
         >GitHub</a
       >
       @if (content.links.linkedinGroup) {
@@ -17,6 +57,12 @@
           >LinkedIn group</a
         >
       }
+      <span class="innl-footer__soon">Community feed (coming)</span>
     </div>
+  </div>
+
+  <div class="innl-footer__bar">
+    <span>© {{ year }} InterINNL</span>
+    <span>Photo credits: Unsplash</span>
   </div>
 </footer>

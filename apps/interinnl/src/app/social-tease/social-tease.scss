@@ -1,0 +1,60 @@
+.innl-social {
+  position: relative;
+  background: var(--innl-navy);
+  color: #eef3fa;
+  padding: 4.5rem 1.25rem;
+  overflow: hidden;
+}
+
+.innl-social__accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.45rem;
+  background: var(--innl-saffron);
+}
+
+.innl-social__inner {
+  max-width: 40rem;
+  margin: 0 auto;
+  position: relative;
+}
+
+.innl-social__badge {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--innl-saffron) 25%, transparent);
+  color: var(--innl-saffron-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.innl-social__inner h2 {
+  font-family: var(--innl-display);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  margin: 1rem 0 0.75rem;
+}
+
+.innl-social__inner p {
+  margin: 0 0 1.5rem;
+  line-height: 1.65;
+  opacity: 0.9;
+}
+
+.innl-social__cta {
+  display: inline-flex;
+  padding: 0.7rem 1.2rem;
+  border-radius: 0.45rem;
+  background: var(--innl-saffron);
+  color: var(--innl-navy);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.innl-social__cta:hover {
+  filter: brightness(1.05);
+}

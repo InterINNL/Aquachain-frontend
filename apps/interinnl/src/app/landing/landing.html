@@ -1,16 +1,15 @@
 <div class="innl-page">
   <section class="innl-hero">
-    <div class="innl-hero__glow" aria-hidden="true"></div>
-    <div class="innl-hero__waves" aria-hidden="true"></div>
-    <div class="innl-hero__content">
+    <div class="innl-hero__copy">
       <img
         class="innl-hero__logo"
         src="/interinnl-logo.png"
-        width="280"
-        height="280"
+        width="200"
+        height="200"
         alt="InterINNL logo: India and Netherlands bridge"
       />
       <p class="innl-hero__tag">{{ content.tagline }}</p>
+      <innl-flags size="lg" [labels]="true" />
       <p class="innl-hero__line">{{ content.heroLine }}</p>
       <div class="innl-hero__actions">
         <a class="innl-btn innl-btn--primary" href="#join">Join the community</a>
@@ -19,24 +18,57 @@
         >
       </div>
     </div>
+    <div class="innl-hero__visual">
+      <img
+        [src]="content.heroPhoto.src"
+        [alt]="content.heroPhoto.alt"
+        width="900"
+        height="1100"
+        [style.transform]="'translateY(' + parallax() + 'px)'"
+      />
+      <div class="innl-hero__visual-fade" aria-hidden="true"></div>
+    </div>
   </section>
 
-  <section id="mission" class="innl-section">
-    <div class="innl-section__inner">
+  <innl-stats />
+
+  <innl-stories />
+
+  <section id="mission" class="innl-mission">
+    <div class="innl-mission__text">
       <h2>Mission</h2>
       <p class="innl-lead">{{ content.mission }}</p>
       <p>{{ content.bridge }}</p>
       <p class="innl-motto">{{ content.motto }}</p>
+      <innl-flags size="lg" [labels]="true" />
+    </div>
+    <div class="innl-mission__photo">
+      <img
+        [src]="content.missionPhoto.src"
+        [alt]="content.missionPhoto.alt"
+        width="900"
+        height="700"
+        loading="lazy"
+      />
     </div>
   </section>
 
-  <section id="projects" class="innl-section innl-section--tint">
-    <div class="innl-section__inner">
-      <h2>First project</h2>
-      <article class="innl-project">
-        <h3>{{ aquachain.name }}</h3>
+  <innl-mosaic />
+
+  <section id="projects" class="innl-projects">
+    <div class="innl-projects__inner">
+      <p class="innl-projects__eyebrow">First project</p>
+      <article class="innl-project-card">
+        <div class="innl-project-card__icon" aria-hidden="true">💧</div>
+        <h2>{{ aquachain.name }}</h2>
+        <p class="innl-project-card__note">{{ aquachain.note }}</p>
         <p>{{ aquachain.blurb }}</p>
-        <div class="innl-project__actions">
+        <ul class="innl-project-card__modules">
+          @for (mod of aquachain.modules; track mod) {
+            <li>{{ mod }}</li>
+          }
+        </ul>
+        <div class="innl-project-card__actions">
           <a class="innl-btn innl-btn--primary" [href]="aquachain.demoPath"
             >Live demo</a
           >
@@ -45,36 +77,51 @@
             [href]="aquachain.githubFrontend"
             rel="noopener noreferrer"
             target="_blank"
-            >Frontend on GitHub</a
+            >Frontend</a
           >
           <a
             class="innl-btn innl-btn--ghost"
             [href]="aquachain.githubContracts"
             rel="noopener noreferrer"
             target="_blank"
-            >Contracts on GitHub</a
+            >Contracts</a
           >
         </div>
       </article>
     </div>
   </section>
 
-  <section id="events" class="innl-section">
-    <div class="innl-section__inner">
-      <h2>Events</h2>
-      <p class="innl-lead">{{ content.events }}</p>
+  <section id="events" class="innl-events">
+    <div class="innl-events__inner">
+      <article class="innl-event-card">
+        <span class="innl-event-card__badge">{{ content.events.badge }}</span>
+        <h2>{{ content.events.title }}</h2>
+        <p class="innl-event-card__when">{{ content.events.when }}</p>
+        <p>{{ content.events.blurb }}</p>
+        <a class="innl-btn innl-btn--primary" [href]="content.events.ctaHref">{{
+          content.events.ctaLabel
+        }}</a>
+      </article>
     </div>
   </section>
 
-  <section id="join" class="innl-section innl-section--tint">
-    <div class="innl-section__inner">
-      <h2>Join</h2>
-      <p class="innl-lead">
+  <innl-founders />
+
+  <innl-social-tease />
+
+  <section id="join" class="innl-join-band">
+    <div class="innl-join-band__inner">
+      <div class="innl-join-band__flags">
+        <innl-flags size="lg" />
+      </div>
+      <h2>Join InterINNL</h2>
+      <p>
         Build with us on GitHub. Meet people across India and the Netherlands.
+        Families, students, engineers: same bridge.
       </p>
-      <div class="innl-join">
+      <div class="innl-hero__actions">
         <a
-          class="innl-btn innl-btn--primary"
+          class="innl-btn innl-btn--light"
           [href]="content.links.githubOrg"
           rel="noopener noreferrer"
           target="_blank"
@@ -82,7 +129,7 @@
         >
         @if (content.links.linkedinGroup) {
           <a
-            class="innl-btn innl-btn--ghost"
+            class="innl-btn innl-btn--outline-light"
             [href]="content.links.linkedinGroup"
             rel="noopener noreferrer"
             target="_blank"

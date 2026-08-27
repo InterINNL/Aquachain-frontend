@@ -3,145 +3,280 @@
 }
 
 .innl-hero {
-  position: relative;
-  min-height: min(92vh, 52rem);
   display: grid;
-  place-items: center;
+  grid-template-columns: 1fr;
+  min-height: min(92vh, 48rem);
   overflow: hidden;
   background:
     radial-gradient(
-      120% 80% at 50% -10%,
-      color-mix(in srgb, var(--innl-saffron) 22%, transparent),
+      90% 70% at 10% 0%,
+      color-mix(in srgb, var(--innl-saffron) 20%, transparent),
       transparent 55%
     ),
     linear-gradient(
       165deg,
       #e8f1fa 0%,
-      #f7fafc 42%,
-      color-mix(in srgb, var(--innl-water) 18%, #f7fafc) 100%
+      #f7fafc 50%,
+      color-mix(in srgb, var(--innl-water) 16%, #f7fafc) 100%
     );
 }
 
-.innl-hero__glow {
-  position: absolute;
-  inset: 18% auto auto 55%;
-  width: 22rem;
-  height: 22rem;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--innl-india-green) 16%, transparent);
-  filter: blur(48px);
-  pointer-events: none;
-  animation: innl-float 9s ease-in-out infinite;
-}
-
-.innl-hero__waves {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 7rem;
-  background:
-    radial-gradient(
-        ellipse 80% 60% at 20% 100%,
-        color-mix(in srgb, var(--innl-water) 35%, transparent),
-        transparent 70%
-      ),
-      radial-gradient(
-        ellipse 70% 50% at 70% 110%,
-        color-mix(in srgb, var(--innl-navy) 18%, transparent),
-        transparent 70%
-      );
-  animation: innl-wave 7s ease-in-out infinite alternate;
-}
-
-.innl-hero__content {
-  position: relative;
-  z-index: 1;
-  max-width: 40rem;
-  padding: 2.5rem 1.25rem 4rem;
-  text-align: center;
-  animation: innl-rise 0.9s ease-out both;
+.innl-hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2.5rem 1.25rem 2rem;
+  max-width: 36rem;
+  margin: 0 auto;
+  width: 100%;
+  animation: innl-rise 0.85s ease-out both;
 }
 
 .innl-hero__logo {
-  width: min(18rem, 72vw);
+  width: min(10rem, 42vw);
   height: auto;
-  margin: 0 auto 1.25rem;
-  filter: drop-shadow(0 18px 28px color-mix(in srgb, var(--innl-navy) 18%, transparent));
+  margin-bottom: 1rem;
+  filter: drop-shadow(
+    0 14px 24px color-mix(in srgb, var(--innl-navy) 16%, transparent)
+  );
 }
 
 .innl-hero__tag {
-  margin: 0;
+  margin: 0 0 0.65rem;
   font-family: var(--innl-display);
-  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-  letter-spacing: 0.14em;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  letter-spacing: 0.12em;
   font-weight: 600;
-  color: var(--innl-navy);
 }
 
 .innl-hero__line {
-  margin: 1rem auto 1.75rem;
-  max-width: 34rem;
-  font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+  margin: 1rem 0 1.5rem;
+  font-size: clamp(1.05rem, 2.3vw, 1.25rem);
   line-height: 1.55;
-  color: color-mix(in srgb, var(--innl-navy) 88%, #000);
+  color: color-mix(in srgb, var(--innl-navy) 90%, #000);
 }
 
-.innl-hero__actions,
-.innl-project__actions,
-.innl-join {
+.innl-hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  justify-content: center;
 }
 
-.innl-section {
-  padding: 4.5rem 1.25rem;
+.innl-hero__visual {
+  position: relative;
+  min-height: 16rem;
+  overflow: hidden;
 }
 
-.innl-section--tint {
-  background: color-mix(in srgb, var(--innl-water) 10%, #fff);
+.innl-hero__visual img {
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  object-fit: cover;
+  will-change: transform;
 }
 
-.innl-section__inner {
-  max-width: 42rem;
+.innl-hero__visual-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 55%,
+    color-mix(in srgb, var(--innl-cream) 70%, transparent)
+  );
+  pointer-events: none;
+}
+
+.innl-mission {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: var(--innl-max);
   margin: 0 auto;
+  padding: 4rem 1.25rem;
 }
 
-.innl-section h2 {
+.innl-mission__text {
+  padding: 0.5rem 0 2rem;
+  border-left: 4px solid var(--innl-saffron);
+  padding-left: 1.25rem;
+}
+
+.innl-mission__text h2 {
   font-family: var(--innl-display);
-  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
   margin: 0 0 1rem;
-}
-
-.innl-section h3 {
-  font-family: var(--innl-display);
-  font-size: 1.35rem;
-  margin: 0 0 0.65rem;
 }
 
 .innl-lead {
   font-size: 1.12rem;
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 0 0 1rem;
 }
 
 .innl-motto {
-  margin-top: 1.5rem;
-  letter-spacing: 0.16em;
+  margin: 1.25rem 0 1rem;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--innl-india-green);
+}
+
+.innl-mission__photo {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  min-height: 16rem;
+}
+
+.innl-mission__photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 16rem;
+  object-fit: cover;
+}
+
+.innl-projects {
+  padding: 4rem 1.25rem;
+  background: #fff;
+}
+
+.innl-projects__inner {
+  max-width: var(--innl-max);
+  margin: 0 auto;
+}
+
+.innl-projects__eyebrow {
+  margin: 0 0 0.75rem;
   font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--innl-water);
+}
+
+.innl-project-card {
+  padding: 2rem 1.5rem;
+  border-radius: 0.85rem;
+  background: color-mix(in srgb, var(--innl-water) 14%, #fff);
+  border: 1px solid color-mix(in srgb, var(--innl-water) 30%, transparent);
+}
+
+.innl-project-card__icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.innl-project-card h2 {
+  font-family: var(--innl-display);
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  margin: 0 0 0.35rem;
+}
+
+.innl-project-card__note {
+  margin: 0 0 1rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--innl-india-green);
 }
 
-.innl-project {
-  padding-top: 0.25rem;
+.innl-project-card__modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 1.5rem;
 }
 
-.innl-project__actions {
-  margin-top: 1.25rem;
-  justify-content: flex-start;
+.innl-project-card__modules li {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--innl-navy) 12%, transparent);
+}
+
+.innl-project-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.innl-events {
+  padding: 3.5rem 1.25rem 4.5rem;
+  background: color-mix(in srgb, var(--innl-saffron) 8%, #fff);
+}
+
+.innl-events__inner {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.innl-event-card {
+  padding: 2rem 1.5rem;
+  border-radius: 0.85rem;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--innl-saffron) 35%, transparent);
+}
+
+.innl-event-card__badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: var(--innl-saffron-light);
+  color: color-mix(in srgb, var(--innl-saffron) 40%, #000);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.innl-event-card h2 {
+  font-family: var(--innl-display);
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  margin: 0.85rem 0 0.35rem;
+}
+
+.innl-event-card__when {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.innl-join-band {
+  background: var(--innl-india-green);
+  color: #fff;
+  padding: 4.5rem 1.25rem;
+  text-align: center;
+}
+
+.innl-join-band__inner {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.innl-join-band__flags {
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 20%));
+}
+
+.innl-join-band h2 {
+  font-family: var(--innl-display);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin: 0 0 0.85rem;
+}
+
+.innl-join-band p {
+  margin: 0 0 1.5rem;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+.innl-join-band .innl-hero__actions {
+  justify-content: center;
 }
 
 .innl-btn {
@@ -156,7 +291,8 @@
   transition:
     transform 0.2s ease,
     background 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .innl-btn:hover {
@@ -182,10 +318,25 @@
   border-color: var(--innl-navy);
 }
 
+.innl-btn--light {
+  background: #fff;
+  color: var(--innl-india-green);
+}
+
+.innl-btn--outline-light {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgb(255 255 255 / 70%);
+}
+
+.innl-btn--outline-light:hover {
+  border-color: #fff;
+}
+
 @keyframes innl-rise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -193,33 +344,65 @@
   }
 }
 
-@keyframes innl-float {
-  0%,
-  100% {
-    transform: translate(0, 0);
+@media (min-width: 860px) {
+  .innl-hero {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: stretch;
   }
-  50% {
-    transform: translate(-1.5rem, 1rem);
-  }
-}
 
-@keyframes innl-wave {
-  from {
-    opacity: 0.7;
-    transform: translateY(0);
+  .innl-hero__copy {
+    margin: 0;
+    padding: 3.5rem 2rem 3.5rem clamp(1.5rem, 6vw, 5rem);
+    max-width: none;
   }
-  to {
-    opacity: 1;
-    transform: translateY(-0.4rem);
+
+  .innl-hero__visual {
+    min-height: 100%;
+  }
+
+  .innl-hero__visual img {
+    min-height: 100%;
+    height: min(92vh, 48rem);
+  }
+
+  .innl-hero__visual-fade {
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, #e8f1fa 88%, transparent),
+      transparent 35%
+    );
+  }
+
+  .innl-mission {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    padding: 5rem 1.25rem;
+  }
+
+  .innl-mission__text {
+    padding: 0 0 0 1.25rem;
+  }
+
+  .innl-mission__photo {
+    min-height: 22rem;
+  }
+
+  .innl-mission__photo img {
+    min-height: 22rem;
+  }
+
+  .innl-project-card {
+    padding: 2.5rem 2.25rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .innl-hero__glow,
-  .innl-hero__waves,
-  .innl-hero__content,
-  .innl-btn {
+  .innl-hero__copy,
+  .innl-btn,
+  .innl-hero__visual img {
     animation: none !important;
     transition: none !important;
+    transform: none !important;
   }
 }

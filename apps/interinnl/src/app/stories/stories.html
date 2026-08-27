@@ -1,0 +1,66 @@
+<section id="people" class="innl-stories">
+  <div class="innl-stories__head">
+    <h2>People of InterINNL</h2>
+    <p>
+      Engineers, students and builders who crossed the bridge. Names are
+      composite stories from our community voice.
+    </p>
+  </div>
+
+  <div class="innl-stories__wrap">
+    <button
+      type="button"
+      class="innl-stories__arrow innl-stories__arrow--prev"
+      aria-label="Previous story"
+      (click)="prev()"
+    >
+      ‹
+    </button>
+
+    <div
+      class="innl-stories__track"
+      #track
+      (scroll)="onScroll()"
+      tabindex="0"
+    >
+      @for (story of stories; track story.name) {
+        <article class="innl-stories__card">
+          <img
+            [src]="story.photo.src"
+            [alt]="story.photo.alt"
+            width="320"
+            height="320"
+            loading="lazy"
+          />
+          <div class="innl-stories__body">
+            <h3>{{ story.name }}</h3>
+            <p class="innl-stories__origin">{{ story.origin }}</p>
+            <p class="innl-stories__role">{{ story.role }}</p>
+            <blockquote>{{ story.quote }}</blockquote>
+          </div>
+        </article>
+      }
+    </div>
+
+    <button
+      type="button"
+      class="innl-stories__arrow innl-stories__arrow--next"
+      aria-label="Next story"
+      (click)="next()"
+    >
+      ›
+    </button>
+  </div>
+
+  <div class="innl-stories__dots" role="tablist" aria-label="Stories">
+    @for (story of stories; track story.name; let i = $index) {
+      <button
+        type="button"
+        class="innl-stories__dot"
+        [class.innl-stories__dot--on]="index() === i"
+        [attr.aria-label]="'Go to story ' + (i + 1)"
+        (click)="go(i)"
+      ></button>
+    }
+  </div>
+</section>

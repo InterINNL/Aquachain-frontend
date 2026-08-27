@@ -1,14 +1,14 @@
 .innl-nav {
   position: sticky;
   top: 0;
-  z-index: 40;
-  backdrop-filter: blur(10px);
-  background: color-mix(in srgb, #f7fafc 88%, transparent);
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, #f7fafc 90%, transparent);
   border-bottom: 1px solid color-mix(in srgb, var(--innl-navy) 10%, transparent);
 }
 
 .innl-nav__inner {
-  max-width: 72rem;
+  max-width: var(--innl-max);
   margin: 0 auto;
   padding: 0.75rem 1.25rem;
   display: flex;
@@ -20,29 +20,35 @@
 .innl-nav__brand {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.55rem;
   text-decoration: none;
   color: var(--innl-navy);
+  min-width: 0;
 }
 
 .innl-nav__logo {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.6rem;
+  height: 2.6rem;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 .innl-nav__name {
   font-family: var(--innl-display);
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   letter-spacing: 0.02em;
 }
 
+.innl-nav__flags {
+  margin-left: 0.15rem;
+}
+
 .innl-nav__links {
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.85rem 1.1rem;
+  gap: 0.75rem 1rem;
   font-size: 0.92rem;
 }
 
@@ -57,15 +63,100 @@
 }
 
 .innl-nav__cta {
-  padding: 0.35rem 0.85rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 0.45rem;
   background: var(--innl-navy);
   color: #fff !important;
   opacity: 1 !important;
+  font-weight: 600;
+  text-decoration: none;
 }
 
-@media (max-width: 640px) {
-  .innl-nav__links a:not(.innl-nav__cta) {
+.innl-nav__burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.45rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.innl-nav__burger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--innl-navy);
+  border-radius: 1px;
+}
+
+.innl-nav__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(11 44 92 / 35%);
+  z-index: 48;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.innl-nav__drawer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 49;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 1rem 1.25rem 1.5rem;
+  background: #fff;
+  border-bottom: 1px solid color-mix(in srgb, var(--innl-navy) 12%, transparent);
+  box-shadow: 0 12px 28px rgb(11 44 92 / 12%);
+  animation: innl-drawer-in 0.22s ease-out;
+}
+
+.innl-nav__drawer a {
+  padding: 0.75rem 0.35rem;
+  color: var(--innl-navy);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--innl-navy) 8%, transparent);
+}
+
+.innl-nav__drawer .innl-nav__cta {
+  margin-top: 0.75rem;
+  text-align: center;
+  border: 0;
+}
+
+@keyframes innl-drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 900px) {
+  .innl-nav__links {
+    display: flex;
+  }
+
+  .innl-nav__burger {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .innl-nav__flags {
     display: none;
   }
 }

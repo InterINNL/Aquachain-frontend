@@ -1,0 +1,10 @@
+<section class="innl-stats" #host [class.innl-stats--on]="shown()">
+  <div class="innl-stats__inner">
+    @for (stat of stats; track stat.label) {
+      <div class="innl-stats__item">
+        <span class="innl-stats__value">{{ label(stat) }}</span>
+        <span class="innl-stats__label">{{ stat.label }}</span>
+      </div>
+    }
+  </div>
+</section>

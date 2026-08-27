@@ -1,17 +1,24 @@
 :root {
   --innl-saffron: #ff9933;
+  --innl-saffron-light: #ffe0b8;
   --innl-india-green: #138808;
   --innl-dutch-red: #ae1c28;
   --innl-navy: #0b2c5c;
   --innl-water: #4a90c8;
+  --innl-cream: #f7fafc;
   --innl-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --innl-body: 'Source Sans 3', 'Segoe UI', Tahoma, sans-serif;
+  --innl-max: 72rem;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -24,5 +31,30 @@ body {
   font-family: var(--innl-body);
   line-height: 1.6;
   color: var(--innl-navy);
-  background: #f7fafc;
+  background: var(--innl-cream);
+}
+
+body.innl-drawer-open {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.innl-flag {
+  display: inline-block;
+  width: 1.15rem;
+  height: 0.85rem;
+  vertical-align: middle;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 12%);
+  overflow: hidden;
+}
+
+.innl-flag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
