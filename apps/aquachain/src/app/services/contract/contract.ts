@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WalletService } from '../wallet/wallet';
 import { environment } from '@env/environment';
-import { GasPrice } from '@cosmjs/stargate';
+import { calculateFee, GasPrice } from '@cosmjs/stargate';
 
 export interface Sensor {
   id: number;
@@ -99,15 +99,7 @@ export class ContractService {
 
     const gasLimit = Math.ceil(simulatedGas * this.gasMultiplier);
     const gasPrice = GasPrice.fromString(this.gasPriceStr);
-
-    const feeAmount = (
-      gasLimit * parseFloat(gasPrice.amount.toString())
-    ).toFixed(0);
-
-    const fee = {
-      amount: [{ denom: gasPrice.denom, amount: feeAmount }],
-      gas: gasLimit.toString(),
-    };
+    const fee = calculateFee(gasLimit, gasPrice);
 
     // Execute
     const result = await client.execute(sender, contract, msg, fee, memo);

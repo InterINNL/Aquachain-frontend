@@ -144,11 +144,11 @@ export class WalletService {
           coinDenom: denom,
           coinMinimalDenom: minimal,
           coinDecimals: decimals,
-          gasPriceStep: {
-            low: 0.01,
-            average: 0.025,
-            high: 0.04,
-          },
+            gasPriceStep: {
+              low: 0.05,
+              average: 0.1,
+              high: 0.25,
+            },
         },
       ],
       features: ['cosmwasm'],
