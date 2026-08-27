@@ -379,7 +379,15 @@
             <hr />
 
             <h5>Data Entries</h5>
-            <div *ngIf="dataEntries && dataEntries.length > 0; else noEntries">
+            <div *ngIf="loadingViewEntries" class="text-center py-2">
+              <i class="fas fa-spinner fa-spin me-2"></i> Loading…
+            </div>
+            <div
+              *ngIf="
+                !loadingViewEntries && dataEntries && dataEntries.length > 0;
+                else noEntries
+              "
+            >
               <div
                 *ngFor="let entry of dataEntries"
                 class="mb-3 p-2 border rounded"
@@ -402,8 +410,49 @@
               </div>
             </div>
             <ng-template #noEntries>
-              <p>No data entries found.</p>
+              <p *ngIf="!loadingViewEntries">No data entries found.</p>
             </ng-template>
+            <nav class="mt-2" *ngIf="!loadingViewEntries && viewEntriesTotal > 0">
+              <ul
+                class="pagination pagination-sm justify-content-center align-items-center mb-0"
+              >
+                <li
+                  class="page-item"
+                  [class.disabled]="!canGoPrev(viewEntriesPage)"
+                >
+                  <button
+                    class="page-link"
+                    (click)="prevViewEntriesPage()"
+                    [disabled]="!canGoPrev(viewEntriesPage)"
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li class="page-item disabled">
+                  <span class="page-link"
+                    >Page {{ viewEntriesPage }} of
+                    {{ viewEntriesTotalPages }} ({{ viewEntriesTotal }}
+                    total)</span
+                  >
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="
+                    !canGoNext(viewEntriesPage, viewEntriesTotalPages)
+                  "
+                >
+                  <button
+                    class="page-link"
+                    (click)="nextViewEntriesPage()"
+                    [disabled]="
+                      !canGoNext(viewEntriesPage, viewEntriesTotalPages)
+                    "
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </div>
           <div class="card-body" *ngIf="mode !== 'view'">
             <form

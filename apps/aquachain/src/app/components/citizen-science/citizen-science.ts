@@ -79,12 +79,18 @@ export class CitizenScience implements OnInit, OnDestroy {
   sensors: ParsedSensor[] = [];
   dataEntries: ParsedDataEntry[] = [];
   loadingSensors = false;
+  loadingViewEntries = false;
   showOnlyMine = false;
   currentPage = 1;
   pageSize = pageSize;
   totalSensors = 0;
   totalPages = 1;
   pageCursors: number[] = [];
+
+  viewEntriesPage = 1;
+  viewEntriesTotal = 0;
+  viewEntriesTotalPages = 1;
+  viewEntriesCursors: number[] = [];
 
   loadingDashboard = false;
   dashboardActive = 0;
@@ -195,8 +201,10 @@ export class CitizenScience implements OnInit, OnDestroy {
 
   setView(sensor: ParsedSensor) {
     this.selectedSensor = sensor;
-    this.loadDataEntries(sensor.id);
+    this.viewEntriesPage = 1;
+    this.viewEntriesCursors = [];
     this.mode = 'view';
+    void this.loadDataEntries(sensor.id);
     this.scrollToFormHeaderRef();
   }
 
@@ -427,13 +435,49 @@ export class CitizenScience implements OnInit, OnDestroy {
     this.loadRewards();
   }
 
+  nextViewEntriesPage(): void {
+    if (!canGoNext(this.viewEntriesPage, this.viewEntriesTotalPages)) {
+      return;
+    }
+    this.viewEntriesPage++;
+    if (this.selectedSensor) {
+      void this.loadDataEntries(this.selectedSensor.id);
+    }
+  }
+
+  prevViewEntriesPage(): void {
+    if (!canGoPrev(this.viewEntriesPage)) {
+      return;
+    }
+    this.viewEntriesPage--;
+    if (this.selectedSensor) {
+      void this.loadDataEntries(this.selectedSensor.id);
+    }
+  }
+
   async loadDataEntries(sensorId?: number, submitter?: string): Promise<void> {
+    this.loadingViewEntries = true;
+    this.cdr.markForCheck();
     try {
+      const total = await this.contractService.countDataEntries(
+        this.citizenScienceContractAddress,
+        {
+          sensor_id: sensorId,
+          submitter,
+        },
+      );
+      const start_after =
+        this.viewEntriesPage > 1
+          ? this.viewEntriesCursors[this.viewEntriesPage - 2]
+          : undefined;
+
       const rawDataEntries = await this.contractService.listDataEntries(
         this.citizenScienceContractAddress,
         {
           sensor_id: sensorId,
           submitter,
+          start_after,
+          limit: this.pageSize,
         },
       );
 
@@ -442,11 +486,22 @@ export class CitizenScience implements OnInit, OnDestroy {
         .filter((entry): entry is ParsedDataEntry => entry !== null);
 
       this.ngZone.run(() => {
+        this.viewEntriesTotal = total;
+        this.viewEntriesTotalPages = computeTotalPages(total, this.pageSize);
         this.dataEntries = dataEntries;
+        const last = dataEntries[dataEntries.length - 1];
+        if (dataEntries.length === this.pageSize && last) {
+          this.viewEntriesCursors[this.viewEntriesPage - 1] = last.id;
+        }
+        this.loadingViewEntries = false;
         this.cdr.detectChanges();
       });
     } catch (err) {
       console.error('Failed to load data entries:', err);
+      this.ngZone.run(() => {
+        this.loadingViewEntries = false;
+        this.cdr.detectChanges();
+      });
     }
   }
 
