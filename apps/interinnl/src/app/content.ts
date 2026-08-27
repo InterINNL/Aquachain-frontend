@@ -3,23 +3,34 @@
 const u = (id: string, w = 900) =>
   `https://images.unsplash.com/${id}?w=${w}&q=80&fit=crop&auto=format`;
 
+const local = (name: string) => `/photos/${name}`;
+
 export const interinnlContent = {
   name: 'InterINNL',
   tagline: 'INDIA • NETHERLANDS • NEXT LEVEL',
   motto: 'BUILD • SHARE • IMPACT',
   heroLine:
-    'Families leave India for tech careers in the Netherlands. Students code across time zones. Engineers meet over chai and stroopwafels. InterINNL is that bridge.',
+    'Families leave India for tech careers in the Netherlands. Students ship AI, LLMs and blockchain across time zones. Engineers meet over chai and stroopwafels. InterINNL is that bridge.',
   mission:
-    'We bring together students, developers and engineers across India and the Netherlands to build open-source projects with real-world impact. From Bengaluru to Amsterdam, from Hyderabad to Eindhoven: talent travels, ideas stay shared.',
+    'We bring together students, developers and engineers across India and the Netherlands to build open-source projects with real-world impact: AI and LLMs, blockchain and CosmWasm, Rust, and water / climate tech. From Bengaluru to Amsterdam, from Hyderabad to Eindhoven: talent travels, ideas stay shared.',
   bridge:
     'Indian talent ↔ engineers already in the Netherlands ↔ Dutch builders ↔ open source. The India–Netherlands connection is the point.',
+  focus: [
+    'AI',
+    'LLMs',
+    'Blockchain',
+    'CosmWasm',
+    'Rust',
+    'Open source',
+    'Water & climate',
+  ],
   heroPhoto: {
-    src: u('photo-1581091226825-a6a2a5aee158', 1200),
-    alt: 'Software engineer working at a laptop in a bright workspace',
+    src: local('team-office.png'),
+    alt: 'Indian engineers collaborating around laptops with code on screens behind them',
   },
   missionPhoto: {
-    src: u('photo-1534351590666-13e3e96b5017', 1200),
-    alt: 'Amsterdam canal houses reflecting on the water at dusk',
+    src: local('canal-meetup.png'),
+    alt: 'Indian and Dutch builders meeting outdoors with a laptop in a Dutch city',
   },
   stats: [
     { value: 2, suffix: '', label: 'countries' },
@@ -31,49 +42,69 @@ export const interinnlContent = {
     {
       name: 'Priya S.',
       origin: 'Bengaluru → Amsterdam',
-      role: 'ML Engineer',
+      role: 'ML / LLM Engineer',
       quote:
-        'I built my first CosmWasm contract at an AquaChain weekend. The community felt like home from day one.',
+        'I care about models that ship. InterINNL is where AI builders from India meet Dutch product and open-source culture.',
       photo: {
-        src: u('photo-1573496359142-b8d87734a5a2', 600),
-        alt: 'Portrait of an Indian woman professional smiling',
+        src: local('passport-tulips.png'),
+        alt: 'Indian woman in a tulip field holding an Indian passport, Dutch windmills behind',
       },
     },
     {
-      name: 'Arjun K.',
-      origin: 'Hyderabad → Eindhoven',
-      role: 'Embedded Systems',
+      name: 'Arjun, Neel & Lars',
+      origin: 'Hyderabad · Mumbai · Utrecht',
+      role: 'Builders · India × NL',
       quote:
-        'Moving for work was lonely until I found people who understood both chai and Dutch rain. InterINNL is that room.',
+        'A laptop by the canal, half the jokes in English, half in Hindi. Blockchain prototypes and product talk in the same afternoon.',
       photo: {
-        src: u('photo-1507003211169-0a1dd7228f2d', 600),
-        alt: 'Portrait of a South Asian man in a city setting',
+        src: local('canal-meetup.png'),
+        alt: 'Two Indian engineers and a blond Dutch colleague collaborating outdoors',
       },
     },
     {
-      name: 'Ananya & Vikram',
+      name: 'Dev squad',
+      origin: 'India → Netherlands tech',
+      role: 'AI · Backend · Full stack',
+      quote:
+        'Late nights on LLMs and CosmWasm. Finding a room of Indian engineers who already live the NL move changed everything.',
+      photo: {
+        src: local('team-office.png'),
+        alt: 'Four Indian engineers collaborating at desks with code on large monitors',
+      },
+    },
+    {
+      name: 'Ananya',
       origin: 'Pune → Rotterdam',
-      role: 'Family · Tech',
+      role: 'Family · Relocating for tech',
       quote:
-        'We relocated with two kids. Meeting other Indian families in NL tech made the move feel possible.',
+        'Passport in one hand, windmills behind me. InterINNL is for people who crossed that bridge for real careers, not tourism.',
       photo: {
-        src: u('photo-1511895426328-dc8714191300', 600),
-        alt: 'Family walking together outdoors',
-      },
-    },
-    {
-      name: 'Lars de Vries',
-      origin: 'Utrecht',
-      role: 'Rust Developer',
-      quote:
-        'I joined for the water hackathon and stayed for the people. Cross-border open source just works better.',
-      photo: {
-        src: u('photo-1472099645785-5658abf4ff4e', 600),
-        alt: 'Portrait of a fair-haired European man smiling',
+        src: local('passport-tulips.png'),
+        alt: 'Young Indian woman with Indian passport among Dutch tulips and windmills',
       },
     },
   ],
   mosaicPhotos: [
+    {
+      src: local('banner-tulips.png'),
+      alt: 'InterINNL banner with India and Netherlands flags over Dutch tulips and a windmill',
+      caption: 'India · Netherlands · Together',
+    },
+    {
+      src: local('team-office.png'),
+      alt: 'Indian engineers collaborating in a tech office',
+      caption: 'AI & code nights',
+    },
+    {
+      src: local('canal-meetup.png'),
+      alt: 'Indian and Dutch builders meeting by a Dutch canal',
+      caption: 'Build by the canal',
+    },
+    {
+      src: local('passport-tulips.png'),
+      alt: 'Indian passport held in a Dutch tulip field',
+      caption: 'The move is real',
+    },
     {
       src: u('photo-1522071820081-009f0129c71c', 700),
       alt: 'Diverse team collaborating around laptops',
@@ -85,53 +116,33 @@ export const interinnlContent = {
       caption: 'Amsterdam mornings',
     },
     {
-      src: u('photo-1522202176988-66273c2fd55f', 700),
-      alt: 'Young professionals brainstorming at a table',
-      caption: 'Hack nights',
-    },
-    {
       src: u('photo-1581092160562-40aa08e78837', 700),
       alt: 'Engineer reviewing code on dual monitors',
       caption: 'Deep work',
-    },
-    {
-      src: u('photo-1467269204594-9661b134dd2b', 700),
-      alt: 'Bicycles on a Dutch city street',
-      caption: 'Dutch streets',
-    },
-    {
-      src: u('photo-1600880292203-757bb62b4baf', 700),
-      alt: 'Colleagues discussing a project in an office',
-      caption: 'Office bridges',
     },
     {
       src: u('photo-1559827260-dc66d52bef19', 700),
       alt: 'Traditional Dutch windmills under a blue sky',
       caption: 'Next to water',
     },
-    {
-      src: u('photo-1519389950473-47ba0277781c', 700),
-      alt: 'Desk with laptop, notes and coffee in a tech workspace',
-      caption: 'Open source desks',
-    },
   ],
   projects: [
     {
       name: 'AquaChain',
       blurb:
-        'Open-source CosmWasm + Angular demo for smarter, more trusted water management: citizen sensors, water wells, and utility footprints.',
+        'Open-source CosmWasm + Angular demo for smarter, more trusted water management: IoT sensors, blockchain verification, and room for AI analytics. Citizen science, water wells, and utility footprints.',
       demoPath: '/aquachain/',
       githubFrontend: 'https://github.com/InterINNL/Aquachain-frontend',
       githubContracts: 'https://github.com/InterINNL/Aquachain-contracts',
-      modules: ['Citizen Science', 'Water Well', 'Utilities'],
-      note: 'An InterINNL hackathon project.',
+      modules: ['Citizen Science', 'Water Well', 'Utilities', 'Blockchain'],
+      note: 'An InterINNL hackathon project: AI, IoT and blockchain for water.',
     },
   ],
   events: {
     badge: 'Coming soon',
     title: 'AquaChain Hackathon I',
     blurb:
-      '48 hours to build tech for water challenges. India and the Netherlands, remote + Amsterdam. Public GitHub output. Real problems, not slides.',
+      '48 hours to build tech for water challenges with AI, LLMs, IoT and blockchain. India and the Netherlands, remote + Amsterdam. Public GitHub output. Real problems, not slides.',
     when: 'Date to be announced',
     ctaLabel: 'Register interest',
     ctaHref:
@@ -156,7 +167,7 @@ export const interinnlContent = {
   social: {
     badge: 'In progress',
     title: 'Community coming to life',
-    body: "We're building a federated community space for InterINNL members. Share projects, ask questions, and find collaborators across India and the Netherlands. No algorithm. Just people.",
+    body: "We're building a federated community space for InterINNL members. Share AI, LLM and blockchain projects, ask questions, and find collaborators across India and the Netherlands. No feed algorithm. Just people.",
     notifyLabel: 'Notify me',
     notifyHref:
       'mailto:contact@interchouette.net?subject=InterINNL%20community%20notify',

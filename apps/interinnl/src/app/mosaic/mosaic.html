@@ -1,20 +1,22 @@
 <section class="innl-mosaic" aria-labelledby="mosaic-title">
   <div class="innl-mosaic__head">
     <h2 id="mosaic-title">A community</h2>
-    <p>India and the Netherlands in one frame: desks, canals, bridges, families.</p>
+    <p>
+      India and the Netherlands in one frame: desks, canals, bridges, families.
+    </p>
   </div>
   <div class="innl-mosaic__grid">
     @for (photo of photos; track photo.src; let i = $index) {
-      <figure class="innl-mosaic__cell" [attr.data-i]="i">
-        <img
-          [src]="photo.src"
-          [alt]="photo.alt"
-          width="700"
-          height="500"
-          loading="lazy"
-        />
-        <figcaption>{{ photo.caption }}</figcaption>
-      </figure>
+    <figure class="innl-mosaic__cell" [attr.data-i]="i">
+      <img
+        [src]="photo.src"
+        [alt]="photo.alt"
+        width="700"
+        height="500"
+        loading="lazy"
+      />
+      <figcaption>{{ photo.caption }}</figcaption>
+    </figure>
     }
   </div>
 </section>

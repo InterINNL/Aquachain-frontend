@@ -22,6 +22,9 @@ describe('Landing', () => {
     expect(text).toContain('Mission');
     expect(text).toContain('People of InterINNL');
     expect(text).toContain('AquaChain');
+    expect(text).toContain('AI');
+    expect(text).toContain('LLMs');
+    expect(text).toContain('Blockchain');
     expect(text).toContain('Gregory Roussac');
     expect(text).toContain('Reham Abdul Rauf');
   });

@@ -11,8 +11,15 @@
       <p class="innl-hero__tag">{{ content.tagline }}</p>
       <innl-flags size="lg" [labels]="true" />
       <p class="innl-hero__line">{{ content.heroLine }}</p>
+      <ul class="innl-focus" aria-label="Focus areas">
+        @for (topic of content.focus; track topic) {
+          <li>{{ topic }}</li>
+        }
+      </ul>
       <div class="innl-hero__actions">
-        <a class="innl-btn innl-btn--primary" href="#join">Join the community</a>
+        <a class="innl-btn innl-btn--primary" href="#join"
+          >Join the community</a
+        >
         <a class="innl-btn innl-btn--ghost" [href]="aquachain.demoPath"
           >Open AquaChain</a
         >
@@ -28,6 +35,16 @@
       />
       <div class="innl-hero__visual-fade" aria-hidden="true"></div>
     </div>
+  </section>
+
+  <section class="innl-banner" aria-label="InterINNL brand">
+    <img
+      src="/photos/banner-tulips.png"
+      alt="InterINNL: India and Netherlands together over Dutch tulips and a windmill"
+      width="1264"
+      height="730"
+      loading="lazy"
+    />
   </section>
 
   <innl-stats />
@@ -65,7 +82,7 @@
         <p>{{ aquachain.blurb }}</p>
         <ul class="innl-project-card__modules">
           @for (mod of aquachain.modules; track mod) {
-            <li>{{ mod }}</li>
+          <li>{{ mod }}</li>
           }
         </ul>
         <div class="innl-project-card__actions">
@@ -98,9 +115,9 @@
         <h2>{{ content.events.title }}</h2>
         <p class="innl-event-card__when">{{ content.events.when }}</p>
         <p>{{ content.events.blurb }}</p>
-        <a class="innl-btn innl-btn--primary" [href]="content.events.ctaHref">{{
-          content.events.ctaLabel
-        }}</a>
+        <a class="innl-btn innl-btn--primary" [href]="content.events.ctaHref"
+          >{{ content.events.ctaLabel }}</a
+        >
       </article>
     </div>
   </section>
@@ -128,13 +145,13 @@
           >GitHub · InterINNL</a
         >
         @if (content.links.linkedinGroup) {
-          <a
-            class="innl-btn innl-btn--outline-light"
-            [href]="content.links.linkedinGroup"
-            rel="noopener noreferrer"
-            target="_blank"
-            >LinkedIn group</a
-          >
+        <a
+          class="innl-btn innl-btn--outline-light"
+          [href]="content.links.linkedinGroup"
+          rel="noopener noreferrer"
+          target="_blank"
+          >LinkedIn group</a
+        >
         }
       </div>
     </div>

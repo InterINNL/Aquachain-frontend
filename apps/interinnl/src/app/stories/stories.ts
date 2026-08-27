@@ -29,13 +29,18 @@ export class StoryCarousel {
   go(i: number): void {
     const el = this.track().nativeElement;
     const card = el.children[i] as HTMLElement | undefined;
-    card?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    card?.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'start',
+      block: 'nearest',
+    });
     this.index.set(i);
   }
 
   onScroll(): void {
     const el = this.track().nativeElement;
-    const cardWidth = (el.children[0] as HTMLElement | undefined)?.offsetWidth ?? 1;
+    const cardWidth =
+      (el.children[0] as HTMLElement | undefined)?.offsetWidth ?? 1;
     const gap = 16;
     const i = Math.round(el.scrollLeft / (cardWidth + gap));
     this.index.set(Math.min(Math.max(i, 0), this.stories.length - 1));

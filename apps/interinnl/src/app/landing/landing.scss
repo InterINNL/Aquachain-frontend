@@ -51,10 +51,42 @@
 }
 
 .innl-hero__line {
-  margin: 1rem 0 1.5rem;
+  margin: 1rem 0 1rem;
   font-size: clamp(1.05rem, 2.3vw, 1.25rem);
   line-height: 1.55;
   color: color-mix(in srgb, var(--innl-navy) 90%, #000);
+}
+
+.innl-focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.innl-focus li {
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--innl-navy) 14%, transparent);
+  color: var(--innl-navy);
+}
+
+.innl-banner {
+  margin: 0;
+  background: var(--innl-navy);
+}
+
+.innl-banner img {
+  width: 100%;
+  max-height: 18rem;
+  object-fit: cover;
+  object-position: center;
 }
 
 .innl-hero__actions {

@@ -37,20 +37,20 @@
   </div>
 
   @if (open()) {
-    <button
-      type="button"
-      class="innl-nav__overlay"
-      aria-label="Close menu"
-      (click)="close()"
-    ></button>
-    <nav id="innl-drawer" class="innl-nav__drawer" aria-label="Mobile">
-      <a href="#mission" (click)="close()">Mission</a>
-      <a href="#people" (click)="close()">People</a>
-      <a href="#projects" (click)="close()">Projects</a>
-      <a href="#events" (click)="close()">Events</a>
-      <a href="#founders" (click)="close()">Founders</a>
-      <a href="#join" (click)="close()">Join</a>
-      <a class="innl-nav__cta" href="/aquachain/" (click)="close()">AquaChain</a>
-    </nav>
+  <button
+    type="button"
+    class="innl-nav__overlay"
+    aria-label="Close menu"
+    (click)="close()"
+  ></button>
+  <nav id="innl-drawer" class="innl-nav__drawer" aria-label="Mobile">
+    <a href="#mission" (click)="close()">Mission</a>
+    <a href="#people" (click)="close()">People</a>
+    <a href="#projects" (click)="close()">Projects</a>
+    <a href="#events" (click)="close()">Events</a>
+    <a href="#founders" (click)="close()">Founders</a>
+    <a href="#join" (click)="close()">Join</a>
+    <a class="innl-nav__cta" href="/aquachain/" (click)="close()">AquaChain</a>
+  </nav>
   }
 </header>
