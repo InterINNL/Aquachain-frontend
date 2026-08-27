@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WalletService } from '../wallet/wallet';
 import { environment } from '@env/environment';
-import { calculateFee, GasPrice } from '@cosmjs/stargate';
+import { calculateFee, GasPrice, type Coin } from '@cosmjs/stargate';
 
 export interface Sensor {
   id: number;
@@ -64,18 +64,20 @@ export class ContractService {
    * @param sender the wallet address
    * @param contract the contract address
    * @param msg the contract message (JS object)
-   * @param gasMultiplier optional multiplier on simulated gas, default 1.1
    * @param memo optional tx memo
+   * @param funds optional coins attached to the execute (e.g. donations)
    */
   async simulateAndExecute(
     sender: string,
     contract: string,
     msg: Record<string, unknown>,
     memo = '',
+    funds: readonly Coin[] = [],
   ) {
     if (!sender) throw new Error('Sender wallet address is not defined');
 
     const client = await this.getSigningClient();
+    const fundsList = [...funds];
     // Simulate
     const simulatedGas = await client.simulate(
       sender,
@@ -86,7 +88,7 @@ export class ContractService {
             sender,
             contract,
             msg: new TextEncoder().encode(JSON.stringify(msg)),
-            funds: [],
+            funds: fundsList,
           },
         },
       ],
@@ -102,7 +104,14 @@ export class ContractService {
     const fee = calculateFee(gasLimit, gasPrice);
 
     // Execute
-    const result = await client.execute(sender, contract, msg, fee, memo);
+    const result = await client.execute(
+      sender,
+      contract,
+      msg,
+      fee,
+      memo,
+      fundsList,
+    );
 
     return result;
   }

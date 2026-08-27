@@ -10,7 +10,7 @@ Blockchain-secured decision support for smart water management. AquaChain combin
 | ------------------------- | ----------------------------------------------------------------- | ------------------------- |
 | **Citizen Science**       | Register sensors, submit readings, earn rewards for verified data | Wired to CosmWasm + Keplr |
 | **Water Utilities**       | On-chain sensor feeds and sustainability credits                  | Landing / stub            |
-| **Water Well Initiative** | Track funding for water projects and stake on AquaChain           | Landing / stub            |
+| **Water Well Initiative** | Track funding for water projects and stake on AquaChain           | Wired to CosmWasm + Keplr |
 
 ## Stack
 
@@ -102,17 +102,29 @@ curl -s http://localhost:26657/status | head
 curl -s http://localhost:1317/cosmos/base/tendermint/v1beta1/node_info | head
 ```
 
-### 3. Deploy the Citizen Science contract
+### 3. Deploy contracts
 
-Build and instantiate the **citizen-science-registry** CosmWasm contract against this node (`CHAIN_ID=testing`, `NODE=http://localhost:26657`, `DENOM=ustake`). Store the resulting address.
+Build and instantiate against this node (`CHAIN_ID=testing`, `NODE=http://localhost:26657`, `DENOM=ustake`):
 
-### 4. Point the frontend at the contract
+| Module | Contract crate | Env key |
+| --- | --- | --- |
+| Citizen Science | `citizen-science-registry` | `CitizenScienceContractAddress` |
+| Water Well Initiative | `water-well-initiative` | `WaterWellContractAddress` |
+
+From each crate directory:
+
+```sh
+make deploy
+# address is written to contract_addr.txt — paste into environment.ts
+```
+
+### 4. Point the frontend at the contracts
 
 Set in `apps/aquachain/src/environments/environment.ts`:
 
 ```ts
-CitizenScienceContractAddress: '<deployed-wasm-address>',
-WaterWellContractAddress: '',
+CitizenScienceContractAddress: '<citizen-science-address>',
+WaterWellContractAddress: '<water-well-address>',
 UtilityWaterFootprintContractAddress: '',
 chainId: 'testing',
 rpcEndpoint: 'http://localhost:4200/rpc',
@@ -126,7 +138,9 @@ gasPrice: '0.025ustake',
 npm run start
 ```
 
-Open [http://localhost:4200/citizen-science](http://localhost:4200/citizen-science), approve the suggested chain, fund the Keplr account with `ustake` if needed, then register a sensor / submit data.
+Open [http://localhost:4200/citizen-science](http://localhost:4200/citizen-science) or [http://localhost:4200/water-well-initiative](http://localhost:4200/water-well-initiative), approve the suggested chain, fund the Keplr account with `ustake` if needed, then exercise the module flows.
+
+Water Well demo path: create project → admin validate → donate (with funds) → admin unlock → owner/admin disburse.
 
 ### Still missing in-repo (for a one-command boot)
 
@@ -136,7 +150,7 @@ These are not shipped as a single script yet:
 - Local faucet for Keplr accounts
 - Deploy Makefile defaults aligned to local `testing` / `ustake` (Citizen Science Makefile currently targets another network)
 - Automatic write-back of `contract_addr.txt` into `environment.ts`
-- Wired UI for Water Utilities and Water Well Initiative
+- Wired UI for Water Utilities
 
 Until those exist, follow the checklist above manually.
 

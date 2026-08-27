@@ -1,1 +1,345 @@
-<p>water-well-initiative works!</p>
+<div class="module-header text-white py-4">
+  <div class="container">
+    <h1>
+      <fa-icon [icon]="['fas', 'hand-holding-droplet']" class="me-2"></fa-icon>
+      Water Well Initiative
+    </h1>
+    <p class="lead mb-0">
+      Crowdfund water projects on-chain: create, validate, donate, unlock, and
+      disburse
+    </p>
+  </div>
+</div>
+
+<div
+  *ngIf="walletWarning"
+  class="alert alert-warning d-flex align-items-center container py-4 mb-2"
+  role="alert"
+>
+  <i class="fas fa-exclamation-triangle me-2 text-danger fs-4"></i>
+  <span class="text-danger-emphasis">
+    <strong>Keplr Wallet required:</strong> Please install the extension from
+    <a
+      href="https://www.keplr.app/download"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="alert-link"
+      >keplr.app</a
+    >.
+  </span>
+</div>
+
+<div
+  *ngIf="missingContract"
+  class="alert alert-info container mt-3"
+  role="alert"
+>
+  Set <code>WaterWellContractAddress</code> in
+  <code>apps/aquachain/src/environments/environment.ts</code> after
+  <code>make deploy</code> in the water-well-initiative contract crate (address
+  is written to <code>contract_addr.txt</code>).
+</div>
+
+<div class="container py-4" *ngIf="!missingContract">
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-2" *ngFor="let key of ['proposed','fundraising','funded','disbursable','completed','cancelled']">
+      <div class="card kpi-card h-100">
+        <div class="card-body py-2">
+          <div class="text-muted small">{{ statusLabel(key) }}</div>
+          <div class="fs-4 fw-semibold">{{ statusCounts[key] || 0 }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-lg-7">
+      <div class="card mb-3">
+        <div
+          class="card-header d-flex flex-wrap gap-2 justify-content-between align-items-center"
+        >
+          <h5 class="mb-0">Projects ({{ totalProjects }})</h5>
+          <div class="btn-group btn-group-sm flex-wrap">
+            <button
+              type="button"
+              class="btn"
+              *ngFor="let filter of statusFilters"
+              [class.btn-success]="statusFilter === filter.value"
+              [class.btn-outline-success]="statusFilter !== filter.value"
+              (click)="setStatusFilter(filter.value)"
+            >
+              {{ filter.label }}
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loadingProjects" class="text-center py-3">
+            <i class="fas fa-spinner fa-spin me-2"></i> Loading…
+          </div>
+          <div class="table-responsive" *ngIf="!loadingProjects">
+            <table class="table table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Goal</th>
+                  <th>Raised</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let project of projects"
+                  [class.table-active]="selected?.id === project.id"
+                >
+                  <td>{{ project.id }}</td>
+                  <td>{{ truncate(project.title, 28) }}</td>
+                  <td>{{ project.goal }}</td>
+                  <td>{{ project.total_donated }}</td>
+                  <td>
+                    <span
+                      class="badge"
+                      [ngClass]="statusBadgeClass(project.status)"
+                      >{{ project.status }}</span
+                    >
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-primary"
+                      (click)="selectProject(project)"
+                    >
+                      Open
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="projects.length === 0">
+                  <td colspan="6" class="text-muted text-center py-3">
+                    No projects found
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav class="mt-2" *ngIf="totalProjects > 0">
+            <ul
+              class="pagination justify-content-center align-items-center mb-0"
+            >
+              <li
+                class="page-item"
+                [class.disabled]="!canGoPrev(currentPage)"
+              >
+                <button
+                  class="page-link"
+                  (click)="prevPage()"
+                  [disabled]="!canGoPrev(currentPage)"
+                >
+                  Previous
+                </button>
+              </li>
+              <li class="page-item disabled">
+                <span class="page-link"
+                  >Page {{ currentPage }} of {{ totalPages }} ({{
+                    totalProjects
+                  }}
+                  total)</span
+                >
+              </li>
+              <li
+                class="page-item"
+                [class.disabled]="!canGoNext(currentPage, totalPages)"
+              >
+                <button
+                  class="page-link"
+                  (click)="nextPage()"
+                  [disabled]="!canGoNext(currentPage, totalPages)"
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Create project</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="createForm" (ngSubmit)="onCreateProject()">
+            <div class="mb-3">
+              <label class="form-label" for="wellTitle">Title</label>
+              <input
+                id="wellTitle"
+                class="form-control"
+                formControlName="title"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="wellLocation">Location</label>
+              <input
+                id="wellLocation"
+                class="form-control"
+                formControlName="location"
+                placeholder="Village / coordinates"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="wellDescription">Description</label>
+              <textarea
+                id="wellDescription"
+                class="form-control"
+                rows="3"
+                formControlName="description"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="wellGoal"
+                >Goal ({{ coinMinimalDenom }})</label
+              >
+              <input
+                id="wellGoal"
+                class="form-control"
+                formControlName="goal"
+                placeholder="e.g. 1000000"
+              />
+              <div class="form-text">
+                Amount in minimal denom ({{ coinDenom }} uses
+                {{ coinMinimalDenom }}).
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="createForm.invalid || busyAction"
+            >
+              <span *ngIf="!busyAction">Create project</span>
+              <span *ngIf="busyAction"
+                ><i class="fas fa-spinner fa-spin"></i> Working…</span
+              >
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card sticky-detail">
+        <div class="card-header">
+          <h5 class="mb-0">Project detail</h5>
+        </div>
+        <div class="card-body" *ngIf="selected; else pickProject">
+          <p class="mb-1"><strong>#{{ selected.id }}</strong> {{ selected.title }}</p>
+          <p class="mb-1">
+            <span class="badge" [ngClass]="statusBadgeClass(selected.status)">{{
+              selected.status
+            }}</span>
+          </p>
+          <p class="mb-1"><strong>Location:</strong> {{ selected.location }}</p>
+          <p class="mb-1">
+            <strong>Description:</strong> {{ selected.description || '—' }}
+          </p>
+          <p class="mb-1">
+            <strong>Owner:</strong> {{ truncate(selected.owner, 28) }}
+          </p>
+          <p class="mb-2">
+            <strong>Raised:</strong> {{ selected.total_donated }} /
+            {{ selected.goal }} {{ coinMinimalDenom }}
+          </p>
+          <div class="progress mb-3" role="progressbar">
+            <div
+              class="progress-bar bg-success"
+              [style.width.%]="projectProgressPercent(selected)"
+            >
+              {{ projectProgressPercent(selected) }}%
+            </div>
+          </div>
+
+          <div
+            class="mb-3"
+            *ngIf="(selected.status || '').toLowerCase() === 'fundraising'"
+          >
+            <label class="form-label" for="donateAmount"
+              >Donate ({{ coinMinimalDenom }})</label
+            >
+            <div class="input-group">
+              <input
+                id="donateAmount"
+                class="form-control"
+                [(ngModel)]="donateAmount"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="amount"
+              />
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="onDonate()"
+                [disabled]="busyAction"
+              >
+                Donate
+              </button>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-success"
+              *ngIf="(selected.status || '').toLowerCase() === 'proposed'"
+              (click)="onValidate()"
+              [disabled]="busyAction"
+            >
+              Validate
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-info"
+              *ngIf="(selected.status || '').toLowerCase() === 'funded'"
+              (click)="onUnlock()"
+              [disabled]="busyAction"
+            >
+              Unlock
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-warning"
+              *ngIf="(selected.status || '').toLowerCase() === 'disbursable'"
+              (click)="onDisburse()"
+              [disabled]="busyAction"
+            >
+              Disburse
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              *ngIf="
+                (selected.status || '').toLowerCase() === 'proposed' ||
+                (selected.status || '').toLowerCase() === 'fundraising'
+              "
+              (click)="onCancel()"
+              [disabled]="busyAction"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-dark"
+              *ngIf="(selected.status || '').toLowerCase() === 'cancelled'"
+              (click)="onRefund()"
+              [disabled]="busyAction"
+            >
+              Refund
+            </button>
+          </div>
+        </div>
+        <ng-template #pickProject>
+          <div class="card-body text-muted">
+            Select a project from the list to donate or run admin actions.
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
