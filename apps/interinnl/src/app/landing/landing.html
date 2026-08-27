@@ -26,32 +26,51 @@
       </div>
     </div>
     <div class="innl-hero__visual">
-      <img
-        [src]="content.heroPhoto.src"
-        [alt]="content.heroPhoto.alt"
-        width="900"
-        height="1100"
+      <div
+        class="innl-hero__slides"
         [style.transform]="'translateY(' + parallax() + 'px)'"
-      />
+      >
+        @for (photo of heroPhotos; track photo.src; let i = $index) {
+        <img
+          [src]="photo.src"
+          [alt]="photo.alt"
+          width="900"
+          height="1100"
+          [class.is-active]="heroIndex() === i"
+          [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+        />
+        }
+      </div>
+      <div
+        class="innl-hero__visual-dots"
+        role="tablist"
+        aria-label="Hero photos"
+      >
+        @for (photo of heroPhotos; track photo.src; let i = $index) {
+        <button
+          type="button"
+          role="tab"
+          [attr.aria-selected]="heroIndex() === i"
+          [attr.aria-label]="'Photo ' + (i + 1)"
+          [class.is-active]="heroIndex() === i"
+          (click)="goHero(i)"
+        ></button>
+        }
+      </div>
       <div class="innl-hero__visual-fade" aria-hidden="true"></div>
     </div>
   </section>
 
-  <section class="innl-banner" aria-label="InterINNL brand">
-    <img
-      src="/photos/banner-tulips.png"
-      alt="InterINNL: India and Netherlands together over Dutch tulips and a windmill"
-      width="1264"
-      height="730"
-      loading="lazy"
-    />
-  </section>
-
-  <innl-stats />
-
-  <innl-stories />
-
   <section id="mission" class="innl-mission">
+    <div class="innl-mission__photo">
+      <img
+        [src]="content.missionPhoto.src"
+        [alt]="content.missionPhoto.alt"
+        width="1264"
+        height="730"
+        loading="lazy"
+      />
+    </div>
     <div class="innl-mission__text">
       <h2>Mission</h2>
       <p class="innl-lead">{{ content.mission }}</p>
@@ -59,16 +78,9 @@
       <p class="innl-motto">{{ content.motto }}</p>
       <innl-flags size="lg" [labels]="true" />
     </div>
-    <div class="innl-mission__photo">
-      <img
-        [src]="content.missionPhoto.src"
-        [alt]="content.missionPhoto.alt"
-        width="900"
-        height="700"
-        loading="lazy"
-      />
-    </div>
   </section>
+
+  <innl-stories />
 
   <innl-mosaic />
 

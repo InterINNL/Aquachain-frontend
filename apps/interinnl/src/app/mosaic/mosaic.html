@@ -1,22 +1,49 @@
 <section class="innl-mosaic" aria-labelledby="mosaic-title">
   <div class="innl-mosaic__head">
-    <h2 id="mosaic-title">A community</h2>
-    <p>
-      India and the Netherlands in one frame: desks, canals, bridges, families.
-    </p>
+    <h2 id="mosaic-title">India · Netherlands · in pictures</h2>
+    <p>Tech, water, tulips, desks and the people who cross the bridge.</p>
   </div>
-  <div class="innl-mosaic__grid">
-    @for (photo of photos; track photo.src; let i = $index) {
-    <figure class="innl-mosaic__cell" [attr.data-i]="i">
-      <img
-        [src]="photo.src"
-        [alt]="photo.alt"
-        width="700"
-        height="500"
-        loading="lazy"
-      />
-      <figcaption>{{ photo.caption }}</figcaption>
+
+  <div class="innl-mosaic__layout">
+    <figure class="innl-mosaic__panel innl-mosaic__left">
+      <div class="innl-mosaic__slides">
+        @for (photo of leftPhotos; track photo.src; let i = $index) {
+        <img
+          [src]="photo.src"
+          [alt]="photo.alt"
+          width="700"
+          height="500"
+          [class.is-active]="leftIndex() === i"
+          [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+        />
+        }
+      </div>
+      <figcaption>
+        {{ activePhoto(leftPhotos, leftIndex()).caption }}
+      </figcaption>
     </figure>
-    }
+
+    <div class="innl-mosaic__right">
+      @for (carousel of rightCarousels; track $index; let carouselIndex =
+      $index) {
+      <figure class="innl-mosaic__panel">
+        <div class="innl-mosaic__slides">
+          @for (photo of carousel; track photo.src; let i = $index) {
+          <img
+            [src]="photo.src"
+            [alt]="photo.alt"
+            width="700"
+            height="500"
+            [class.is-active]="rightIndexes()[carouselIndex] === i"
+            loading="lazy"
+          />
+          }
+        </div>
+        <figcaption>
+          {{ activePhoto(carousel, rightIndexes()[carouselIndex]).caption }}
+        </figcaption>
+      </figure>
+      }
+    </div>
   </div>
 </section>

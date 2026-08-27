@@ -24,8 +24,9 @@
           [src]="story.photo.src"
           [alt]="story.photo.alt"
           width="320"
-          height="320"
+          height="224"
           loading="lazy"
+          [style.object-position]="story.photo.objectPosition ?? 'center center'"
         />
         <div class="innl-stories__body">
           <h3>{{ story.name }}</h3>

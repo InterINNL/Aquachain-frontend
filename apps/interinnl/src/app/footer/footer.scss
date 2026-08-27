@@ -81,6 +81,17 @@
   opacity: 0.7;
 }
 
+.innl-footer__bar a {
+  display: inline;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.innl-footer__bar a:hover {
+  opacity: 1;
+}
+
 @media (min-width: 720px) {
   .innl-footer__grid {
     grid-template-columns: 1.4fr 1fr 1fr 1fr;

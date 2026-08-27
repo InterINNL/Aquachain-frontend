@@ -12,25 +12,26 @@ export const interinnlContent = {
   heroLine:
     'Families leave India for tech careers in the Netherlands. Students ship AI, LLMs and blockchain across time zones. Engineers meet over chai and stroopwafels. InterINNL is that bridge.',
   mission:
-    'We bring together students, developers and engineers across India and the Netherlands to build open-source projects with real-world impact: AI and LLMs, blockchain and CosmWasm, Rust, and water / climate tech. From Bengaluru to Amsterdam, from Hyderabad to Eindhoven: talent travels, ideas stay shared.',
+    'We bring together students, developers and engineers across India and the Netherlands to build open-source projects with real-world impact: AI, Rust, Python, and water / climate tech. From Bengaluru to Amsterdam, from Hyderabad to Eindhoven: talent travels, ideas stay shared.',
   bridge:
     'Indian talent ↔ engineers already in the Netherlands ↔ Dutch builders ↔ open source. The India–Netherlands connection is the point.',
-  focus: [
-    'AI',
-    'LLMs',
-    'Blockchain',
-    'CosmWasm',
-    'Rust',
-    'Open source',
-    'Water & climate',
+  heroPhotos: [
+    {
+      src: u('photo-1581091226825-a6a2a5aee158', 1200),
+      alt: 'Engineer working at a laptop in a bright tech workspace',
+    },
+    {
+      src: local('team-office-logo-right.png'),
+      alt: 'Indian engineers collaborating around a laptop with InterINNL sticker on the lid',
+    },
+    {
+      src: local('canal-meetup.png'),
+      alt: 'Indian and Dutch builders meeting outdoors by a canal in the Netherlands',
+    },
   ],
-  heroPhoto: {
-    src: local('team-office.png'),
-    alt: 'Indian engineers collaborating around laptops with code on screens behind them',
-  },
   missionPhoto: {
-    src: local('canal-meetup.png'),
-    alt: 'Indian and Dutch builders meeting outdoors with a laptop in a Dutch city',
+    src: local('banner-tulips.png'),
+    alt: 'InterINNL banner with India and Netherlands flags over Dutch tulips and a windmill',
   },
   stats: [
     { value: 2, suffix: '', label: 'countries' },
@@ -42,12 +43,13 @@ export const interinnlContent = {
     {
       name: 'Priya S.',
       origin: 'Bengaluru → Amsterdam',
-      role: 'ML / LLM Engineer',
+      role: 'ML Engineer · Python & Rust',
       quote:
-        'I care about models that ship. InterINNL is where AI builders from India meet Dutch product and open-source culture.',
+        'Dutch teams need people who ship models, not slides. InterINNL is where Indian ML engineers meet real NL product work in Python and Rust.',
       photo: {
-        src: local('passport-tulips.png'),
+        src: local('priya-passport-tulips.png'),
         alt: 'Indian woman in a tulip field holding an Indian passport, Dutch windmills behind',
+        objectPosition: 'center center',
       },
     },
     {
@@ -55,7 +57,7 @@ export const interinnlContent = {
       origin: 'Hyderabad · Mumbai · Utrecht',
       role: 'Builders · India × NL',
       quote:
-        'A laptop by the canal, half the jokes in English, half in Hindi. Blockchain prototypes and product talk in the same afternoon.',
+        'The Netherlands has a deep tech shortage. I moved for work; InterINNL helped me land among engineers who already live that gap every day.',
       photo: {
         src: local('canal-meetup.png'),
         alt: 'Two Indian engineers and a blond Dutch colleague collaborating outdoors',
@@ -77,65 +79,128 @@ export const interinnlContent = {
       origin: 'Pune → Rotterdam',
       role: 'Family · Relocating for tech',
       quote:
-        'Passport in one hand, windmills behind me. InterINNL is for people who crossed that bridge for real careers, not tourism.',
+        'We relocated for careers in NL tech. Meeting other Indian families already in Dutch companies made the move feel real, not theoretical.',
       photo: {
-        src: local('passport-tulips.png'),
-        alt: 'Young Indian woman with Indian passport among Dutch tulips and windmills',
+        src: u('photo-1511895426328-dc8714191300', 600),
+        alt: 'Family walking together outdoors',
+      },
+    },
+    {
+      name: 'Lars de Vries',
+      origin: 'Utrecht',
+      role: 'Rust Developer',
+      quote:
+        'Dutch industry needs Rust, systems and AI talent at scale. InterINNL connects us with builders from India who already write that stack.',
+      photo: {
+        src: u('photo-1472099645785-5658abf4ff4e', 600),
+        alt: 'Portrait of a fair-haired European man smiling',
       },
     },
   ],
-  mosaicPhotos: [
-    {
-      src: local('banner-tulips.png'),
-      alt: 'InterINNL banner with India and Netherlands flags over Dutch tulips and a windmill',
-      caption: 'India · Netherlands · Together',
-    },
-    {
-      src: local('team-office.png'),
-      alt: 'Indian engineers collaborating in a tech office',
-      caption: 'AI & code nights',
-    },
-    {
-      src: local('canal-meetup.png'),
-      alt: 'Indian and Dutch builders meeting by a Dutch canal',
-      caption: 'Build by the canal',
-    },
-    {
-      src: local('passport-tulips.png'),
-      alt: 'Indian passport held in a Dutch tulip field',
-      caption: 'The move is real',
-    },
-    {
-      src: u('photo-1522071820081-009f0129c71c', 700),
-      alt: 'Diverse team collaborating around laptops',
-      caption: 'Build together',
-    },
-    {
-      src: u('photo-1558551649-de46bebae2f0', 700),
-      alt: 'Amsterdam canal lined with historic houses',
-      caption: 'Amsterdam mornings',
-    },
-    {
-      src: u('photo-1581092160562-40aa08e78837', 700),
-      alt: 'Engineer reviewing code on dual monitors',
-      caption: 'Deep work',
-    },
-    {
-      src: u('photo-1559827260-dc66d52bef19', 700),
-      alt: 'Traditional Dutch windmills under a blue sky',
-      caption: 'Next to water',
-    },
-  ],
+  mosaic: {
+    left: [
+      {
+        src: local('team-office-logo-right.png'),
+        alt: 'Indian engineers collaborating on code around laptops',
+        caption: 'Build together',
+      },
+      {
+        src: local('canal-meetup.png'),
+        alt: 'Indian and Dutch builders meeting outdoors by a Dutch canal',
+        caption: 'Canal collaboration',
+      },
+    ],
+    right: [
+      [
+        {
+          src: local('india-tech-chip.jpg'),
+          alt: 'Indian flag on a microchip on a circuit board',
+          caption: 'India tech',
+        },
+        {
+          src: local('rust-india.png'),
+          alt: 'Rust India community logo with Indian tricolour on the Rust gear',
+          caption: 'Rust India',
+        },
+      ],
+      [
+        {
+          src: local('tulips-flags-woman.png'),
+          alt: 'Indian woman smiling in a Dutch tulip field with flags behind her',
+          caption: 'India in NL',
+        },
+        {
+          src: local('ces-team-nl.png'),
+          alt: 'Netherlands startup ecosystem team at CES in orange Team NL shirts',
+          caption: 'CES · Team NL',
+        },
+      ],
+      [
+        {
+          src: local('passport-rijksmuseum.jpg'),
+          alt: 'Indian woman with passport in front of the Rijksmuseum in Amsterdam',
+          caption: 'The move',
+        },
+        {
+          src: local('ces-nl-startup.png'),
+          alt: 'Netherlands startup ecosystem booth at CES with innovate together banner',
+          caption: 'NL startup ecosystem',
+        },
+      ],
+      [
+        {
+          src: local('agri-drone.jpg'),
+          alt: 'Engineer operating an agricultural drone over a crop field in the Netherlands',
+          caption: 'Agri drone',
+        },
+        {
+          src: local('drone-india-field.jpg'),
+          alt: 'Farmer operating an agricultural drone in an Indian field',
+          caption: 'Field tech · India',
+        },
+        {
+          src: local('drone-dealership.jpg'),
+          alt: 'Drone dealership technician with agricultural drones',
+          caption: 'Drone craft',
+        },
+        {
+          src: local('drone-crops.png'),
+          alt: 'Agricultural drone flying over green crop rows',
+          caption: 'Smart farming',
+        },
+        {
+          src: local('india-nl-diplomacy.png'),
+          alt: 'Indian and Dutch leaders at an official India-Netherlands meeting',
+          caption: 'IN · NL bridge',
+        },
+        {
+          src: local('students-workshop.jpg'),
+          alt: 'Indian students raising hands at a tech workshop',
+          caption: 'Build nights',
+        },
+        {
+          src: local('community-dinner.jpg'),
+          alt: 'InterINNL community members sharing a meal together',
+          caption: 'Community dinner',
+        },
+        {
+          src: local('haarlem-windmill-night.jpg'),
+          alt: 'Haarlem windmill and church lit at night beside the Spaarne river',
+          caption: 'Next to water',
+        },
+      ],
+    ],
+  },
   projects: [
     {
       name: 'AquaChain',
       blurb:
-        'Open-source CosmWasm + Angular demo for smarter, more trusted water management: IoT sensors, blockchain verification, and room for AI analytics. Citizen science, water wells, and utility footprints.',
+        'Open-source Rust + Python + Angular demo for smarter, more trusted water management: citizen sensors, water wells, and utility footprints.',
       demoPath: '/aquachain/',
       githubFrontend: 'https://github.com/InterINNL/Aquachain-frontend',
       githubContracts: 'https://github.com/InterINNL/Aquachain-contracts',
-      modules: ['Citizen Science', 'Water Well', 'Utilities', 'Blockchain'],
-      note: 'An InterINNL hackathon project: AI, IoT and blockchain for water.',
+      modules: ['Citizen Science', 'Water Well', 'Utilities'],
+      note: 'An InterINNL open-source project.',
     },
   ],
   events: {

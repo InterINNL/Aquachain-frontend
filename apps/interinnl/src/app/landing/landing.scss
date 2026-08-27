@@ -101,12 +101,54 @@
   overflow: hidden;
 }
 
-.innl-hero__visual img {
+.innl-hero__slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  will-change: transform;
+}
+
+.innl-hero__slides img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   min-height: 18rem;
   object-fit: cover;
-  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.innl-hero__slides img.is-active {
+  opacity: 1;
+}
+
+.innl-hero__visual-dots {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.innl-hero__visual-dots button {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: color-mix(in srgb, #fff 45%, transparent);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.innl-hero__visual-dots button.is-active {
+  background: #fff;
+  transform: scale(1.15);
 }
 
 .innl-hero__visual-fade {
@@ -166,6 +208,7 @@
   height: 100%;
   min-height: 16rem;
   object-fit: cover;
+  object-position: center;
 }
 
 .innl-projects {
@@ -392,7 +435,11 @@
     min-height: 100%;
   }
 
-  .innl-hero__visual img {
+  .innl-hero__slides {
+    min-height: 100%;
+  }
+
+  .innl-hero__slides img {
     min-height: 100%;
     height: min(92vh, 48rem);
   }
@@ -432,7 +479,8 @@
 @media (prefers-reduced-motion: reduce) {
   .innl-hero__copy,
   .innl-btn,
-  .innl-hero__visual img {
+  .innl-hero__slides,
+  .innl-hero__slides img {
     animation: none !important;
     transition: none !important;
     transform: none !important;
