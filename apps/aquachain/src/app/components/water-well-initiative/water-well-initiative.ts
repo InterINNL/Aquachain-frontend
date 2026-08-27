@@ -207,7 +207,11 @@ export class WaterWellInitiative implements OnInit {
   }
 
   async onValidate() {
-    await this.runProjectAction('validate', 'Project Validated', 'Validate Failed');
+    await this.runProjectAction(
+      'validate',
+      'Project Validated',
+      'Validate Failed',
+    );
   }
 
   async onUnlock() {
@@ -219,7 +223,11 @@ export class WaterWellInitiative implements OnInit {
   }
 
   async onDisburse() {
-    await this.runProjectAction('disburse', 'Funds Disbursed', 'Disburse Failed');
+    await this.runProjectAction(
+      'disburse',
+      'Funds Disbursed',
+      'Disburse Failed',
+    );
   }
 
   async onRefund() {

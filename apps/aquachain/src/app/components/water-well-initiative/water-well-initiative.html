@@ -42,7 +42,10 @@
 
 <div class="container py-4" *ngIf="!missingContract">
   <div class="row g-3 mb-4">
-    <div class="col-6 col-md-2" *ngFor="let key of ['proposed','fundraising','funded','disbursable','completed','cancelled']">
+    <div
+      class="col-6 col-md-2"
+      *ngFor="let key of ['proposed','fundraising','funded','disbursable','completed','cancelled']"
+    >
       <div class="card kpi-card h-100">
         <div class="card-body py-2">
           <div class="text-muted small">{{ statusLabel(key) }}</div>
@@ -126,10 +129,7 @@
             <ul
               class="pagination justify-content-center align-items-center mb-0"
             >
-              <li
-                class="page-item"
-                [class.disabled]="!canGoPrev(currentPage)"
-              >
+              <li class="page-item" [class.disabled]="!canGoPrev(currentPage)">
                 <button
                   class="page-link"
                   (click)="prevPage()"
@@ -140,10 +140,8 @@
               </li>
               <li class="page-item disabled">
                 <span class="page-link"
-                  >Page {{ currentPage }} of {{ totalPages }} ({{
-                    totalProjects
-                  }}
-                  total)</span
+                  >Page {{ currentPage }} of {{ totalPages }} ({{ totalProjects
+                  }} total)</span
                 >
               </li>
               <li
@@ -187,7 +185,9 @@
               />
             </div>
             <div class="mb-3">
-              <label class="form-label" for="wellDescription">Description</label>
+              <label class="form-label" for="wellDescription"
+                >Description</label
+              >
               <textarea
                 id="wellDescription"
                 class="form-control"
@@ -206,8 +206,8 @@
                 placeholder="e.g. 1000000"
               />
               <div class="form-text">
-                Amount in minimal denom ({{ coinDenom }} uses
-                {{ coinMinimalDenom }}).
+                Amount in minimal denom ({{ coinDenom }} uses {{
+                coinMinimalDenom }}).
               </div>
             </div>
             <button
@@ -231,11 +231,13 @@
           <h5 class="mb-0">Project detail</h5>
         </div>
         <div class="card-body" *ngIf="selected; else pickProject">
-          <p class="mb-1"><strong>#{{ selected.id }}</strong> {{ selected.title }}</p>
           <p class="mb-1">
-            <span class="badge" [ngClass]="statusBadgeClass(selected.status)">{{
-              selected.status
-            }}</span>
+            <strong>#{{ selected.id }}</strong> {{ selected.title }}
+          </p>
+          <p class="mb-1">
+            <span class="badge" [ngClass]="statusBadgeClass(selected.status)"
+              >{{ selected.status }}</span
+            >
           </p>
           <p class="mb-1"><strong>Location:</strong> {{ selected.location }}</p>
           <p class="mb-1">
@@ -245,8 +247,8 @@
             <strong>Owner:</strong> {{ truncate(selected.owner, 28) }}
           </p>
           <p class="mb-2">
-            <strong>Raised:</strong> {{ selected.total_donated }} /
-            {{ selected.goal }} {{ coinMinimalDenom }}
+            <strong>Raised:</strong> {{ selected.total_donated }} / {{
+            selected.goal }} {{ coinMinimalDenom }}
           </p>
           <div class="progress mb-3" role="progressbar">
             <div

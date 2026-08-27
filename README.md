@@ -106,10 +106,10 @@ curl -s http://localhost:1317/cosmos/base/tendermint/v1beta1/node_info | head
 
 Build and instantiate against this node (`CHAIN_ID=testing`, `NODE=http://localhost:26657`, `DENOM=ustake`):
 
-| Module | Contract crate | Env key |
-| --- | --- | --- |
-| Citizen Science | `citizen-science-registry` | `CitizenScienceContractAddress` |
-| Water Well Initiative | `water-well-initiative` | `WaterWellContractAddress` |
+| Module                | Contract crate             | Env key                         |
+| --------------------- | -------------------------- | ------------------------------- |
+| Citizen Science       | `citizen-science-registry` | `CitizenScienceContractAddress` |
+| Water Well Initiative | `water-well-initiative`    | `WaterWellContractAddress`      |
 
 From each crate directory:
 

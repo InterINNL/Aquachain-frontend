@@ -35,11 +35,8 @@ describe('WaterWellInitiative', () => {
 
 describe('water-well helpers', () => {
   it('parses metadata and progress', async () => {
-    const {
-      parseWellProject,
-      projectProgressPercent,
-      sumStatusCounts,
-    } = await import('@services/water-well/water-well');
+    const { parseWellProject, projectProgressPercent, sumStatusCounts } =
+      await import('@services/water-well/water-well');
 
     const parsed = parseWellProject({
       id: 1,

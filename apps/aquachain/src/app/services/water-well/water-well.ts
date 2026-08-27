@@ -176,7 +176,9 @@ export function parseWellProject(project: WellProject): ParsedWellProject {
   return {
     ...project,
     metadata,
-    title: String(metadata.title ?? metadata['name'] ?? `Project #${project.id}`),
+    title: String(
+      metadata.title ?? metadata['name'] ?? `Project #${project.id}`,
+    ),
     location: String(metadata.location ?? '—'),
     description: String(metadata.description ?? ''),
   };
@@ -198,7 +200,9 @@ export function sumStatusCounts(counts: ProjectStatusCounts): number {
   return Object.values(counts).reduce((sum, n) => sum + (Number(n) || 0), 0);
 }
 
-export function statusBadgeClass(status: string | undefined): Record<string, boolean> {
+export function statusBadgeClass(
+  status: string | undefined,
+): Record<string, boolean> {
   const s = (status ?? '').toLowerCase();
   return {
     'bg-secondary': s === 'proposed',

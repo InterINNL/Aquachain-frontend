@@ -412,7 +412,10 @@
             <ng-template #noEntries>
               <p *ngIf="!loadingViewEntries">No data entries found.</p>
             </ng-template>
-            <nav class="mt-2" *ngIf="!loadingViewEntries && viewEntriesTotal > 0">
+            <nav
+              class="mt-2"
+              *ngIf="!loadingViewEntries && viewEntriesTotal > 0"
+            >
               <ul
                 class="pagination pagination-sm justify-content-center align-items-center mb-0"
               >
@@ -430,9 +433,8 @@
                 </li>
                 <li class="page-item disabled">
                   <span class="page-link"
-                    >Page {{ viewEntriesPage }} of
-                    {{ viewEntriesTotalPages }} ({{ viewEntriesTotal }}
-                    total)</span
+                    >Page {{ viewEntriesPage }} of {{ viewEntriesTotalPages }}
+                    ({{ viewEntriesTotal }} total)</span
                   >
                 </li>
                 <li
