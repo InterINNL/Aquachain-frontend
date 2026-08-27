@@ -47,12 +47,21 @@ import {
   statusClass,
 } from '../../utils/sensor-parse';
 import type { Map as LeafletMap, CircleMarker } from 'leaflet';
+import { ModuleShell } from '../module-shell/module-shell';
+import { WalletBanner } from '../shared/wallet-banner/wallet-banner';
 
 const MAP_MAX_PAGES = 5;
 
 @Component({
   selector: 'citizen-science',
-  imports: [CommonModule, FontAwesomeModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ModuleShell,
+    WalletBanner,
+  ],
   templateUrl: './citizen-science.html',
   styleUrl: './citizen-science.scss',
   changeDetection: ChangeDetectionStrategy.Default,

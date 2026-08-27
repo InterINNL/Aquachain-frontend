@@ -36,6 +36,8 @@ import {
   sumStatusCounts,
   WaterWellService,
 } from '@services/water-well/water-well';
+import { ModuleShell } from '../module-shell/module-shell';
+import { WalletBanner } from '../shared/wallet-banner/wallet-banner';
 
 const STATUS_FILTERS: Array<{ value: '' | ProjectStatus; label: string }> = [
   { value: '', label: 'All' },
@@ -49,7 +51,14 @@ const STATUS_FILTERS: Array<{ value: '' | ProjectStatus; label: string }> = [
 
 @Component({
   selector: 'water-well-initiative',
-  imports: [CommonModule, FontAwesomeModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ModuleShell,
+    WalletBanner,
+  ],
   templateUrl: './water-well-initiative.html',
   styleUrl: './water-well-initiative.scss',
   changeDetection: ChangeDetectionStrategy.Default,

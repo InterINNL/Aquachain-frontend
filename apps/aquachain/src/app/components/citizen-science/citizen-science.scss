@@ -42,7 +42,8 @@
 }
 
 .sensor-map {
-  height: 480px;
+  height: 100%;
   width: 100%;
+  min-height: 280px;
   z-index: 0;
 }

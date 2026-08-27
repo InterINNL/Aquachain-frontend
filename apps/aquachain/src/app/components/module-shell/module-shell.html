@@ -1,0 +1,24 @@
+<section class="ac-module-hero">
+  <div class="ac-module-hero__visual">
+    <img
+      [src]="hero().photo.src"
+      [alt]="hero().photo.alt"
+      [style.object-position]="photoObjectPosition()"
+      width="1400"
+      height="400"
+      loading="eager"
+    />
+    <div class="ac-module-hero__overlay" aria-hidden="true"></div>
+  </div>
+  <div class="ac-container ac-module-hero__copy">
+    <p class="ac-kicker">{{ hero().kicker }}</p>
+    <h1 class="ac-module-hero__title">{{ hero().title }}</h1>
+    <p class="ac-module-hero__lead">{{ hero().lead }}</p>
+  </div>
+</section>
+
+<div class="ac-module-body">
+  <div class="ac-container ac-module-body__inner">
+    <ng-content></ng-content>
+  </div>
+</div>

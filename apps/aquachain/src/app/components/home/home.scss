@@ -1,81 +1,275 @@
-.section {
-  background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
-  padding: 80px 0;
+.ac-home-hero {
   position: relative;
-  overflow: hidden;
-}
-.image-container {
-  position: relative;
-  height: 400px;
+  background: var(--ac-navy-deep);
+  color: var(--ac-white);
+  min-height: 28rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
 }
 
-@media (max-width: 768px) {
-  .section {
-    padding: 40px 0;
-  }
-  .image-container {
-    height: 250px;
-    margin-top: 30px;
-  }
-  .features-section,
-  .technology-section,
-  .cta-section {
-    padding: 40px 0;
-  }
-  .module-header {
-    padding: 30px 0;
-  }
+.ac-home-hero__copy {
+  padding: var(--ac-space-3xl) var(--ac-space-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 36rem;
 }
 
-.home-image {
-  // background-image: url(/water-management.svg);
-  // background-size: contain;
-  // background-position: center;
-  // background-repeat: no-repeat;
-  height: 100%;
+.ac-home-hero__copy .ac-kicker {
+  color: var(--ac-teal-light);
+}
+
+.ac-home-hero__title {
+  font-family: var(--ac-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 var(--ac-space-md);
+}
+
+.ac-home-hero__lead {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: rgb(255 255 255 / 78%);
+  margin: 0 0 var(--ac-space-xl);
+}
+
+.ac-home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ac-space-md);
+}
+
+.ac-home-hero__visual {
+  position: relative;
+  min-height: 20rem;
+}
+
+.ac-home-hero__visual img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 28rem;
 }
-.features-section {
-  padding: 80px 0;
-  background-color: var(--light-color);
+
+.ac-home-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--ac-navy-deep) 0%, transparent 35%);
+  pointer-events: none;
 }
-.feature-card {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  border: none;
-  border-radius: 10px;
+
+.ac-home-context {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ac-space-2xl);
+  align-items: center;
+}
+
+.ac-home-context__photo {
+  border-radius: var(--ac-radius-xl);
   overflow: hidden;
-  box-shadow: 0 5px 15px #0000001a;
+  box-shadow: var(--ac-shadow);
 }
-.feature-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px #00000026;
+
+.ac-home-context__photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
-.feature-icon {
-  height: 80px;
+
+.ac-home-modules {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--ac-space-lg);
+}
+
+.ac-module-card {
+  background: var(--ac-white);
+  border-radius: var(--ac-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--ac-sand-dark);
+  box-shadow: var(--ac-shadow-sm);
+  transition:
+    transform var(--ac-transition),
+    box-shadow var(--ac-transition);
+}
+
+.ac-module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ac-shadow);
+}
+
+.ac-module-card__photo {
+  height: 10rem;
+  overflow: hidden;
+}
+
+.ac-module-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.ac-module-card:hover .ac-module-card__photo img {
+  transform: scale(1.03);
+}
+
+.ac-module-card__body {
+  padding: var(--ac-space-lg);
+}
+
+.ac-module-card__icon {
+  font-size: 1.25rem;
+  margin-bottom: var(--ac-space-sm);
+}
+
+.ac-module-card__icon--teal {
+  color: var(--ac-teal);
+}
+
+.ac-module-card__icon--amber {
+  color: var(--ac-amber);
+}
+
+.ac-module-card__icon--slate {
+  color: var(--ac-slate);
+}
+
+.ac-module-card__title {
+  font-family: var(--ac-display);
+  font-size: 1.125rem;
+  margin: 0 0 var(--ac-space-sm);
+  color: var(--ac-navy);
+}
+
+.ac-module-card__blurb {
+  font-size: 0.9375rem;
+  color: var(--ac-slate);
+  margin: 0 0 var(--ac-space-md);
+  line-height: 1.55;
+}
+
+.ac-home-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--ac-space-lg);
+}
+
+.ac-step {
+  padding: var(--ac-space-lg);
+  background: var(--ac-white);
+  border-radius: var(--ac-radius-lg);
+  border: 1px solid var(--ac-sand-dark);
+}
+
+.ac-step__icon {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.technology-section {
-  padding: 80px 0;
-}
-.tech-image {
-  max-height: 400px;
-}
-.tech-feature {
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #0275d80d;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
-}
-.tech-feature:hover {
-  background-color: #0275d81a;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--ac-radius);
+  background: rgb(26 107 122 / 10%);
+  color: var(--ac-teal);
+  font-size: 1.1rem;
+  margin-bottom: var(--ac-space-md);
 }
 
-.cta-section {
-  background: linear-gradient(135deg, var(--success-color) 0%, #449d44 100%);
-  padding: 80px 0;
+.ac-step__title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 var(--ac-space-sm);
+  color: var(--ac-navy);
+}
+
+.ac-step__body {
+  font-size: 0.875rem;
+  color: var(--ac-slate);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.ac-home-stack {
+  text-align: center;
+  background: var(--ac-white);
+  border-top: 1px solid var(--ac-sand-dark);
+  border-bottom: 1px solid var(--ac-sand-dark);
+}
+
+.ac-home-cta {
+  background: var(--ac-navy);
+  color: var(--ac-white);
+  text-align: center;
+}
+
+.ac-home-cta .ac-section-title {
+  color: var(--ac-white);
+}
+
+.ac-home-cta__lead {
+  color: rgb(255 255 255 / 75%);
+  margin: 0 auto var(--ac-space-xl);
+  max-width: 32rem;
+}
+
+.ac-home-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ac-space-md);
+}
+
+.ac-home-team {
+  display: flex;
+  justify-content: center;
+}
+
+.ac-home-team img {
+  max-width: 42rem;
+  border-radius: var(--ac-radius-xl);
+  box-shadow: var(--ac-shadow);
+}
+
+@media (max-width: 900px) {
+  .ac-home-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-home-hero__visual {
+    order: -1;
+    min-height: 16rem;
+  }
+
+  .ac-home-hero__visual img {
+    min-height: 16rem;
+  }
+
+  .ac-home-hero__overlay {
+    background: linear-gradient(
+      180deg,
+      transparent 40%,
+      var(--ac-navy-deep) 100%
+    );
+  }
+
+  .ac-home-context {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-home-modules {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-home-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .ac-home-steps {
+    grid-template-columns: 1fr;
+  }
 }
