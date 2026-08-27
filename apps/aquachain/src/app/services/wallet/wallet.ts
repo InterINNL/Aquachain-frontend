@@ -61,75 +61,97 @@ export class WalletService {
 
   async getSigningClient(): Promise<SigningCosmWasmClient> {
     await this.signingClientReady;
-    return this._signingClient!;
+    if (!this._signingClient) {
+      throw new Error('Wallet is not connected');
+    }
+    return this._signingClient;
   }
 
-  async connectWallet(): Promise<void> {
-    if (
-      typeof this.window === 'undefined' ||
-      !this.window?.keplr ||
-      !this.window?.getOfflineSigner
-    ) {
-      console.warn('Keplr extension not found or running outside browser');
-      return;
+  async connectWallet(): Promise<string> {
+    if (typeof this.window === 'undefined' || !this.window?.keplr) {
+      throw new Error('Keplr extension not found. Install Keplr and unlock it.');
     }
 
     if (!this.chainSuggested) {
-      const prefix = environment.bech32Prefix;
-      const denom = environment.coinDenom;
-      const minimal = environment.coinMinimalDenom;
-      const decimals = environment.coinDecimals;
-      await this.window.keplr.experimentalSuggestChain({
-        chainId: this.chainId,
-        chainName: environment.chainName,
-        rpc: this.rpcEndpoint,
-        rest: this.restEndpoint,
-        stakeCurrency: {
-          coinDenom: denom,
-          coinMinimalDenom: minimal,
-          coinDecimals: decimals,
-        },
-        bip44: { coinType: 118 },
-        bech32Config: {
-          bech32PrefixAccAddr: prefix,
-          bech32PrefixAccPub: `${prefix}pub`,
-          bech32PrefixValAddr: `${prefix}valoper`,
-          bech32PrefixValPub: `${prefix}valoperpub`,
-          bech32PrefixConsAddr: `${prefix}valcons`,
-          bech32PrefixConsPub: `${prefix}valconspub`,
-        },
-        currencies: [
-          {
-            coinDenom: denom,
-            coinMinimalDenom: minimal,
-            coinDecimals: decimals,
-          },
-        ],
-        feeCurrencies: [
-          {
-            coinDenom: denom,
-            coinMinimalDenom: minimal,
-            coinDecimals: decimals,
-            gasPriceStep: {
-              low: 0.01,
-              average: 0.025,
-              high: 0.04,
-            },
-          },
-        ],
-        features: ['cosmwasm'],
-      });
+      try {
+        await this.suggestChain();
+      } catch (err) {
+        // Chain may already be registered in Keplr with a different config.
+        console.warn('experimentalSuggestChain failed, continuing:', err);
+      }
       this.chainSuggested = true;
     }
 
     await this.window.keplr.enable(this.chainId);
-    const offlineSigner = this.window.getOfflineSigner(this.chainId);
+
+    const offlineSigner =
+      this.window.keplr.getOfflineSigner?.(this.chainId) ??
+      this.window.getOfflineSigner?.(this.chainId);
+
+    if (!offlineSigner) {
+      throw new Error('Keplr offline signer is unavailable');
+    }
+
     const [accounts, signingClient] = await Promise.all([
       offlineSigner.getAccounts(),
       SigningCosmWasmClient.connectWithSigner(this.rpcEndpoint, offlineSigner),
     ]);
+
+    if (!accounts[0]?.address) {
+      throw new Error('No Keplr account available for this chain');
+    }
+
+    const address = accounts[0].address;
     this._signingClient = signingClient;
-    this.walletAddress = accounts[0].address;
+    this.walletAddress = address;
     this.resolveSigningClientReady();
+    return address;
+  }
+
+  private async suggestChain(): Promise<void> {
+    const prefix = environment.bech32Prefix;
+    const denom = environment.coinDenom;
+    const minimal = environment.coinMinimalDenom;
+    const decimals = environment.coinDecimals;
+    await this.window!.keplr.experimentalSuggestChain({
+      chainId: this.chainId,
+      chainName: environment.chainName,
+      rpc: this.rpcEndpoint,
+      rest: this.restEndpoint,
+      stakeCurrency: {
+        coinDenom: denom,
+        coinMinimalDenom: minimal,
+        coinDecimals: decimals,
+      },
+      bip44: { coinType: 118 },
+      bech32Config: {
+        bech32PrefixAccAddr: prefix,
+        bech32PrefixAccPub: `${prefix}pub`,
+        bech32PrefixValAddr: `${prefix}valoper`,
+        bech32PrefixValPub: `${prefix}valoperpub`,
+        bech32PrefixConsAddr: `${prefix}valcons`,
+        bech32PrefixConsPub: `${prefix}valconspub`,
+      },
+      currencies: [
+        {
+          coinDenom: denom,
+          coinMinimalDenom: minimal,
+          coinDecimals: decimals,
+        },
+      ],
+      feeCurrencies: [
+        {
+          coinDenom: denom,
+          coinMinimalDenom: minimal,
+          coinDecimals: decimals,
+          gasPriceStep: {
+            low: 0.01,
+            average: 0.025,
+            high: 0.04,
+          },
+        },
+      ],
+      features: ['cosmwasm'],
+    });
   }
 }

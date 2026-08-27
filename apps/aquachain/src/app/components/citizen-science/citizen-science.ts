@@ -141,8 +141,13 @@ export class CitizenScience implements OnInit, AfterViewInit {
   async toggleSensorView() {
     this.showOnlyMine = !this.showOnlyMine;
     if (this.showOnlyMine) {
-      if (!this.walletAddress) {
-        await this.connectWallet();
+      try {
+        await this.ensureWallet();
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err);
+        this.toastrService.showError(message, 'Wallet Connection Failed');
+        this.showOnlyMine = false;
+        return;
       }
     }
     this.pageCursors = [];
@@ -151,8 +156,12 @@ export class CitizenScience implements OnInit, AfterViewInit {
   }
 
   async activate(sensor: ParsedSensor) {
-    if (!this.walletAddress) {
-      await this.connectWallet();
+    try {
+      await this.ensureWallet();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.toastrService.showError(message, 'Wallet Connection Failed');
+      return;
     }
 
     const msg = {
@@ -181,8 +190,12 @@ export class CitizenScience implements OnInit, AfterViewInit {
   }
 
   async deactivate(sensor: ParsedSensor) {
-    if (!this.walletAddress) {
-      await this.connectWallet();
+    try {
+      await this.ensureWallet();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.toastrService.showError(message, 'Wallet Connection Failed');
+      return;
     }
 
     const msg = {
@@ -211,8 +224,12 @@ export class CitizenScience implements OnInit, AfterViewInit {
   }
 
   async deleteSensor(sensor: ParsedSensor) {
-    if (!this.walletAddress) {
-      await this.connectWallet();
+    try {
+      await this.ensureWallet();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.toastrService.showError(message, 'Wallet Connection Failed');
+      return;
     }
 
     const msg = {
@@ -240,16 +257,28 @@ export class CitizenScience implements OnInit, AfterViewInit {
     }
   }
 
-  async connectWallet() {
-    await this.walletService.connectWallet().catch(console.error);
-    this.walletAddress = this.walletService.walletAddress ?? '';
+  async connectWallet(): Promise<string> {
+    const address = await this.walletService.connectWallet();
+    this.walletAddress = address;
+    return address;
+  }
+
+  private async ensureWallet(): Promise<string> {
+    if (this.walletAddress) {
+      return this.walletAddress;
+    }
+    return this.connectWallet();
   }
 
   async onRegisterSensor() {
     if (this.sensorForm.invalid) return;
 
-    if (!this.walletAddress) {
-      await this.connectWallet();
+    try {
+      await this.ensureWallet();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.toastrService.showError(message, 'Wallet Connection Failed');
+      return;
     }
 
     const value = this.sensorForm.value;
@@ -290,8 +319,12 @@ export class CitizenScience implements OnInit, AfterViewInit {
   async onSubmitSensorData() {
     if (this.submitDataForm.invalid || !this.selectedSensor) return;
 
-    if (!this.walletAddress) {
-      await this.connectWallet();
+    try {
+      await this.ensureWallet();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      this.toastrService.showError(message, 'Wallet Connection Failed');
+      return;
     }
 
     const value = this.submitDataForm.value.value;
