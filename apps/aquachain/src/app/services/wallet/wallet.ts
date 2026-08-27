@@ -4,7 +4,6 @@ import {
   CosmWasmClient,
   SigningCosmWasmClient,
 } from '@cosmjs/cosmwasm-stargate';
-import { GasPrice } from '@cosmjs/stargate';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -107,9 +106,7 @@ export class WalletService {
 
     const [accounts, signingClient] = await Promise.all([
       offlineSigner.getAccounts(),
-      SigningCosmWasmClient.connectWithSigner(this.rpcEndpoint, offlineSigner, {
-        gasPrice: GasPrice.fromString(environment.gasPrice),
-      }),
+      SigningCosmWasmClient.connectWithSigner(this.rpcEndpoint, offlineSigner),
     ]);
 
     if (!accounts[0]?.address) {
