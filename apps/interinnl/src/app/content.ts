@@ -233,7 +233,7 @@ export const interinnlContent = {
     {
       name: 'Reham Abdul Rauf',
       role: 'Co-founder',
-      location: 'India / Netherlands / HK',
+      location: 'India / Netherlands',
       linkedin: 'https://www.linkedin.com/in/reham-abdul-rauf-a0634b140/',
       initials: 'RA',
     },
