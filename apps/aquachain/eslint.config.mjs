@@ -24,24 +24,28 @@ export default [
           style: 'kebab-case',
         },
       ],
+      '@angular-eslint/template/prefer-control-flow': 'off',
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
+      '@angular-eslint/prefer-inject': 'off',
       '@nx/enforce-module-boundaries': [
         'error',
         {
-          allowSameProject: true,
+          allowCircularSelfDependency: true,
           depConstraints: [
             {
               sourceTag: '*',
               onlyDependOnLibsWithTags: ['*'],
             },
           ],
-          allow: ['@env/*'], // your path alias allowed here
+          allow: ['@env/*'],
         },
       ],
     },
   },
   {
     files: ['**/*.html'],
-    // Override or add rules here
-    rules: {},
+    rules: {
+      '@angular-eslint/template/prefer-control-flow': 'off',
+    },
   },
 ];

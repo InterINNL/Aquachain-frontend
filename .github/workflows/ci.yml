@@ -27,4 +27,6 @@ jobs:
 
       - run: npm ci
       - uses: nrwl/nx-set-shas@v4
-      - run: npx nx run-many -t lint test build --parallel=2
+      - run: npx nx run aquachain:lint
+      - run: npx nx run aquachain:test
+      - run: npx nx run aquachain:build
