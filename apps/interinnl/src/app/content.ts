@@ -15,7 +15,7 @@ export const interinnlContent = {
       name: 'AquaChain',
       blurb:
         'Open-source CosmWasm + Angular demo for smarter, more trusted water management: citizen sensors, water wells, and utility footprints.',
-      demoPath: '/aquachain',
+      demoPath: '/aquachain/',
       githubFrontend: 'https://github.com/InterINNL/Aquachain-frontend',
       githubContracts: 'https://github.com/InterINNL/Aquachain-contracts',
     },

@@ -1,0 +1,28 @@
+:root {
+  --innl-saffron: #ff9933;
+  --innl-india-green: #138808;
+  --innl-dutch-red: #ae1c28;
+  --innl-navy: #0b2c5c;
+  --innl-water: #4a90c8;
+  --innl-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --innl-body: 'Source Sans 3', 'Segoe UI', Tahoma, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--innl-body);
+  line-height: 1.6;
+  color: var(--innl-navy);
+  background: #f7fafc;
+}

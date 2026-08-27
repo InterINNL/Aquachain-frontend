@@ -1,15 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { interinnlContent } from './content';
+import { interinnlContent } from '../content';
 
 @Component({
-  selector: 'interinnl-landing',
-  imports: [RouterModule],
+  selector: 'innl-landing',
   templateUrl: './landing.html',
   styleUrl: './landing.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InterinnlLanding {
+export class Landing {
   readonly content = interinnlContent;
   readonly aquachain = interinnlContent.projects[0];
 }

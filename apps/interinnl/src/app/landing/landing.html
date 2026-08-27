@@ -14,7 +14,7 @@
       <p class="innl-hero__line">{{ content.heroLine }}</p>
       <div class="innl-hero__actions">
         <a class="innl-btn innl-btn--primary" href="#join">Join the community</a>
-        <a class="innl-btn innl-btn--ghost" [routerLink]="aquachain.demoPath"
+        <a class="innl-btn innl-btn--ghost" [href]="aquachain.demoPath"
           >Open AquaChain</a
         >
       </div>
@@ -37,7 +37,7 @@
         <h3>{{ aquachain.name }}</h3>
         <p>{{ aquachain.blurb }}</p>
         <div class="innl-project__actions">
-          <a class="innl-btn innl-btn--primary" [routerLink]="aquachain.demoPath"
+          <a class="innl-btn innl-btn--primary" [href]="aquachain.demoPath"
             >Live demo</a
           >
           <a

@@ -1,0 +1,7 @@
+# SPA fallback for InterINNL hub and nested AquaChain app.
+/aquachain/*    /aquachain/index.html   200
+/citizen-science    /aquachain/citizen-science   301
+/water-well-initiative    /aquachain/water-well-initiative   301
+/water-utilities    /aquachain/water-utilities   301
+/demo    /aquachain/citizen-science   301
+/*    /index.html   200

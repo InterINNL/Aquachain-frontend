@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { InterinnlLanding } from './landing';
+import { Landing } from './landing';
 
-describe('InterinnlLanding', () => {
-  let fixture: ComponentFixture<InterinnlLanding>;
+describe('Landing', () => {
+  let fixture: ComponentFixture<Landing>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InterinnlLanding],
+      imports: [Landing],
       providers: [provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(InterinnlLanding);
+    fixture = TestBed.createComponent(Landing);
     fixture.detectChanges();
   });
 

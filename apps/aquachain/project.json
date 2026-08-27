@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "",
   "sourceRoot": "apps/aquachain/src",
-  "tags": [],
+  "tags": ["scope:aquachain"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
@@ -16,6 +16,7 @@
         "allowedCommonJsDependencies": ["bootstrap", "@cosmjs", "leaflet"],
         "tsConfig": "apps/aquachain/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
+        "baseHref": "/aquachain/",
         "assets": [
           {
             "glob": "**/*",
@@ -55,7 +56,8 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "baseHref": "/"
         }
       },
       "defaultConfiguration": "production"
