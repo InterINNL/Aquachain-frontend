@@ -11,7 +11,6 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,14 +24,6 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled',
       }),
     ),
-    importProvidersFrom(
-      BrowserAnimationsModule,
-      ToastrModule.forRoot({
-        positionClass: 'toast-bottom-right',
-        timeOut: 4000,
-        closeButton: true,
-        progressBar: true,
-      }),
-    ),
+    importProvidersFrom(BrowserAnimationsModule),
   ],
 };

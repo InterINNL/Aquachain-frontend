@@ -1,18 +1,16 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT, Injectable, inject } from '@angular/core';
 import { ExecuteResult } from '@cosmjs/cosmwasm-stargate';
 import { environment } from '@env/environment';
-import { ToastrService as toastr } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToastrService {
-  private explorerBaseUrl = environment.explorerBaseUrl;
-  constructor(private toastr: toastr) {}
+  private readonly explorerBaseUrl = environment.explorerBaseUrl;
+  private readonly document = inject(DOCUMENT);
 
-  showSuccess(transactionResult: ExecuteResult, title: string) {
+  showSuccess(transactionResult: ExecuteResult, title: string): void {
     const explorerUrl = this.getTxUrl(transactionResult.transactionHash);
-
     const message = `
     <div>
       <strong>Transaction Hash:</strong>
@@ -23,45 +21,63 @@ export class ToastrService {
       <small>Gas Used: ${transactionResult.gasUsed}</small>
     </div>
   `;
-
-    this.toastr.success(message, title, {
-      enableHtml: true,
-      timeOut: 30000,
-      closeButton: true,
-      positionClass: 'toast-top-right',
-      toastClass: 'ngx-toastr no-scroll-toast',
-    });
+    this.showToast(title, message, 'success');
   }
 
-  showError(message: string = 'Unknown error', title = 'Transaction Failed') {
+  showError(message = 'Unknown error', title = 'Transaction Failed'): void {
     const cleanMessage = this.extractRelevantError(message);
-
-    this.toastr.error(cleanMessage, title, {
-      enableHtml: true,
-      closeButton: true,
-      timeOut: 30000,
-      tapToDismiss: true,
-      positionClass: 'toast-top-right',
-      toastClass: 'ngx-toastr no-scroll-toast',
-    });
+    this.showToast(title, cleanMessage, 'error');
   }
 
   extractRelevantError(message: string): string {
-    // Split by newlines
     const lines = message.split('\n').map((line) => line.trim());
-
-    // Find last line that starts with "rpc error: code"
     for (const line of lines) {
       if (line.includes('rpc error: code')) {
         return line;
       }
     }
-
-    // Fallback: return full trimmed message if no rpc error line found
     return message.trim();
   }
 
   private getTxUrl(txHash: string): string {
     return `${this.explorerBaseUrl}/tx/${txHash}`;
+  }
+
+  private showToast(
+    title: string,
+    bodyHtml: string,
+    kind: 'success' | 'error',
+  ): void {
+    const host = this.document.body;
+    if (!host) {
+      return;
+    }
+
+    let container = this.document.getElementById('aquachain-toast-root');
+    if (!container) {
+      container = this.document.createElement('div');
+      container.id = 'aquachain-toast-root';
+      container.className = 'aquachain-toast-root';
+      host.appendChild(container);
+    }
+
+    const toast = this.document.createElement('div');
+    toast.className = `aquachain-toast aquachain-toast--${kind}`;
+    toast.innerHTML = `
+      <div class="aquachain-toast__header">
+        <strong>${title}</strong>
+        <button type="button" class="aquachain-toast__close" aria-label="Close">×</button>
+      </div>
+      <div class="aquachain-toast__body">${bodyHtml}</div>
+    `;
+
+    const remove = (): void => {
+      toast.remove();
+    };
+    toast
+      .querySelector('.aquachain-toast__close')
+      ?.addEventListener('click', remove);
+    container.appendChild(toast);
+    window.setTimeout(remove, 30_000);
   }
 }

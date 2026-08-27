@@ -34,7 +34,6 @@
           "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
           "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
           "node_modules/bootstrap/dist/css/bootstrap.min.css",
-          "node_modules/ngx-toastr/toastr.css",
           "apps/aquachain/src/styles.scss"
         ],
         "server": "apps/aquachain/src/main.server.ts",
