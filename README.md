@@ -106,10 +106,11 @@ curl -s http://localhost:1317/cosmos/base/tendermint/v1beta1/node_info | head
 
 Build and instantiate against this node (`CHAIN_ID=testing`, `NODE=http://localhost:26657`, `DENOM=ustake`):
 
-| Module                | Contract crate             | Env key                         |
-| --------------------- | -------------------------- | ------------------------------- |
-| Citizen Science       | `citizen-science-registry` | `CitizenScienceContractAddress` |
-| Water Well Initiative | `water-well-initiative`    | `WaterWellContractAddress`      |
+| Module                | Contract crate             | Env key                                 |
+| --------------------- | -------------------------- | --------------------------------------- |
+| Citizen Science       | `citizen-science-registry` | `CitizenScienceContractAddress`         |
+| Water Well Initiative | `water-well-initiative`    | `WaterWellContractAddress`              |
+| Water Utilities       | `utility-water-footprint`  | `UtilityWaterFootprintContractAddress`  |
 
 From each crate directory:
 
@@ -118,6 +119,8 @@ make deploy
 # address is written to contract_addr.txt — paste into environment.ts
 ```
 
+Osmosis testnet: see the contracts repo README (deploy + seed scripts under `scripts/`).
+
 ### 4. Point the frontend at the contracts
 
 Set in `apps/aquachain/src/environments/environment.ts`:
@@ -125,12 +128,14 @@ Set in `apps/aquachain/src/environments/environment.ts`:
 ```ts
 CitizenScienceContractAddress: '<citizen-science-address>',
 WaterWellContractAddress: '<water-well-address>',
-UtilityWaterFootprintContractAddress: '',
+UtilityWaterFootprintContractAddress: '<utility-water-footprint-address>',
 chainId: 'testing',
 rpcEndpoint: 'http://localhost:4200/rpc',
 restEndpoint: 'http://localhost:1317',
 gasPrice: '0.025ustake',
 ```
+
+Production builds use `environment.prod.ts` (Osmosis testnet addresses for the live demo).
 
 ### 5. Run the app and connect Keplr
 
@@ -140,20 +145,21 @@ npm run start
 
 Open [http://localhost:4200/citizen-science](http://localhost:4200/citizen-science), [http://localhost:4200/water-well-initiative](http://localhost:4200/water-well-initiative), or [http://localhost:4200/water-utilities](http://localhost:4200/water-utilities), approve the suggested chain, fund the Keplr account with `ustake` if needed, then exercise the module flows.
 
-Water Well demo path: create project → admin validate → donate (with funds) → admin unlock → owner/admin disburse.
+**Demo paths**
 
-Water Utilities demo path: register company → log usage/savings → admin/verifier validate → issue certificate (≥10% validated savings ratio for the period).
+- Citizen Science: register sensor → activate → submit data → verify → reward
+- Water Well: create project → admin validate → donate (with funds) → admin unlock → owner/admin disburse
+- Water Utilities: register company → log usage/savings → admin/verifier validate → issue certificate (≥10% validated savings ratio for the period)
 
-### Still missing in-repo (for a one-command boot)
+Live: [interinnl.interchouette.net](https://interinnl.interchouette.net)
 
-These are not shipped as a single script yet:
+### Still optional locally
 
-- Documented / scripted `wasmd` genesis + start (Docker or Make)
+Not required for the three-module demo, but not automated yet:
+
+- One-command `wasmd` genesis + start
 - Local faucet for Keplr accounts
-- Deploy Makefile defaults aligned to local `testing` / `ustake` (Citizen Science Makefile currently targets another network)
 - Automatic write-back of `contract_addr.txt` into `environment.ts`
-
-Until those exist, follow the checklist above manually.
 
 ## Configuration files
 
