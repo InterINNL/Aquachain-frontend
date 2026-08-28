@@ -100,33 +100,30 @@
       <p class="ac-home-steps__intro">{{ content.howItWorks.intro }}</p>
     </div>
 
-    <div class="ac-home-steps__layout">
-      <div class="ac-home-steps__main">
-        <div class="ac-home-steps">
-          @for (step of content.howItWorks.steps; track step.title) {
-            <article class="ac-step">
-              <div class="ac-step__icon">
-                <fa-icon [icon]="['fas', step.icon]"></fa-icon>
-              </div>
-              <h3 class="ac-step__title">{{ step.title }}</h3>
-              <p class="ac-step__body">{{ step.body }}</p>
-            </article>
-          }
-        </div>
-        <p class="ac-home-steps__closing">{{ content.howItWorks.closing }}</p>
-      </div>
-
-      <div class="ac-home-steps__photo">
-        <img
-          [src]="content.howItWorks.photo.src"
-          [alt]="content.howItWorks.photo.alt"
-          [style.object-position]="content.howItWorks.photo.objectPosition ?? 'center'"
-          width="640"
-          height="480"
-          loading="lazy"
-        />
-      </div>
+    <div class="ac-home-steps__photo">
+      <img
+        [src]="content.howItWorks.photo.src"
+        [alt]="content.howItWorks.photo.alt"
+        [style.object-position]="content.howItWorks.photo.objectPosition ?? 'center'"
+        width="1200"
+        height="360"
+        loading="lazy"
+      />
     </div>
+
+    <div class="ac-home-steps">
+      @for (step of content.howItWorks.steps; track step.title) {
+        <article class="ac-step">
+          <div class="ac-step__icon">
+            <fa-icon [icon]="['fas', step.icon]"></fa-icon>
+          </div>
+          <h3 class="ac-step__title">{{ step.title }}</h3>
+          <p class="ac-step__body">{{ step.body }}</p>
+        </article>
+      }
+    </div>
+
+    <p class="ac-home-steps__closing">{{ content.howItWorks.closing }}</p>
   </div>
 </section>
 
