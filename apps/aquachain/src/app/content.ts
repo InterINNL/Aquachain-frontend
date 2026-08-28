@@ -144,9 +144,9 @@ export const aquachainContent = {
     intro:
       'Contributors sign with Keplr. CosmWasm on wasmd holds the state so history cannot be rewritten from the UI alone.',
     photo: {
-      src: local('hero-utilities-plant.jpg'),
-      alt: 'Water treatment plant with pipes and monitoring equipment',
-      objectPosition: 'center 35%',
+      src: local('utilities-well-monitoring.jpg'),
+      alt: 'Industrial sensors monitoring a production water well',
+      objectPosition: 'center 45%',
     },
     steps: [
       {
@@ -177,9 +177,9 @@ export const aquachainContent = {
   technology: {
     title: 'Powered by advanced technology',
     photo: {
-      src: local('watershed-lake.jpg'),
-      alt: 'Reservoir and watershed landscape used for regional water supply',
-      objectPosition: 'center 40%',
+      src: local('field-irrigation.jpg'),
+      alt: 'Irrigation sprinklers watering crops in a green field',
+      objectPosition: 'center 55%',
     },
     items: [
       {
@@ -217,9 +217,9 @@ export const aquachainContent = {
         icon: 'chart-line',
         accent: 'slate' as const,
         photo: {
-          src: local('field-irrigation.jpg'),
-          alt: 'Irrigation sprinklers watering crops in a green field',
-          objectPosition: 'center 55%',
+          src: local('utilities-well-monitoring.jpg'),
+          alt: 'Industrial IoT sensors monitoring production water well levels',
+          objectPosition: 'center 45%',
         },
       },
       {
@@ -230,9 +230,8 @@ export const aquachainContent = {
         icon: 'hand-holding-droplet',
         accent: 'amber' as const,
         photo: {
-          src: local('well-field-wide.jpg'),
-          alt: 'Wide view of a rural water access point in the field',
-          objectPosition: 'center 45%',
+          src: local('community-well.jpg'),
+          alt: 'Community hand pump and well used for daily water access',
         },
       },
       {
@@ -243,9 +242,9 @@ export const aquachainContent = {
         icon: 'microscope',
         accent: 'teal' as const,
         photo: {
-          src: local('agri-drone-field.jpg'),
-          alt: 'Agricultural drone surveying crops for precision water management',
-          objectPosition: 'center 40%',
+          src: local('citizen-sensor-kit.jpg'),
+          alt: 'Portable water quality sensor kit for field measurements',
+          objectPosition: 'center 45%',
         },
       },
     ],
