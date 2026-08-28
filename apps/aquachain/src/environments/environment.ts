@@ -10,6 +10,7 @@ export const environment = {
   WaterCreditMarketplaceContractAddress: '',
   LocalDaoContractAddress: '',
   CrossPlatformExchangeContractAddress: '',
+  agentGatewayUrl: 'http://localhost:8081',
   explorerBaseUrl: 'https://your-explorer-url',
   gasPrice: '0.025ustake',
   gasMultiplier: 1.5,

@@ -7,6 +7,11 @@ export const appRoutes: Route[] = [
     component: Home,
   },
   {
+    path: 'agent-ops',
+    loadComponent: () =>
+      import('./components/agent-ops/agent-ops').then((m) => m.AgentOps),
+  },
+  {
     path: 'contact',
     loadComponent: () =>
       import('./components/contact/contact').then((m) => m.Contact),

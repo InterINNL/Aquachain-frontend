@@ -533,3 +533,28 @@
     grid-template-columns: 1fr;
   }
 }
+
+.ac-home-agent-teaser {
+  background: rgb(26 107 122 / 8%);
+}
+
+.ac-home-agent-teaser__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--ac-space-2xl);
+  align-items: center;
+}
+
+.ac-home-agent-teaser__inner img {
+  width: 100%;
+  border-radius: var(--ac-radius-lg);
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  box-shadow: var(--ac-shadow-md);
+}
+
+@media (max-width: 900px) {
+  .ac-home-agent-teaser__inner {
+    grid-template-columns: 1fr;
+  }
+}

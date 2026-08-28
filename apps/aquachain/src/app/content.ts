@@ -65,6 +65,46 @@ export interface SiteNav {
   moreMenuLabel: string;
 }
 
+export interface AgentOpsStep {
+  title: string;
+  body: string;
+  icon: string;
+}
+
+export interface AgentOpsContent {
+  kicker: string;
+  title: string;
+  lead: string;
+  body: string;
+  photo: AcPhoto;
+  samplePayload: Record<string, string | number>;
+  sampleNote: string;
+  loop: {
+    title: string;
+    lead: string;
+    steps: AgentOpsStep[];
+  };
+  hybrid: {
+    title: string;
+    paragraphs: string[];
+    layers: Array<{ label: string; detail: string }>;
+  };
+  gateway: {
+    title: string;
+    lead: string;
+    notConfigured: string;
+  };
+  links: {
+    dao: NavLink;
+    citizenScience: NavLink;
+  };
+  homeTeaser: {
+    title: string;
+    body: string;
+    cta: NavLink;
+  };
+}
+
 const crossExchangePhotos: AcPhoto[] = [
   {
     src: local('hero-river.jpg'),
@@ -252,6 +292,11 @@ export const aquachainContent = {
       icon: 'envelope',
       accent: 'teal',
     },
+    '/agent-ops': {
+      label: 'Agent Ops',
+      icon: 'robot',
+      accent: 'amber',
+    },
   } as Record<string, HeaderBrand>,
 
   hero: {
@@ -264,7 +309,7 @@ export const aquachainContent = {
       objectPosition: 'center 40%',
     },
     primaryCta: { label: 'Explore Citizen Science', route: '/citizen-science' },
-    secondaryCta: { label: 'How it works', anchor: '#how-it-works' },
+    secondaryCta: { label: 'Agent field ops', route: '/agent-ops' },
   },
 
   context: {
@@ -518,7 +563,7 @@ export const aquachainContent = {
       'Use the form to reach Gregory Roussac. Typical topics: wiring AquaChain to your testnet, extending a CosmWasm module, or partnering on water and climate open source through InterINNL.',
       'Include enough context for a useful reply: which module you tried, chain ID, wallet address (if relevant), and what you expected versus what you saw.',
     ],
-    recipientEmail: 'contact@interchouette.net',
+    recipientEmail: 'contact+aquachain@interchouette.net',
     successMessage: 'Thanks. Your message was sent.',
     errorMessage:
       'Could not send your message. Try again or use the email link below.',
@@ -538,11 +583,12 @@ export const aquachainContent = {
     home: { label: 'Home', route: '/' },
     contact: { label: 'Contact', route: '/contact' },
     featuredModules: [
+      { label: 'Agent Ops', route: '/agent-ops' },
       { label: 'Citizen Science', route: '/citizen-science' },
       { label: 'Water Well', route: '/water-well-initiative' },
-      { label: 'Water Utilities', route: '/water-utilities' },
     ],
     moreModules: [
+      { label: 'Water Utilities', route: '/water-utilities' },
       { label: 'Sustainable Actions', route: '/sustainable-actions' },
       { label: 'Community Bounty', route: '/community-bounty' },
       { label: 'Water Credits', route: '/water-credits' },
@@ -683,4 +729,95 @@ export const aquachainContent = {
       },
     },
   } satisfies Record<ModuleHeroKey, ModuleHero>,
+
+  agentOps: {
+    kicker: 'Phase G · Agents + x402',
+    title: 'Agent field ops',
+    lead: 'Drone agents pay USDC via HTTP 402. Measurements land on Osmosis CosmWasm. Communities govern what happens next.',
+    body: 'AquaChain keeps human wallets on Cosmos while autonomous agents use x402 micropayments on Base Sepolia. The agent gateway validates drone readings and relays them to citizen-science-registry.',
+    photo: {
+      src: local('agri-drone.jpg'),
+      alt: 'Agricultural drone flying over fields for water and crop monitoring',
+      objectPosition: 'center center',
+    },
+    samplePayload: {
+      lat: '28.70',
+      lon: '77.22',
+      turbidity: '14.2',
+      image_hash: 'sha256:demo-yamuna-frame-001',
+      flight_id: 'yamuna-drone-001',
+      sensor_id: 1,
+      unit: 'NTU',
+      site: 'Yamuna Wazirabad barrage, Delhi NCR, India',
+    },
+    sampleNote:
+      'Numeric fields are strings so CosmWasm JSON accepts them when the gateway relays submit_data.',
+    loop: {
+      title: 'Pay · Measure · Record · Verify · Govern',
+      lead: 'One loop from autonomous capture to community decisions.',
+      steps: [
+        {
+          title: 'Pay',
+          body: 'Agent receives HTTP 402, signs USDC authorization via x402, retries with PAYMENT-SIGNATURE.',
+          icon: 'credit-card',
+        },
+        {
+          title: 'Measure',
+          body: 'Drone posts turbidity, coordinates, and an image hash for a river segment.',
+          icon: 'helicopter',
+        },
+        {
+          title: 'Record',
+          body: 'Gateway relays submit_data to citizen-science-registry on osmo-test-5.',
+          icon: 'link',
+        },
+        {
+          title: 'Verify',
+          body: 'Registered verifiers or policy agents approve readings inside acceptable bounds.',
+          icon: 'clipboard-check',
+        },
+        {
+          title: 'Govern',
+          body: 'Local DAO proposals can fund bounties or rewards when thresholds are met (G2).',
+          icon: 'landmark',
+        },
+      ],
+    },
+    hybrid: {
+      title: 'Why USDC on Base while the chain is Osmosis',
+      paragraphs: [
+        'x402 is an HTTP-native payment rail. Facilitators settle USDC on EVM networks today, which is what autonomous agents expect.',
+        'Aquachain stewardship data stays on CosmWasm. The gateway is the deliberate bridge: agents never need Keplr; humans never need an EVM wallet to read the same on-chain record.',
+      ],
+      layers: [
+        {
+          label: 'Agents',
+          detail: 'USDC or USDT via x402 on Base Sepolia (demo network)',
+        },
+        {
+          label: 'Gateway',
+          detail: 'Verifies payment, normalizes drone JSON, signs Osmosis relay tx',
+        },
+        {
+          label: 'Humans',
+          detail: 'Keplr + OSMO on osmo-test-5 for wells, DAO votes, and bounties',
+        },
+      ],
+    },
+    gateway: {
+      title: 'Agent gateway (G0 scaffold)',
+      lead: 'G1 connects x402 settlement and live Osmosis relay. G0 exposes capabilities, validates payloads, and returns 402 payment requirements.',
+      notConfigured:
+        'Set agentGatewayUrl in the app environment to probe a running gateway (/v1/capabilities).',
+    },
+    links: {
+      dao: { label: 'Local DAO', route: '/local-dao' },
+      citizenScience: { label: 'Citizen Science', route: '/citizen-science' },
+    },
+    homeTeaser: {
+      title: 'New: agent field ops',
+      body: 'Autonomous drones can pay per reading with x402 USDC while the public record stays on Osmosis.',
+      cta: { label: 'See agent loop', route: '/agent-ops' },
+    },
+  } satisfies AgentOpsContent,
 };

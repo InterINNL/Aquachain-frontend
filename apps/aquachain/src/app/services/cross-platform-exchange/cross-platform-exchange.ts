@@ -21,7 +21,10 @@ export interface ExchangeRate {
 export class CrossPlatformExchangeService {
   private readonly contractService = inject(ContractService);
 
-  async getPartner(contract: string, partnerDenom: string): Promise<ExchangePartner> {
+  async getPartner(
+    contract: string,
+    partnerDenom: string,
+  ): Promise<ExchangePartner> {
     const client = await this.contractService.getqueryClient();
     return client.queryContractSmart(contract, {
       get_partner: { partner_denom: partnerDenom },
@@ -121,13 +124,14 @@ export function formatRateHuman(rate: ExchangeRate, coinDecimals = 6): string {
   const osmoWhole = baseMicro / scale;
   const osmoFrac = baseMicro % scale;
   const osmoLabel =
-    osmoFrac === 0n
-      ? `${osmoWhole} OSMO`
-      : `${baseMicro} uosmo`;
+    osmoFrac === 0n ? `${osmoWhole} OSMO` : `${baseMicro} uosmo`;
   return `${osmoLabel} = ${partner} ledger units`;
 }
 
-export function osmoToUosmo(osmoAmount: string, coinDecimals = 6): string | null {
+export function osmoToUosmo(
+  osmoAmount: string,
+  coinDecimals = 6,
+): string | null {
   const trimmed = osmoAmount.trim();
   if (!/^\d+(\.\d+)?$/.test(trimmed)) {
     return null;
@@ -137,7 +141,8 @@ export function osmoToUosmo(osmoAmount: string, coinDecimals = 6): string | null
     return null;
   }
   const padded = frac.padEnd(coinDecimals, '0');
-  const micro = BigInt(whole) * 10n ** BigInt(coinDecimals) + BigInt(padded || '0');
+  const micro =
+    BigInt(whole) * 10n ** BigInt(coinDecimals) + BigInt(padded || '0');
   if (micro <= 0n) {
     return null;
   }
@@ -221,11 +226,17 @@ export function formatMicroAsOsmo(micro: bigint, coinDecimals = 6): string {
   if (frac === 0n) {
     return whole.toString();
   }
-  const fracStr = frac.toString().padStart(coinDecimals, '0').replace(/0+$/, '');
+  const fracStr = frac
+    .toString()
+    .padStart(coinDecimals, '0')
+    .replace(/0+$/, '');
   return `${whole}.${fracStr}`;
 }
 
-export function suggestedOsmoAmounts(rate: ExchangeRate, coinDecimals = 6): string[] {
+export function suggestedOsmoAmounts(
+  rate: ExchangeRate,
+  coinDecimals = 6,
+): string[] {
   const base = BigInt(rate.base_amount);
   const scale = 10n ** BigInt(coinDecimals);
   if (base <= 0n) {

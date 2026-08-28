@@ -77,11 +77,7 @@ export class SiteHeader {
   @HostListener('document:click', ['$event'])
   closeMoreMenu(event: MouseEvent): void {
     const menu = this.moreMenuRef()?.nativeElement;
-    if (
-      menu &&
-      event.target instanceof Node &&
-      menu.contains(event.target)
-    ) {
+    if (menu && event.target instanceof Node && menu.contains(event.target)) {
       return;
     }
     this.moreMenuOpen.set(false);

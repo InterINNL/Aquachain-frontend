@@ -12,7 +12,7 @@
       </a>
       <a
         class="ac-btn ac-btn--ghost-light ac-btn--lg"
-        [href]="content.hero.secondaryCta.anchor"
+        [routerLink]="content.hero.secondaryCta.route"
       >
         {{ content.hero.secondaryCta.label }}
       </a>
@@ -82,6 +82,29 @@
       </a>
       }
     </div>
+  </div>
+</section>
+
+<section class="ac-section ac-home-agent-teaser">
+  <div class="ac-container ac-home-agent-teaser__inner">
+    <div>
+      <p class="ac-kicker">{{ content.agentOps.kicker }}</p>
+      <h2 class="ac-section-title">{{ content.agentOps.homeTeaser.title }}</h2>
+      <p class="ac-lead">{{ content.agentOps.homeTeaser.body }}</p>
+      <a
+        class="ac-btn ac-btn--primary"
+        [routerLink]="content.agentOps.homeTeaser.cta.route"
+      >
+        {{ content.agentOps.homeTeaser.cta.label }}
+      </a>
+    </div>
+    <img
+      [src]="content.agentOps.photo.src"
+      [alt]="content.agentOps.photo.alt"
+      width="520"
+      height="390"
+      loading="lazy"
+    />
   </div>
 </section>
 
@@ -162,25 +185,25 @@
     </p>
     <div class="ac-home-integrated__grid">
       @for (mod of content.integratedModules.items; track mod.id) {
-        <a
-          class="ac-integrated-card ac-integrated-card--{{ mod.accent }}"
-          [routerLink]="mod.route"
-        >
-          <div class="ac-integrated-card__photo">
-            <ac-photo-carousel [photos]="mod.photos" />
+      <a
+        class="ac-integrated-card ac-integrated-card--{{ mod.accent }}"
+        [routerLink]="mod.route"
+      >
+        <div class="ac-integrated-card__photo">
+          <ac-photo-carousel [photos]="mod.photos" />
+        </div>
+        <div class="ac-integrated-card__body">
+          <div class="ac-integrated-card__icon">
+            <fa-icon [icon]="['fas', mod.icon]"></fa-icon>
           </div>
-          <div class="ac-integrated-card__body">
-            <div class="ac-integrated-card__icon">
-              <fa-icon [icon]="['fas', mod.icon]"></fa-icon>
-            </div>
-            <h3 class="ac-integrated-card__title">{{ mod.title }}</h3>
-            <p class="ac-integrated-card__body-text">{{ mod.body }}</p>
-            <span class="ac-integrated-card__cta">
-              Learn more
-              <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
-            </span>
-          </div>
-        </a>
+          <h3 class="ac-integrated-card__title">{{ mod.title }}</h3>
+          <p class="ac-integrated-card__body-text">{{ mod.body }}</p>
+          <span class="ac-integrated-card__cta">
+            Learn more
+            <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
+          </span>
+        </div>
+      </a>
       }
     </div>
   </div>

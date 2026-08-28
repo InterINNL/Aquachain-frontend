@@ -238,6 +238,7 @@ export const interinnlContent = {
   links: {
     githubOrg: 'https://github.com/InterINNL',
     site: 'https://interinnl.interchouette.net/',
+    contactEmail: 'contact+innl@interchouette.net',
     linkedinGroup,
   },
 };

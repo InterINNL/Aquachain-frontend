@@ -1,0 +1,71 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  AgentGatewayService,
+  GatewayCapabilities,
+  GatewayHealth,
+} from '@services/agent-gateway/agent-gateway';
+import { environment } from '@env/environment';
+import { aquachainContent } from '../../content';
+
+@Component({
+  selector: 'agent-ops',
+  imports: [FontAwesomeModule, RouterModule],
+  templateUrl: './agent-ops.html',
+  styleUrl: './agent-ops.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class AgentOps {
+  readonly content = aquachainContent;
+  readonly gatewayConfigured = Boolean(environment.agentGatewayUrl);
+  private readonly gateway = inject(AgentGatewayService);
+
+  readonly loading = signal(false);
+  readonly gatewayError = signal('');
+  readonly capabilities = signal<GatewayCapabilities | null>(null);
+  readonly health = signal<GatewayHealth | null>(null);
+
+  constructor() {
+    if (this.gatewayConfigured) {
+      void this.loadGateway();
+    }
+  }
+
+  sampleJson(): string {
+    return JSON.stringify(this.content.agentOps.samplePayload, null, 2);
+  }
+
+  curlExample(): string {
+    const base = environment.agentGatewayUrl.replace(/\/$/, '');
+    return [
+      `curl -sS -X POST ${base}/v1/measurements \\`,
+      `  -H 'Content-Type: application/json' \\`,
+      `  -d '${JSON.stringify(this.content.agentOps.samplePayload)}'`,
+    ].join('\n');
+  }
+
+  async loadGateway(): Promise<void> {
+    this.loading.set(true);
+    this.gatewayError.set('');
+    try {
+      const [caps, health] = await Promise.all([
+        this.gateway.fetchCapabilities(),
+        this.gateway.fetchHealth(),
+      ]);
+      this.capabilities.set(caps);
+      this.health.set(health);
+    } catch (error) {
+      this.gatewayError.set(
+        error instanceof Error ? error.message : 'Gateway unreachable',
+      );
+    } finally {
+      this.loading.set(false);
+    }
+  }
+}

@@ -1,0 +1,123 @@
+<section class="ac-agent-hero">
+  <div class="ac-container ac-agent-hero__grid">
+    <div>
+      <p class="ac-kicker">{{ content.agentOps.kicker }}</p>
+      <h1 class="ac-agent-hero__title">{{ content.agentOps.title }}</h1>
+      <p class="ac-lead">{{ content.agentOps.lead }}</p>
+      <p class="ac-agent-hero__body">{{ content.agentOps.body }}</p>
+      <div class="ac-agent-hero__badges">
+        <span class="ac-badge">x402 USDC</span>
+        <span class="ac-badge">Base Sepolia</span>
+        <span class="ac-badge">Osmosis CosmWasm</span>
+      </div>
+    </div>
+    <div class="ac-agent-hero__photo">
+      <img
+        [src]="content.agentOps.photo.src"
+        [alt]="content.agentOps.photo.alt"
+        [style.object-position]="content.agentOps.photo.objectPosition ?? 'center'"
+        width="720"
+        height="540"
+        loading="eager"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="ac-section">
+  <div class="ac-container">
+    <h2 class="ac-section-title ac-section-title--center">
+      {{ content.agentOps.loop.title }}
+    </h2>
+    <p class="ac-lead ac-section-title--center">{{ content.agentOps.loop.lead }}</p>
+    <div class="ac-agent-steps">
+      @for (step of content.agentOps.loop.steps; track step.title) {
+        <article class="ac-agent-step">
+          <div class="ac-agent-step__icon">
+            <fa-icon [icon]="['fas', step.icon]"></fa-icon>
+          </div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.body }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="ac-section ac-agent-hybrid">
+  <div class="ac-container ac-agent-hybrid__grid">
+    <div>
+      <h2 class="ac-section-title">{{ content.agentOps.hybrid.title }}</h2>
+      @for (paragraph of content.agentOps.hybrid.paragraphs; track paragraph) {
+        <p class="ac-agent-hybrid__text">{{ paragraph }}</p>
+      }
+      <ul class="ac-agent-hybrid__list">
+        @for (item of content.agentOps.hybrid.layers; track item.label) {
+          <li>
+            <strong>{{ item.label }}</strong>
+            <span>{{ item.detail }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+    <div class="ac-card">
+      <div class="ac-card__header"><h3>Sample drone payload</h3></div>
+      <div class="ac-card__body">
+        <pre class="ac-agent-code"><code>{{ sampleJson() }}</code></pre>
+        <p class="ac-agent-note">{{ content.agentOps.sampleNote }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ac-section">
+  <div class="ac-container">
+    <h2 class="ac-section-title">{{ content.agentOps.gateway.title }}</h2>
+    <p class="ac-lead">{{ content.agentOps.gateway.lead }}</p>
+
+    @if (!gatewayConfigured) {
+      <div class="ac-alert-banner ac-alert-banner--info" role="status">
+        {{ content.agentOps.gateway.notConfigured }}
+      </div>
+    } @else {
+      @if (loading()) {
+        <p class="ac-loading-row">
+          <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+          Checking gateway…
+        </p>
+      }
+      @if (gatewayError()) {
+        <div class="ac-alert-banner ac-alert-banner--info" role="alert">
+          {{ gatewayError() }}
+        </div>
+      }
+      @if (health(); as h) {
+        <div class="ac-kpi-grid ac-agent-kpi">
+          <div class="ac-kpi">
+            <span class="ac-kpi__label">Phase</span>
+            <span class="ac-kpi__value">{{ h.phase }}</span>
+          </div>
+          <div class="ac-kpi">
+            <span class="ac-kpi__label">x402 ready</span>
+            <span class="ac-kpi__value">{{ h.x402_ready ? 'yes' : 'no' }}</span>
+          </div>
+          <div class="ac-kpi">
+            <span class="ac-kpi__label">Osmosis relay</span>
+            <span class="ac-kpi__value">{{ h.relay_ready ? 'yes' : 'G1' }}</span>
+          </div>
+        </div>
+      }
+      <pre class="ac-agent-code ac-agent-code--block"><code>{{ curlExample() }}</code></pre>
+    }
+
+    <p class="ac-agent-links">
+      <a [routerLink]="content.agentOps.links.dao.route">{{
+        content.agentOps.links.dao.label
+      }}</a>
+      ·
+      <a [routerLink]="content.agentOps.links.citizenScience.route">{{
+        content.agentOps.links.citizenScience.label
+      }}</a>
+    </p>
+  </div>
+</section>

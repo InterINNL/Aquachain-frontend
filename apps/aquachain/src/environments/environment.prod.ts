@@ -16,6 +16,7 @@ export const environment = {
     'osmo1m7smfa2kfyj6rmx068hxeapdmvrpza30z8uhj5fgt35z64yyd7qq6w3ctg',
   CrossPlatformExchangeContractAddress:
     'osmo19szn8salqfrdu4f359h5ft93gh97444rsk53dzm5sehzl0aayskqqrrh56',
+  agentGatewayUrl: '',
   explorerBaseUrl: 'https://www.mintscan.io/osmosis-testnet',
 
   gasPrice: '0.1uosmo',
