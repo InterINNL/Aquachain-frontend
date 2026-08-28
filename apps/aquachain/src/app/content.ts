@@ -66,7 +66,7 @@ export const aquachainContent = {
       icon: 'envelope',
       accent: 'teal',
     },
-  } satisfies Record<string, HeaderBrand>,
+  } as Record<string, HeaderBrand>,
 
   hero: {
     kicker: 'Open source · Cosmos · InterINNL',

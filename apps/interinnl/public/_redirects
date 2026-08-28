@@ -1,7 +1,24 @@
-# SPA fallback for InterINNL hub and nested AquaChain app.
-/aquachain/*    /aquachain/index.html   200
-/citizen-science    /aquachain/citizen-science   301
-/water-well-initiative    /aquachain/water-well-initiative   301
-/water-utilities    /aquachain/water-utilities   301
-/demo    /aquachain/citizen-science   301
-/*    /index.html   200
+# Host-level SPA routing for interinnl.interchouette.net (Render static publish root).
+# Only this file at the site root. Do not add _redirects under /aquachain/.
+#
+# Rule order matters: AquaChain entries must stay above the hub catch-all (/*).
+#
+# | From                    | To                              | Type |
+# |-------------------------|---------------------------------|------|
+# | /aquachain              | /aquachain/                     | 301  |
+# | /aquachain/             | /aquachain/index.html           | 200  |
+# | /aquachain/*            | /aquachain/index.html           | 200  |
+# | /citizen-science        | /aquachain/citizen-science      | 301  |
+# | /water-well-initiative  | /aquachain/water-well-initiative| 301  |
+# | /water-utilities        | /aquachain/water-utilities      | 301  |
+# | /demo                   | /aquachain/citizen-science      | 301  |
+# | /*                      | /index.html                     | 200  |
+
+/aquachain              /aquachain/                         301
+/aquachain/             /aquachain/index.html               200
+/aquachain/*            /aquachain/index.html               200
+/citizen-science        /aquachain/citizen-science          301
+/water-well-initiative  /aquachain/water-well-initiative    301
+/water-utilities        /aquachain/water-utilities          301
+/demo                   /aquachain/citizen-science          301
+/*                      /index.html                         200

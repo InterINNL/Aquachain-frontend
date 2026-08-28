@@ -13,6 +13,9 @@ mkdir -p "$SITE/aquachain"
 cp -a "$ROOT/dist/apps/interinnl/browser/." "$SITE/"
 cp -a "$ROOT/dist/apps/aquachain/browser/." "$SITE/aquachain/"
 
+# Nested aquachain must not ship its own _redirects (/* -> /index.html hits the hub).
+rm -f "$SITE/aquachain/_redirects"
+
 # Hub owns host-level SPA redirects (includes /aquachain/*).
 if [[ -f "$ROOT/apps/interinnl/public/_redirects" ]]; then
   cp "$ROOT/apps/interinnl/public/_redirects" "$SITE/_redirects"
