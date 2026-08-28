@@ -49,7 +49,6 @@ export const interinnlContent = {
     { value: 2, suffix: '', label: 'countries' },
     { value: 50, suffix: '+', label: 'members' },
     { value: 1, suffix: '', label: 'project live' },
-    { value: 0, suffix: '', label: 'first hackathon', display: 'Soon' },
   ],
   stories: [
     {
@@ -204,15 +203,6 @@ export const interinnlContent = {
       note: 'An InterINNL open-source project.',
     },
   ],
-  events: {
-    badge: 'Coming soon',
-    title: 'AquaChain Hackathon I',
-    blurb:
-      '48 hours to build tech for water challenges with AI, LLMs, IoT and blockchain. India and the Netherlands, remote + Amsterdam. Public GitHub output. Real problems, not slides.',
-    when: 'Date to be announced',
-    ctaLabel: 'Register interest',
-    ctaHref: linkedinGroup,
-  },
   founders: [
     {
       name: 'Gregory Roussac',

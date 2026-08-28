@@ -33,7 +33,7 @@ Humans use Keplr on Osmosis. Autonomous agents pay USDC via HTTP 402 (x402 on Ba
 
 - [InterINNL hub email](mailto:contact+innl@interchouette.net): general InterINNL contact
 - [AquaChain email](mailto:contact+aquachain@interchouette.net): demo and collaboration questions
-- [LinkedIn group](https://www.linkedin.com/groups/42420002/): community and hackathon interest
+- [LinkedIn group](https://www.linkedin.com/groups/42420002/): community
 - [GitHub org](https://github.com/InterINNL): open-source repositories
 
 ## GitHub
