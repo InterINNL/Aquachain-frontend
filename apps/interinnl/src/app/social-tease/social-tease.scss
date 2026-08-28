@@ -8,11 +8,19 @@
 
 .innl-social__accent {
   position: absolute;
-  left: 0;
   top: 0;
   bottom: 0;
   width: 0.45rem;
+}
+
+.innl-social__accent--in {
+  left: 0;
   background: var(--innl-saffron);
+}
+
+.innl-social__accent--nl {
+  right: 0;
+  background: var(--innl-dutch-red);
 }
 
 .innl-social__inner {
