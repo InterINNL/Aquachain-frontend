@@ -16,7 +16,7 @@ export const environment = {
     'osmo1wyf5hpwpkuml6dtzj7ldek220pqy73j8a4crkp9pdupttrzfs2rq5dtwms',
   CrossPlatformExchangeContractAddress:
     'osmo19szn8salqfrdu4f359h5ft93gh97444rsk53dzm5sehzl0aayskqqrrh56',
-  agentGatewayUrl: 'https://aquachain-gateway.interchouette.net',
+  agentGatewayUrl: 'https://x402.interchouette.net',
   explorerBaseUrl: 'https://www.mintscan.io/osmosis-testnet',
 
   gasPrice: '0.1uosmo',
