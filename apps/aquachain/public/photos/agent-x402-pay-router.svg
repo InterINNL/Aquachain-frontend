@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" role="img" aria-labelledby="title desc">
   <title id="title">AquaChain Pay Router</title>
   <desc id="desc">Autonomous agents pay USDC on Base Sepolia testnet via x402; the gateway relays water readings to Osmosis testnet.</desc>
   <defs>
@@ -18,69 +18,75 @@
     </marker>
   </defs>
 
-  <rect width="900" height="520" fill="url(#bg)"/>
+  <rect width="900" height="540" fill="url(#bg)"/>
 
   <text x="450" y="42" text-anchor="middle" font-family="sans-serif" font-size="26" font-weight="700" fill="#0c2340">AquaChain Pay Router</text>
   <text x="450" y="68" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#3d4f5f">x402 micropayments on Base Sepolia testnet, relay to Osmosis testnet</text>
 
-  <rect x="24" y="92" width="248" height="300" rx="10" fill="#eef6f8" stroke="#1a6b7a" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <!-- Base Sepolia zone -->
+  <rect x="24" y="92" width="248" height="288" rx="10" fill="#eef6f8" stroke="#1a6b7a" stroke-width="1.5" stroke-dasharray="6 4"/>
   <text x="148" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" letter-spacing="0.04em" fill="#1a6b7a">BASE SEPOLIA TESTNET</text>
   <text x="148" y="130" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">chain id 84532</text>
 
-  <rect x="44" y="152" width="208" height="96" rx="10" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
-  <circle cx="72" cy="182" r="16" fill="#1a6b7a" opacity="0.18"/>
-  <text x="72" y="187" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#1a6b7a">A1</text>
-  <text x="98" y="176" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">Drone agent</text>
-  <text x="98" y="196" font-family="sans-serif" font-size="12" fill="#3d4f5f">POST /v1/measurements</text>
-  <text x="98" y="214" font-family="sans-serif" font-size="12" fill="#3d4f5f">pays USDC via x402</text>
-  <text x="98" y="232" font-family="sans-serif" font-size="12" fill="#3d4f5f">EVM wallet on testnet</text>
+  <rect x="44" y="148" width="208" height="96" rx="10" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
+  <circle cx="72" cy="178" r="16" fill="#1a6b7a" opacity="0.18"/>
+  <text x="72" y="183" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#1a6b7a">A1</text>
+  <text x="98" y="172" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">Drone agent</text>
+  <text x="98" y="192" font-family="sans-serif" font-size="12" fill="#3d4f5f">POST /v1/measurements</text>
+  <text x="98" y="210" font-family="sans-serif" font-size="12" fill="#3d4f5f">pays USDC via x402</text>
+  <text x="98" y="228" font-family="sans-serif" font-size="12" fill="#3d4f5f">EVM wallet on testnet</text>
 
-  <rect x="44" y="268" width="208" height="56" rx="8" fill="#ffffff" stroke="#3d4f5f" stroke-width="1.5"/>
-  <text x="148" y="292" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">USDC test token</text>
-  <text x="148" y="310" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">Circle faucet, not mainnet</text>
+  <rect x="44" y="260" width="208" height="56" rx="8" fill="#ffffff" stroke="#3d4f5f" stroke-width="1.5"/>
+  <text x="148" y="284" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">USDC test token</text>
+  <text x="148" y="302" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">Circle faucet, not mainnet</text>
 
-  <rect x="300" y="120" width="300" height="148" rx="14" fill="url(#teal)"/>
-  <text x="450" y="152" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#ffffff">Agent gateway</text>
-  <text x="450" y="174" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#d7ecef">HTTP 402, verify, settle, relay</text>
-  <rect x="330" y="188" width="88" height="28" rx="14" fill="#ffffff"/>
-  <text x="374" y="207" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0c2340">USDC</text>
-  <rect x="432" y="188" width="88" height="28" rx="14" fill="#ffffff"/>
-  <text x="476" y="207" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0c2340">x402</text>
-  <text x="450" y="248" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#d7ecef">aquachain-agent-gateway.onrender.com</text>
+  <!-- Gateway (center) -->
+  <rect x="300" y="112" width="300" height="132" rx="14" fill="url(#teal)"/>
+  <text x="450" y="144" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#ffffff">Agent gateway</text>
+  <text x="450" y="166" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#d7ecef">HTTP 402, verify, settle, relay</text>
+  <rect x="356" y="180" width="88" height="28" rx="14" fill="#ffffff"/>
+  <text x="400" y="199" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0c2340">USDC</text>
+  <rect x="456" y="180" width="88" height="28" rx="14" fill="#ffffff"/>
+  <text x="500" y="199" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0c2340">x402</text>
+  <text x="450" y="228" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#d7ecef">Pay Router API</text>
 
-  <rect x="628" y="92" width="248" height="300" rx="10" fill="#fef6e8" stroke="#c58a1a" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <!-- Osmosis zone -->
+  <rect x="628" y="92" width="248" height="288" rx="10" fill="#fef6e8" stroke="#c58a1a" stroke-width="1.5" stroke-dasharray="6 4"/>
   <text x="752" y="114" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" letter-spacing="0.04em" fill="#c58a1a">OSMOSIS TESTNET</text>
   <text x="752" y="130" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">osmo-test-5</text>
 
-  <rect x="648" y="152" width="208" height="96" rx="10" fill="#ffffff" stroke="#c58a1a" stroke-width="2"/>
-  <text x="752" y="182" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">Citizen Science Registry</text>
-  <text x="752" y="202" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">CosmWasm submit_data</text>
-  <text x="752" y="220" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">signed by relayer wallet</text>
-  <text x="752" y="238" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">no x402 on Cosmos side</text>
+  <rect x="648" y="148" width="208" height="96" rx="10" fill="#ffffff" stroke="#c58a1a" stroke-width="2"/>
+  <text x="752" y="178" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">Citizen Science Registry</text>
+  <text x="752" y="198" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">CosmWasm submit_data</text>
+  <text x="752" y="216" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">signed by relayer wallet</text>
+  <text x="752" y="234" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">no x402 on Cosmos side</text>
 
-  <rect x="648" y="268" width="208" height="96" rx="10" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
-  <circle cx="676" cy="298" r="14" fill="#1a6b7a" opacity="0.18"/>
-  <text x="676" y="303" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#1a6b7a">A2</text>
-  <text x="702" y="292" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">Verifier agent</text>
-  <text x="702" y="310" font-family="sans-serif" font-size="12" fill="#3d4f5f">paid toll response</text>
-  <text x="702" y="328" font-family="sans-serif" font-size="12" fill="#3d4f5f">same x402 lane</text>
-  <text x="702" y="346" font-family="sans-serif" font-size="12" fill="#3d4f5f">reads on-chain data</text>
+  <rect x="648" y="260" width="208" height="96" rx="10" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
+  <circle cx="676" cy="290" r="14" fill="#1a6b7a" opacity="0.18"/>
+  <text x="676" y="295" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#1a6b7a">A2</text>
+  <text x="702" y="284" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">Verifier agent</text>
+  <text x="702" y="302" font-family="sans-serif" font-size="12" fill="#3d4f5f">paid toll response</text>
+  <text x="702" y="320" font-family="sans-serif" font-size="12" fill="#3d4f5f">same x402 lane</text>
+  <text x="702" y="338" font-family="sans-serif" font-size="12" fill="#3d4f5f">reads on-chain data</text>
 
-  <path d="M252 200 H292" stroke="#1a6b7a" stroke-width="3" marker-end="url(#arrowTeal)"/>
-  <text x="272" y="188" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#1a6b7a">402</text>
+  <!-- Flow arrows -->
+  <path d="M252 196 H292" stroke="#1a6b7a" stroke-width="3" marker-end="url(#arrowTeal)"/>
+  <text x="272" y="184" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#1a6b7a">402</text>
 
-  <path d="M600 200 H628" stroke="#c58a1a" stroke-width="3" marker-end="url(#arrowAmber)"/>
-  <text x="614" y="188" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#c58a1a">relay</text>
+  <path d="M600 196 H628" stroke="#c58a1a" stroke-width="3" marker-end="url(#arrowAmber)"/>
+  <text x="614" y="184" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#c58a1a">relay</text>
 
-  <path d="M450 268 V318" stroke="#1a6b7a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowTeal)"/>
-  <text x="462" y="298" font-family="sans-serif" font-size="11" font-weight="600" fill="#1a6b7a">payTo</text>
+  <path d="M450 244 V392" stroke="#1a6b7a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowTeal)"/>
+  <text x="462" y="318" font-family="sans-serif" font-size="11" font-weight="600" fill="#1a6b7a">payTo</text>
 
-  <rect x="318" y="328" width="264" height="52" rx="10" fill="#ffffff" stroke="#3d4f5f" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="450" y="352" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">Agent-to-agent toll lane</text>
-  <text x="450" y="370" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">machines pay per call; humans keep Keplr on Cosmos</text>
+  <path d="M648 308 H610" stroke="#1a6b7a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowTeal)"/>
 
-  <path d="M648 316 H600" stroke="#1a6b7a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowTeal)"/>
+  <!-- Toll lane (full width, below columns) -->
+  <rect x="220" y="400" width="460" height="68" rx="10" fill="#ffffff" stroke="#3d4f5f" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="450" y="426" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#0c2340">Agent-to-agent toll lane</text>
+  <text x="450" y="446" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">machines pay per call</text>
+  <text x="450" y="462" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">humans keep Keplr on Cosmos</text>
 
-  <text x="450" y="468" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">Two testnets: EVM payments on Base Sepolia, stewardship records on Osmosis</text>
-  <text x="450" y="488" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">Fund payer wallets with test ETH (gas) and test USDC; pay-to only receives tolls</text>
+  <text x="450" y="502" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">Two testnets: EVM payments on Base Sepolia, stewardship records on Osmosis</text>
+  <text x="450" y="522" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3d4f5f">Fund payer wallets with test ETH (gas) and test USDC; pay-to only receives tolls</text>
 </svg>
