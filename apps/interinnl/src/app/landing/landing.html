@@ -8,8 +8,10 @@
         height="200"
         alt="InterINNL logo: India and Netherlands bridge"
       />
-      <p class="innl-hero__tag">{{ content.tagline }}</p>
-      <innl-flags size="lg" [labels]="true" />
+      <div class="innl-hero__title">
+        <p class="innl-hero__tag">{{ content.tagline }}</p>
+        <innl-flags size="lg" [labels]="true" class="innl-hero__flags" />
+      </div>
       <p class="innl-hero__line">{{ content.heroLine }}</p>
       <ul class="innl-focus" aria-label="Focus areas">
         @for (topic of content.focus; track topic) {

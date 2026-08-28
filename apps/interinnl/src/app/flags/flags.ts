@@ -34,6 +34,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
     .innl-flags--lg .innl-flag {
       width: 1.6rem;
       height: 1.15rem;
+      flex-shrink: 0;
     }
     .innl-flags__labels {
       margin-left: 0.35rem;

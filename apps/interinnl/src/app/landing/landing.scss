@@ -42,12 +42,21 @@
   );
 }
 
+.innl-hero__title {
+  margin-bottom: 0.75rem;
+}
+
 .innl-hero__tag {
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.55rem;
   font-family: var(--innl-display);
   font-size: clamp(0.9rem, 2vw, 1.05rem);
   letter-spacing: 0.12em;
   font-weight: 600;
+}
+
+.innl-hero__flags {
+  display: flex;
+  align-items: center;
 }
 
 .innl-hero__line {

@@ -44,10 +44,11 @@ img {
 }
 
 .innl-flag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   width: 1.15rem;
   height: 0.85rem;
-  vertical-align: middle;
+  flex-shrink: 0;
   border-radius: 2px;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 12%);
   overflow: hidden;
