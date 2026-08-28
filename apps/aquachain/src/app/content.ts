@@ -48,6 +48,24 @@ export interface HeaderBrand {
   accent: 'teal' | 'amber' | 'slate';
 }
 
+const sustainableActionsPhotos: AcPhoto[] = [
+  {
+    src: local('community-volunteers-india.jpg'),
+    alt: 'Indian students raising hands during a community water workshop',
+    objectPosition: 'center 35%',
+  },
+  {
+    src: local('sustainable-farming-india.jpg'),
+    alt: 'Farmer operating an agricultural drone over green fields near an Indian city',
+    objectPosition: 'center center',
+  },
+  {
+    src: local('field-irrigation.jpg'),
+    alt: 'Irrigation sprinklers watering crops for efficient water use',
+    objectPosition: 'center 55%',
+  },
+];
+
 const citizenSciencePhotos: AcPhoto[] = [
   {
     src: local(
@@ -219,7 +237,7 @@ export const aquachainContent = {
       route: '/sustainable-actions',
       icon: 'leaf',
       accent: 'teal' as const,
-      photos: citizenSciencePhotos,
+      photos: sustainableActionsPhotos,
     },
   ] satisfies AcModule[],
 
@@ -453,8 +471,9 @@ export const aquachainContent = {
       title: 'Sustainable Actions',
       lead: 'Submit community conservation actions with evidence, verify impact, and reward contributors on-chain.',
       photo: {
-        src: local('citizen-sensor-kit.jpg'),
-        alt: 'Volunteers preparing field equipment for a water conservation activity',
+        src: local('community-volunteers-india.jpg'),
+        alt: 'Indian students volunteering during a community water workshop',
+        objectPosition: 'center 35%',
       },
     },
   } satisfies Record<ModuleHeroKey, ModuleHero>,
