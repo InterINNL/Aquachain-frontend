@@ -38,7 +38,7 @@ Humans use Keplr on Osmosis. Autonomous agents pay USDC via HTTP 402 (x402 on Ba
 
 ## GitHub
 
-- [Aquachain-frontend](https://github.com/InterINNL/Aquachain-frontend): Nx hub + AquaChain Angular apps
+- [Frontend](https://github.com/InterINNL/frontend): Nx hub + AquaChain Angular apps
 - [Aquachain-contracts](https://github.com/InterINNL/Aquachain-contracts): CosmWasm modules on Osmosis
 - [Aquachain-agent-gateway](https://github.com/InterINNL/Aquachain-agent-gateway): x402 USDC HTTP API and Osmosis relay
 

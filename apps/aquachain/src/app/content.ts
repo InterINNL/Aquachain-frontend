@@ -253,7 +253,7 @@ export const aquachainContent = {
   description:
     'On-chain decision support for water: citizen sensors, well crowdfunding, and utility footprint certificates.',
   interinnlUrl: '/',
-  githubFrontend: 'https://github.com/InterINNL/Aquachain-frontend',
+  githubFrontend: 'https://github.com/InterINNL/frontend',
   githubContracts: 'https://github.com/InterINNL/Aquachain-contracts',
   copyrightYear: 2025,
 

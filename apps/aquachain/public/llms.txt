@@ -29,7 +29,7 @@ Humans use Keplr on Osmosis (`osmo-test-5`). Autonomous agents pay USDC via HTTP
 ## Contact and code
 
 - [AquaChain email](mailto:contact+aquachain@interchouette.net): demo and collaboration questions
-- [Frontend repo](https://github.com/InterINNL/Aquachain-frontend): Nx hub + AquaChain Angular apps
+- [Frontend repo](https://github.com/InterINNL/frontend): Nx hub + AquaChain Angular apps
 - [Contracts repo](https://github.com/InterINNL/Aquachain-contracts): CosmWasm modules on Osmosis
 
 ## Browser agents (WebMCP)

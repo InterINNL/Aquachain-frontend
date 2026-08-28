@@ -197,7 +197,7 @@ export const interinnlContent = {
       blurb:
         'Open-source Rust + Python + Angular demo for smarter, more trusted water management: citizen sensors, water wells, and utility footprints.',
       demoPath: '/aquachain/',
-      githubFrontend: 'https://github.com/InterINNL/Aquachain-frontend',
+      githubFrontend: 'https://github.com/InterINNL/frontend',
       githubContracts: 'https://github.com/InterINNL/Aquachain-contracts',
       modules: ['Citizen Science', 'Water Well', 'Utilities'],
       note: 'An InterINNL open-source project.',
