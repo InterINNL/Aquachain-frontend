@@ -152,6 +152,40 @@
   </div>
 </section>
 
+<section class="ac-section ac-home-integrated">
+  <div class="ac-container">
+    <h2 class="ac-section-title ac-section-title--center">
+      {{ content.integratedModules.title }}
+    </h2>
+    <p class="ac-lead ac-home-integrated__lead">
+      {{ content.integratedModules.lead }}
+    </p>
+    <div class="ac-home-integrated__grid">
+      @for (mod of content.integratedModules.items; track mod.id) {
+        <a
+          class="ac-integrated-card ac-integrated-card--{{ mod.accent }}"
+          [routerLink]="mod.route"
+        >
+          <div class="ac-integrated-card__photo">
+            <ac-photo-carousel [photos]="mod.photos" />
+          </div>
+          <div class="ac-integrated-card__body">
+            <div class="ac-integrated-card__icon">
+              <fa-icon [icon]="['fas', mod.icon]"></fa-icon>
+            </div>
+            <h3 class="ac-integrated-card__title">{{ mod.title }}</h3>
+            <p class="ac-integrated-card__body-text">{{ mod.body }}</p>
+            <span class="ac-integrated-card__cta">
+              Learn more
+              <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
+            </span>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
 <section class="ac-section ac-home-cta">
   <div class="ac-container ac-home-cta__inner">
     <div>

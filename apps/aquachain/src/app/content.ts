@@ -29,6 +29,16 @@ export interface AcModule {
   photos: AcPhoto[];
 }
 
+export interface AcIntegratedModule {
+  id: string;
+  title: string;
+  body: string;
+  route: string;
+  icon: string;
+  accent: 'teal' | 'amber' | 'slate';
+  photos: AcPhoto[];
+}
+
 export interface HeaderBrand {
   label: string;
   icon: string;
@@ -154,9 +164,8 @@ export const aquachainContent = {
   },
 
   modulesSection: {
-    title: 'Three integrated modules',
-    lead:
-      'Blockchain-secured workflows for utilities, community wells, and citizen sensors. Each path is a live CosmWasm demo you can open below.',
+    title: 'Three modules',
+    lead: 'Pick a demo path. Each module maps to a CosmWasm contract.',
   },
 
   modules: [
@@ -260,6 +269,41 @@ export const aquachainContent = {
         icon: 'award',
       },
     ],
+  },
+
+  integratedModules: {
+    title: 'Blockchain-secured workflows',
+    lead:
+      'Utilities, community wells, and citizen sensors on Cosmos. Each path is a live CosmWasm demo you can open below.',
+    items: [
+      {
+        id: 'utilities',
+        title: 'Water Utilities',
+        body: 'Sensor data is sent to the blockchain and utilities receive water credits for complying with sustainability requirements.',
+        route: '/water-utilities',
+        icon: 'chart-line',
+        accent: 'slate' as const,
+        photos: utilitiesPhotos,
+      },
+      {
+        id: 'water-well',
+        title: 'Water Well Initiative',
+        body: 'Donors and investors can track where their money is going for water projects and stake tokens in AquaChain.',
+        route: '/water-well-initiative',
+        icon: 'hand-holding-droplet',
+        accent: 'amber' as const,
+        photos: waterWellPhotos,
+      },
+      {
+        id: 'citizen-science',
+        title: 'Citizen Science',
+        body: 'Citizens can buy specific sensors to monitor water quality or quantity and get rewarded for verified data.',
+        route: '/citizen-science',
+        icon: 'microscope',
+        accent: 'teal' as const,
+        photos: citizenSciencePhotos,
+      },
+    ] satisfies AcIntegratedModule[],
   },
 
   stack: {
