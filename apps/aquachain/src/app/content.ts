@@ -478,8 +478,8 @@ export const aquachainContent = {
         href: 'https://github.com/cosmos/cosmjs',
       },
       {
-        label: 'Keplr',
-        href: 'https://www.keplr.app/',
+        label: 'IBC',
+        href: 'https://ibc.cosmos.network/',
       },
       {
         label: 'Angular',
