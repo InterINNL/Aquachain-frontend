@@ -36,14 +36,14 @@
 }
 
 .ac-btn--amber {
-  background: var(--ac-amber);
-  border-color: var(--ac-amber);
+  background: var(--ac-amber-strong);
+  border-color: var(--ac-amber-strong);
   color: var(--ac-white);
 }
 
 .ac-btn--amber:hover {
-  background: var(--ac-amber-light);
-  border-color: var(--ac-amber-light);
+  background: var(--ac-amber);
+  border-color: var(--ac-amber);
   color: var(--ac-white);
 }
 

@@ -18,7 +18,7 @@
           "entry": "apps/aquachain/src/server.ts"
         },
         "polyfills": ["zone.js", "apps/aquachain/src/polyfills.ts"],
-        "allowedCommonJsDependencies": ["bootstrap", "@cosmjs", "leaflet"],
+        "allowedCommonJsDependencies": ["@cosmjs", "leaflet"],
         "tsConfig": "apps/aquachain/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "baseHref": "/aquachain/",
@@ -51,6 +51,7 @@
             }
           ],
           "outputHashing": "all",
+          "sourceMap": true,
           "fileReplacements": [
             {
               "replace": "apps/aquachain/src/environments/environment.ts",

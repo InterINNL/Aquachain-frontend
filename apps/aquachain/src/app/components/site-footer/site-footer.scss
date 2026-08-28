@@ -23,7 +23,7 @@
 
 .ac-footer__tagline {
   font-weight: 600;
-  color: var(--ac-teal-light);
+  color: var(--ac-teal-bright);
   margin: 0 0 var(--ac-space-sm);
   font-size: 0.9375rem;
 }
@@ -65,7 +65,7 @@
 .ac-footer__bottom p {
   margin: 0;
   font-size: 0.8125rem;
-  color: rgb(255 255 255 / 45%);
+  color: rgb(255 255 255 / 72%);
 }
 
 @media (max-width: 768px) {
