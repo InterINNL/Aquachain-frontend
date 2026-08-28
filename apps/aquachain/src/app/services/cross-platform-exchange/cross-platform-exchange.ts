@@ -69,8 +69,8 @@ export class CrossPlatformExchangeService {
   ) {
     const directionPayload =
       direction === 'base_to_partner'
-        ? { base_to_partner: {} }
-        : { partner_to_base: {} };
+        ? { base_to_partner: null }
+        : { partner_to_base: null };
 
     return this.contractService.simulateAndExecute(
       sender,

@@ -351,9 +351,9 @@ export const aquachainContent = {
     {
       id: 'cross-exchange',
       name: 'Cross Exchange',
-      kicker: 'Partner ledger swaps',
+      kicker: 'IBC partner ledgers',
       blurb:
-        'Swap OSMO against registered regional partner ledgers at fixed admin rates. Lock partner units on-chain and withdraw for off-chain redemption demos.',
+        'Demo IBC-style regional water ledgers: swap OSMO against registered Indian partner units at fixed on-chain rates, lock balances, and redeem for off-chain stewardship credits.',
       route: '/cross-exchange',
       icon: 'right-left',
       accent: 'amber' as const,
@@ -652,7 +652,7 @@ export const aquachainContent = {
     'cross-exchange': {
       kicker: 'Module 8',
       title: 'Cross Exchange',
-      lead: 'Bridge demo liquidity between OSMO and registered Indian regional partner ledgers using fixed on-chain rates and escrowed balances.',
+      lead: 'IBC-ready demo: swap OSMO for registered Indian regional water ledgers, lock partner units on-chain, and redeem for off-chain stewardship credits.',
       photo: {
         src: local('hero-river.jpg'),
         alt: 'River watershed connecting communities to shared water accounting',
