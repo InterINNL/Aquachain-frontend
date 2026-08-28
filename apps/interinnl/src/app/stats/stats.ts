@@ -44,9 +44,6 @@ export class StatsRibbon implements AfterViewInit, OnDestroy {
   }
 
   label(stat: (typeof interinnlContent.stats)[number]): string {
-    if ('display' in stat && stat.display) {
-      return stat.display;
-    }
     return `${stat.value}${stat.suffix}`;
   }
 }
