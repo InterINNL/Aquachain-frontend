@@ -48,7 +48,7 @@ npm run build:site        # Combined static site → dist/site
 
 `build:site` builds both apps, writes `dist/site/`, and mirrors that tree into `dist/apps/aquachain/browser` so the existing Render publish path keeps working.
 
-SPA routing is defined in `apps/interinnl/public/_redirects` (copied to the publish root). AquaChain must not ship a nested `_redirects` under `/aquachain/` (that would rewrite to the InterINNL hub `index.html`).
+SPA routing is defined in `apps/interinnl/public/_redirects` (copied to the publish root). AquaChain must not ship a nested `_redirects` under `/aquachain/` (that would rewrite to the InterINNL hub `index.html`). Full Render dashboard table: `docs/render-redirects.md`.
 
 ## AquaChain modules
 

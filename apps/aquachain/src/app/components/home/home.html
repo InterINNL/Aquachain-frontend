@@ -59,63 +59,71 @@
     </p>
     <div class="ac-home-modules">
       @for (mod of content.modules; track mod.id) {
-        <a class="ac-module-card ac-module-card--link" [routerLink]="mod.route">
-          <div class="ac-module-card__photo">
-            <img
-              [src]="mod.photo.src"
-              [alt]="mod.photo.alt"
-              [style.object-position]="mod.photo.objectPosition ?? 'center'"
-              width="400"
-              height="220"
-              loading="lazy"
-            />
+      <a class="ac-module-card ac-module-card--link" [routerLink]="mod.route">
+        <div class="ac-module-card__photo">
+          <img
+            [src]="mod.photo.src"
+            [alt]="mod.photo.alt"
+            [style.object-position]="mod.photo.objectPosition ?? 'center'"
+            width="400"
+            height="220"
+            loading="lazy"
+          />
+        </div>
+        <div class="ac-module-card__body">
+          <p class="ac-kicker">{{ mod.kicker }}</p>
+          <div
+            class="ac-module-card__icon ac-module-card__icon--{{ mod.accent }}"
+          >
+            <fa-icon [icon]="['fas', mod.icon]"></fa-icon>
           </div>
-          <div class="ac-module-card__body">
-            <p class="ac-kicker">{{ mod.kicker }}</p>
-            <div class="ac-module-card__icon ac-module-card__icon--{{ mod.accent }}">
-              <fa-icon [icon]="['fas', mod.icon]"></fa-icon>
-            </div>
-            <h3 class="ac-module-card__title">{{ mod.name }}</h3>
-            <p class="ac-module-card__blurb">{{ mod.blurb }}</p>
-            <span class="ac-module-card__link">
-              Open module
-              <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
-            </span>
-          </div>
-        </a>
+          <h3 class="ac-module-card__title">{{ mod.name }}</h3>
+          <p class="ac-module-card__blurb">{{ mod.blurb }}</p>
+          <span class="ac-module-card__link">
+            Open module
+            <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
+          </span>
+        </div>
+      </a>
       }
     </div>
   </div>
 </section>
 
 <section class="ac-section ac-home-steps-section" id="how-it-works">
-  <div class="ac-container ac-home-steps__layout">
-    <div class="ac-home-steps__copy">
-      <h2 class="ac-section-title">{{ content.howItWorks.title }}</h2>
+  <div class="ac-container">
+    <div class="ac-home-steps__header">
+      <h2 class="ac-section-title ac-section-title--center">
+        {{ content.howItWorks.title }}
+      </h2>
       <p class="ac-lead ac-home-steps__lead">{{ content.howItWorks.lead }}</p>
       <p class="ac-home-steps__intro">{{ content.howItWorks.intro }}</p>
-      <p class="ac-home-steps__closing">{{ content.howItWorks.closing }}</p>
     </div>
-    <div class="ac-home-steps__visual">
+
+    <div class="ac-home-steps__photo">
       <img
-        [src]="content.context.photo.src"
-        [alt]="content.context.photo.alt"
-        width="560"
-        height="420"
+        [src]="content.howItWorks.photo.src"
+        [alt]="content.howItWorks.photo.alt"
+        [style.object-position]="content.howItWorks.photo.objectPosition ?? 'center'"
+        width="1200"
+        height="360"
         loading="lazy"
       />
-      <div class="ac-home-steps">
-        @for (step of content.howItWorks.steps; track step.title) {
-          <article class="ac-step">
-            <div class="ac-step__icon">
-              <fa-icon [icon]="['fas', step.icon]"></fa-icon>
-            </div>
-            <h3 class="ac-step__title">{{ step.title }}</h3>
-            <p class="ac-step__body">{{ step.body }}</p>
-          </article>
-        }
-      </div>
     </div>
+
+    <div class="ac-home-steps">
+      @for (step of content.howItWorks.steps; track step.title) {
+        <article class="ac-step">
+          <div class="ac-step__icon">
+            <fa-icon [icon]="['fas', step.icon]"></fa-icon>
+          </div>
+          <h3 class="ac-step__title">{{ step.title }}</h3>
+          <p class="ac-step__body">{{ step.body }}</p>
+        </article>
+      }
+    </div>
+
+    <p class="ac-home-steps__closing">{{ content.howItWorks.closing }}</p>
   </div>
 </section>
 
@@ -135,13 +143,13 @@
       <h2 class="ac-section-title">{{ content.technology.title }}</h2>
       <div class="ac-home-technology__grid">
         @for (item of content.technology.items; track item.title) {
-          <article class="ac-home-technology__card">
-            <div class="ac-home-technology__icon">
-              <fa-icon [icon]="['fas', item.icon]"></fa-icon>
-            </div>
-            <h3 class="ac-home-technology__title">{{ item.title }}</h3>
-            <p class="ac-home-technology__body">{{ item.body }}</p>
-          </article>
+        <article class="ac-home-technology__card">
+          <div class="ac-home-technology__icon">
+            <fa-icon [icon]="['fas', item.icon]"></fa-icon>
+          </div>
+          <h3 class="ac-home-technology__title">{{ item.title }}</h3>
+          <p class="ac-home-technology__body">{{ item.body }}</p>
+        </article>
         }
       </div>
     </div>
@@ -158,32 +166,32 @@
     </p>
     <div class="ac-home-integrated__grid">
       @for (mod of content.integratedModules.items; track mod.id) {
-        <a
-          class="ac-integrated-card ac-integrated-card--{{ mod.accent }}"
-          [routerLink]="mod.route"
-        >
-          <div class="ac-integrated-card__photo">
-            <img
-              [src]="mod.photo.src"
-              [alt]="mod.photo.alt"
-              [style.object-position]="mod.photo.objectPosition ?? 'center'"
-              width="400"
-              height="220"
-              loading="lazy"
-            />
+      <a
+        class="ac-integrated-card ac-integrated-card--{{ mod.accent }}"
+        [routerLink]="mod.route"
+      >
+        <div class="ac-integrated-card__photo">
+          <img
+            [src]="mod.photo.src"
+            [alt]="mod.photo.alt"
+            [style.object-position]="mod.photo.objectPosition ?? 'center'"
+            width="400"
+            height="220"
+            loading="lazy"
+          />
+        </div>
+        <div class="ac-integrated-card__body">
+          <div class="ac-integrated-card__icon">
+            <fa-icon [icon]="['fas', mod.icon]"></fa-icon>
           </div>
-          <div class="ac-integrated-card__body">
-            <div class="ac-integrated-card__icon">
-              <fa-icon [icon]="['fas', mod.icon]"></fa-icon>
-            </div>
-            <h3 class="ac-integrated-card__title">{{ mod.title }}</h3>
-            <p class="ac-integrated-card__body-text">{{ mod.body }}</p>
-            <span class="ac-integrated-card__cta">
-              Learn more
-              <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
-            </span>
-          </div>
-        </a>
+          <h3 class="ac-integrated-card__title">{{ mod.title }}</h3>
+          <p class="ac-integrated-card__body-text">{{ mod.body }}</p>
+          <span class="ac-integrated-card__cta">
+            Learn more
+            <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon>
+          </span>
+        </div>
+      </a>
       }
     </div>
   </div>
@@ -196,13 +204,13 @@
       <p class="ac-home-cta__lead">{{ content.closingCta.body }}</p>
       <div class="ac-stack-badges ac-home-cta__stack">
         @for (item of content.stack.items; track item.label) {
-          <a
-            class="ac-stack-badge"
-            [href]="item.href"
-            target="_blank"
-            rel="noopener noreferrer"
-            >{{ item.label }}</a
-          >
+        <a
+          class="ac-stack-badge"
+          [href]="item.href"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ item.label }}</a
+        >
         }
       </div>
     </div>
