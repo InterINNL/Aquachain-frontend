@@ -44,4 +44,11 @@ export const appRoutes: Route[] = [
         (m) => m.SustainableActions,
       ),
   },
+  {
+    path: 'community-bounty',
+    loadComponent: () =>
+      import('./components/community-bounty/community-bounty').then(
+        (m) => m.CommunityBounty,
+      ),
+  },
 ];

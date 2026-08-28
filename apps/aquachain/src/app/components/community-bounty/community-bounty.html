@@ -1,0 +1,310 @@
+<module-shell moduleKey="community-bounty">
+  <wallet-banner *ngIf="walletWarning"></wallet-banner>
+
+  <div
+    *ngIf="missingContract"
+    class="ac-alert-banner ac-alert-banner--info"
+    role="alert"
+  >
+    Contract not configured. Deploy community-bounty and set
+    <code>CommunityBountyContractAddress</code> in the app environment.
+  </div>
+
+  <div *ngIf="!missingContract">
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="ac-card mb-3">
+          <div class="ac-card__header"><h5>Open bounties</h5></div>
+          <div class="ac-card__body">
+            <div *ngIf="loadingBounties" class="ac-loading">
+              <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+              Loading…
+            </div>
+            <div class="table-responsive" *ngIf="!loadingBounties">
+              <table class="ac-data-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Task</th>
+                    <th>Reward</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let bounty of bounties"
+                    [class.is-selected]="selected?.id === bounty.id"
+                  >
+                    <td>{{ bounty.id }}</td>
+                    <td>
+                      <div>{{ truncate(bounty.title, 20) }}</div>
+                      <small class="text-muted">{{ truncate(bounty.location, 18) }}</small>
+                    </td>
+                    <td>{{ bounty.reward_amount }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-primary"
+                        (click)="selectBounty(bounty)"
+                      >
+                        Open
+                      </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="bounties.length === 0">
+                    <td colspan="4" class="text-muted text-center py-3">
+                      No bounties yet
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <nav class="mt-2" *ngIf="bounties.length > 0 || bountyPage > 1">
+              <ul class="pagination pagination-sm justify-content-center mb-0">
+                <li class="page-item" [class.disabled]="!canGoPrev(bountyPage)">
+                  <button
+                    class="page-link"
+                    (click)="prevBounties()"
+                    [disabled]="!canGoPrev(bountyPage)"
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li class="page-item disabled">
+                  <span class="page-link">Page {{ bountyPage }}</span>
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="!canGoNextPage(bountyHasNext)"
+                >
+                  <button
+                    class="page-link"
+                    (click)="nextBounties()"
+                    [disabled]="!canGoNextPage(bountyHasNext)"
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="ac-card mb-3">
+          <div class="ac-card__header"><h5>Post a bounty</h5></div>
+          <div class="ac-card__body">
+            <p class="text-muted small">
+              Escrow the reward in the same transaction. Workers submit before the deadline;
+              you approve the winning entry to release funds.
+            </p>
+            <form [formGroup]="postForm" (ngSubmit)="onPostBounty()">
+              <div class="mb-3">
+                <label class="form-label" for="cbTitle">Task title</label>
+                <input
+                  id="cbTitle"
+                  class="form-control"
+                  formControlName="title"
+                  placeholder="Yamuna riverbank cleanup crew"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="cbLocation">Location</label>
+                <input
+                  id="cbLocation"
+                  class="form-control"
+                  formControlName="location"
+                  placeholder="Okhla, Delhi, India"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="cbDesc">Task description</label>
+                <textarea
+                  id="cbDesc"
+                  class="form-control"
+                  rows="3"
+                  formControlName="description"
+                  placeholder="What should volunteers deliver? Include success criteria and evidence requirements."
+                ></textarea>
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label" for="cbDays">Deadline (days)</label>
+                  <input
+                    id="cbDays"
+                    class="form-control"
+                    formControlName="deadline_days"
+                    placeholder="14"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label" for="cbReward">
+                    Reward ({{ environment.coinMinimalDenom }})
+                  </label>
+                  <input
+                    id="cbReward"
+                    class="form-control"
+                    formControlName="reward_amount"
+                    placeholder="500000"
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="postForm.invalid || busyAction"
+              >
+                Post with escrow
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="ac-card sticky-top-detail mb-3">
+          <div class="ac-card__header"><h5>Bounty detail</h5></div>
+          <div class="ac-card__body" *ngIf="selected; else pickBounty">
+            <p class="mb-1">
+              <strong>#{{ selected.id }}</strong> {{ selected.title }}
+            </p>
+            <p class="mb-1"><strong>Location:</strong> {{ selected.location }}</p>
+            <p class="mb-1">
+              <strong>Reward:</strong> {{ selected.reward_amount }}
+              {{ environment.coinMinimalDenom }}
+            </p>
+            <p class="mb-1">
+              <strong>Deadline:</strong> {{ formatDeadline(selected.deadline) }}
+            </p>
+            <p class="mb-2">
+              <span class="badge me-1" [ngClass]="selected.status === 'open' ? 'bg-success' : 'bg-secondary'">
+                {{ bountyStatusLabel(selected.status) }}
+              </span>
+              <span class="badge bg-light text-dark" *ngIf="selected.winner">
+                Winner: {{ truncate(selected.winner, 24) }}
+              </span>
+            </p>
+            <p class="text-muted" *ngIf="selected.description">{{ selected.description }}</p>
+
+            <div
+              class="d-flex flex-wrap gap-2 mb-3"
+              *ngIf="isPoster(selected) && selected.status === 'open'"
+            >
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                (click)="onCancelSelected()"
+                [disabled]="busyAction"
+              >
+                Cancel and refund escrow
+              </button>
+            </div>
+
+            <h6 class="mt-3">Submissions</h6>
+            <div *ngIf="loadingSubmissions" class="ac-loading py-2">
+              <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+              Loading…
+            </div>
+            <div class="table-responsive" *ngIf="!loadingSubmissions">
+              <table class="ac-data-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Summary</th>
+                    <th>Worker</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let sub of submissions">
+                    <td>{{ sub.id }}</td>
+                    <td>
+                      <div>{{ truncate(sub.summary, 24) }}</div>
+                      <small class="text-muted" *ngIf="sub.hours_spent">
+                        {{ sub.hours_spent }} h
+                      </small>
+                    </td>
+                    <td>{{ truncate(sub.worker, 16) }}</td>
+                    <td>
+                      <button
+                        *ngIf="isPoster(selected) && selected.status === 'open' && !sub.approved"
+                        type="button"
+                        class="btn btn-sm btn-outline-success"
+                        (click)="onApproveSubmission(sub)"
+                        [disabled]="busyAction"
+                      >
+                        Approve
+                      </button>
+                      <span *ngIf="sub.approved" class="badge bg-success">Approved</span>
+                    </td>
+                  </tr>
+                  <tr *ngIf="submissions.length === 0">
+                    <td colspan="4" class="text-muted text-center py-3">
+                      No submissions yet
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <ng-template #pickBounty>
+            <div class="ac-card__body text-muted">
+              Select a bounty to review submissions or submit your work.
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="ac-card" *ngIf="selected && isSelectedOpen()">
+          <div class="ac-card__header"><h5>Submit your work</h5></div>
+          <div class="ac-card__body">
+            <form [formGroup]="workForm" (ngSubmit)="onSubmitWork()">
+              <div class="mb-3">
+                <label class="form-label" for="cwSummary">Summary</label>
+                <input
+                  id="cwSummary"
+                  class="form-control"
+                  formControlName="summary"
+                  placeholder="What you completed on this bounty"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="cwLocation">Where</label>
+                <input
+                  id="cwLocation"
+                  class="form-control"
+                  formControlName="location"
+                  placeholder="City, India"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="cwEvidence">Evidence notes</label>
+                <textarea
+                  id="cwEvidence"
+                  class="form-control"
+                  rows="3"
+                  formControlName="evidence"
+                  placeholder="Photo links, weigh-in totals, GPS pin, NGO sign-off, etc."
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="cwHours">Hours spent (optional)</label>
+                <input
+                  id="cwHours"
+                  class="form-control"
+                  formControlName="hours_spent"
+                  placeholder="6"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="workForm.invalid || busyAction"
+              >
+                Submit work
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</module-shell>

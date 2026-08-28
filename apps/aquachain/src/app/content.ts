@@ -19,7 +19,8 @@ export type ModuleHeroKey =
   | 'citizen-science'
   | 'water-well-initiative'
   | 'water-utilities'
-  | 'sustainable-actions';
+  | 'sustainable-actions'
+  | 'community-bounty';
 
 export interface AcModule {
   id: string;
@@ -47,6 +48,19 @@ export interface HeaderBrand {
   icon: string;
   accent: 'teal' | 'amber' | 'slate';
 }
+
+const communityBountyPhotos: AcPhoto[] = [
+  {
+    src: local('community-bounty-team.jpg'),
+    alt: 'Community members collaborating over a shared meal after a volunteer event',
+    objectPosition: 'center center',
+  },
+  {
+    src: local('community-bounty-field.jpg'),
+    alt: 'Agricultural drone over green fields near an Indian city skyline',
+    objectPosition: 'center center',
+  },
+];
 
 const sustainableActionsPhotos: AcPhoto[] = [
   {
@@ -158,6 +172,11 @@ export const aquachainContent = {
       icon: 'leaf',
       accent: 'teal',
     },
+    '/community-bounty': {
+      label: 'Community Bounty',
+      icon: 'people-group',
+      accent: 'amber',
+    },
     '/contact': {
       label: 'Contact',
       icon: 'envelope',
@@ -190,7 +209,7 @@ export const aquachainContent = {
   },
 
   modulesSection: {
-    title: 'Four modules',
+    title: 'Five modules',
     lead: 'Pick a demo path. Each module maps to a CosmWasm contract.',
   },
 
@@ -238,6 +257,17 @@ export const aquachainContent = {
       icon: 'leaf',
       accent: 'teal' as const,
       photos: sustainableActionsPhotos,
+    },
+    {
+      id: 'community-bounty',
+      name: 'Community Bounty',
+      kicker: 'Escrowed tasks',
+      blurb:
+        'Post sustainability bounties with escrowed rewards, collect worker submissions before the deadline, and approve a winner for automatic payout.',
+      route: '/community-bounty',
+      icon: 'people-group',
+      accent: 'amber' as const,
+      photos: communityBountyPhotos,
     },
   ] satisfies AcModule[],
 
@@ -310,8 +340,7 @@ export const aquachainContent = {
 
   integratedModules: {
     title: 'Blockchain-secured workflows',
-    lead:
-      'Utilities, community wells, and citizen sensors on Cosmos. Each path is a live CosmWasm demo you can open below.',
+    lead: 'Utilities, community wells, and citizen sensors on Cosmos. Each path is a live CosmWasm demo you can open below.',
     items: [
       {
         id: 'utilities',
@@ -435,6 +464,12 @@ export const aquachainContent = {
       hint: 'Verify eco actions and reward impact',
       route: '/sustainable-actions',
     },
+    {
+      key: 'community-bounty' as ModuleHeroKey,
+      label: 'Community Bounty',
+      hint: 'Escrow tasks and pay winners',
+      route: '/community-bounty',
+    },
   ],
 
   moduleHeroes: {
@@ -474,6 +509,16 @@ export const aquachainContent = {
         src: local('community-volunteers-india.jpg'),
         alt: 'Indian students volunteering during a community water workshop',
         objectPosition: 'center 35%',
+      },
+    },
+    'community-bounty': {
+      kicker: 'Module 5',
+      title: 'Community Bounty',
+      lead: 'Fund sustainability tasks with on-chain escrow. Workers submit before the deadline; the poster approves the winner for payout.',
+      photo: {
+        src: local('community-bounty-team.jpg'),
+        alt: 'Volunteer team sharing a meal after a community sustainability event',
+        objectPosition: 'center center',
       },
     },
   } satisfies Record<ModuleHeroKey, ModuleHero>,
