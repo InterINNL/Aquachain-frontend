@@ -68,10 +68,13 @@ export class AgentOps {
 
   curlExample(): string {
     const base = environment.agentGatewayUrl.replace(/\/$/, '');
+    const payload = JSON.stringify(this.content.agentOps.samplePayload, null, 2);
     return [
       `curl -sS -X POST ${base}/v1/measurements \\`,
       `  -H 'Content-Type: application/json' \\`,
-      `  -d '${JSON.stringify(this.content.agentOps.samplePayload)}'`,
+      `  -d @- <<'JSON'`,
+      payload,
+      `JSON`,
     ].join('\n');
   }
 
