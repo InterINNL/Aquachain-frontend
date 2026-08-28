@@ -93,7 +93,10 @@ export interface ParsedProposal extends DaoProposal {
 export class LocalDaoService {
   private readonly contractService = inject(ContractService);
 
-  async getProposal(contract: string, proposalId: number): Promise<DaoProposal> {
+  async getProposal(
+    contract: string,
+    proposalId: number,
+  ): Promise<DaoProposal> {
     const client = await this.contractService.getqueryClient();
     return client.queryContractSmart(contract, {
       get_proposal: { proposal_id: proposalId },
@@ -151,17 +154,10 @@ export class LocalDaoService {
     proposalId: number,
     choice: VoteChoice,
   ) {
-    const votePayload =
-      choice === 'yes'
-        ? { yes: {} }
-        : choice === 'no'
-          ? { no: {} }
-          : { abstain: {} };
-
     return this.contractService.simulateAndExecute(
       sender,
       contract,
-      { vote: { proposal_id: proposalId, vote: votePayload } },
+      { vote: { proposal_id: proposalId, vote: choice } },
       'cast vote',
     );
   }
@@ -182,7 +178,9 @@ export class LocalDaoService {
   }
 }
 
-export function daoActionDefinition(actionTag: string): DaoActionDefinition | undefined {
+export function daoActionDefinition(
+  actionTag: string,
+): DaoActionDefinition | undefined {
   return DAO_ACTIONS.find((action) => action.tag === actionTag);
 }
 
@@ -309,7 +307,10 @@ export function proposalStatusLabel(status: ProposalStatus): string {
   }
 }
 
-export function isVotingOpen(proposal: DaoProposal, nowSeconds: number): boolean {
+export function isVotingOpen(
+  proposal: DaoProposal,
+  nowSeconds: number,
+): boolean {
   if (proposal.status !== 'open') {
     return false;
   }
