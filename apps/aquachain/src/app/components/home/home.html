@@ -61,14 +61,7 @@
       @for (mod of content.modules; track mod.id) {
       <a class="ac-module-card ac-module-card--link" [routerLink]="mod.route">
         <div class="ac-module-card__photo">
-          <img
-            [src]="mod.photo.src"
-            [alt]="mod.photo.alt"
-            [style.object-position]="mod.photo.objectPosition ?? 'center'"
-            width="400"
-            height="220"
-            loading="lazy"
-          />
+          <ac-photo-carousel [photos]="mod.photos" />
         </div>
         <div class="ac-module-card__body">
           <p class="ac-kicker">{{ mod.kicker }}</p>
@@ -104,13 +97,13 @@
     <div class="ac-home-steps__layout">
       <div class="ac-home-steps">
         @for (step of content.howItWorks.steps; track step.title) {
-          <article class="ac-step">
-            <div class="ac-step__icon">
-              <fa-icon [icon]="['fas', step.icon]"></fa-icon>
-            </div>
-            <h3 class="ac-step__title">{{ step.title }}</h3>
-            <p class="ac-step__body">{{ step.body }}</p>
-          </article>
+        <article class="ac-step">
+          <div class="ac-step__icon">
+            <fa-icon [icon]="['fas', step.icon]"></fa-icon>
+          </div>
+          <h3 class="ac-step__title">{{ step.title }}</h3>
+          <p class="ac-step__body">{{ step.body }}</p>
+        </article>
         }
       </div>
 
@@ -172,14 +165,7 @@
         [routerLink]="mod.route"
       >
         <div class="ac-integrated-card__photo">
-          <img
-            [src]="mod.photo.src"
-            [alt]="mod.photo.alt"
-            [style.object-position]="mod.photo.objectPosition ?? 'center'"
-            width="400"
-            height="220"
-            loading="lazy"
-          />
+          <ac-photo-carousel [photos]="mod.photos" />
         </div>
         <div class="ac-integrated-card__body">
           <div class="ac-integrated-card__icon">

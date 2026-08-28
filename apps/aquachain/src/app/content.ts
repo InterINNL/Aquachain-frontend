@@ -26,7 +26,17 @@ export interface AcModule {
   route: string;
   icon: string;
   accent: 'teal' | 'amber' | 'slate';
-  photo: AcPhoto;
+  photos: AcPhoto[];
+}
+
+export interface AcIntegratedModule {
+  id: string;
+  title: string;
+  body: string;
+  route: string;
+  icon: string;
+  accent: 'teal' | 'amber' | 'slate';
+  photos: AcPhoto[];
 }
 
 export interface HeaderBrand {
@@ -34,6 +44,73 @@ export interface HeaderBrand {
   icon: string;
   accent: 'teal' | 'amber' | 'slate';
 }
+
+export interface HeaderBrand {
+  label: string;
+  icon: string;
+  accent: 'teal' | 'amber' | 'slate';
+}
+
+const citizenSciencePhotos: AcPhoto[] = [
+  {
+    src: local(
+      'well-designed-citizen-science-projects-can-help-monitor-sdg-6-864986179.jpg',
+    ),
+    alt: 'Researchers and volunteers monitoring water quality in a field wetland',
+    objectPosition: 'center 40%',
+  },
+  {
+    src: local('CS4Water-conference-2048x1536.jpg'),
+    alt: 'Conference audience at a citizen science for water session',
+    objectPosition: 'center center',
+  },
+];
+
+const waterWellPhotos: AcPhoto[] = [
+  {
+    src: local(
+      'How-to-Make-a-Well-Produce-More-Water-Increase-Well-Yield-with-RAFSUN-Submersible-Pumps-1313991184.jpg',
+    ),
+    alt: 'Workers installing a submersible pump into a community well',
+    objectPosition: 'center center',
+  },
+  {
+    src: local('water-well-2-600x400-976489662.jpg'),
+    alt: 'Rural WASH facility with overhead water tank and signage',
+    objectPosition: 'center center',
+  },
+];
+
+const utilitiesPhotos: AcPhoto[] = [
+  {
+    src: local(
+      '800x400-combined-sewer-overflows-treatment-plant-3285836854.jpg',
+    ),
+    alt: 'Aerial view of circular wastewater treatment basins in a green field',
+    objectPosition: 'center center',
+  },
+  {
+    src: local(
+      'Best-ETP-plant-supplier-Delhi-NCR-Call-Now-9653247121-08-28-2026_02_16_AM.png',
+    ),
+    alt: 'Effluent treatment plant with aeration tanks and yellow safety walkways',
+    objectPosition: 'center center',
+  },
+  {
+    src: local(
+      'Best-Water-Filtration-Plant-Manufacturer-in-Delhi-08-28-2026_02_14_AM.png',
+    ),
+    alt: 'Industrial water filtration plant with blue piping and storage tanks',
+    objectPosition: 'center center',
+  },
+  {
+    src: local(
+      'Best-ZLD-Plant-Manufacturers-Near-Connaught-Place-Delhi-08-28-2026_02_15_AM.png',
+    ),
+    alt: 'Zero liquid discharge plant with reverse osmosis skids and clear water basin',
+    objectPosition: 'center center',
+  },
+];
 
 export const aquachainContent = {
   name: 'AquaChain',
@@ -102,11 +179,7 @@ export const aquachainContent = {
       route: '/citizen-science',
       icon: 'microscope',
       accent: 'teal' as const,
-      photo: {
-        src: local('citizen-sensor-kit.jpg'),
-        alt: 'Portable water quality sensor kit for field measurements',
-        objectPosition: 'center 45%',
-      },
+      photos: citizenSciencePhotos,
     },
     {
       id: 'water-well',
@@ -117,10 +190,7 @@ export const aquachainContent = {
       route: '/water-well-initiative',
       icon: 'hand-holding-droplet',
       accent: 'amber' as const,
-      photo: {
-        src: local('community-well.jpg'),
-        alt: 'Community hand pump and well used for daily water access',
-      },
+      photos: waterWellPhotos,
     },
     {
       id: 'utilities',
@@ -131,17 +201,13 @@ export const aquachainContent = {
       route: '/water-utilities',
       icon: 'chart-line',
       accent: 'slate' as const,
-      photo: {
-        src: local('utilities-well-monitoring.jpg'),
-        alt: 'Industrial IoT sensors monitoring production water well levels',
-      },
+      photos: utilitiesPhotos,
     },
   ] satisfies AcModule[],
 
   howItWorks: {
     title: 'How AquaChain works',
-    lead:
-      'The demo follows one pattern across all three modules: capture intent on-chain, let independent verifiers approve it, then settle outcomes automatically.',
+    lead: 'The demo follows one pattern across all three modules: capture intent on-chain, let independent verifiers approve it, then settle outcomes automatically.',
     intro:
       'Field contributors, donors, and utility operators sign transactions with Keplr. CosmWasm on wasmd stores the state so no single frontend can rewrite history after submission.',
     closing:
@@ -154,26 +220,22 @@ export const aquachainContent = {
     steps: [
       {
         title: 'Collect',
-        body:
-          'Participants register the entities the chain must track: sensors with coordinates, well projects with funding goals, or company accounts with baseline usage. Each registration is a signed transaction that creates on-chain state other users can query immediately.',
+        body: 'Participants register the entities the chain must track: sensors with coordinates, well projects with funding goals, or company accounts with baseline usage. Each registration is a signed transaction that creates on-chain state other users can query immediately.',
         icon: 'satellite-dish',
       },
       {
         title: 'Record',
-        body:
-          'Day-to-day events land as contract messages: sensor readings, donation pledges, milestone evidence, usage logs, or certificate requests. CosmWasm stores them in contract storage with deterministic ordering so history can be replayed from block events.',
+        body: 'Day-to-day events land as contract messages: sensor readings, donation pledges, milestone evidence, usage logs, or certificate requests. CosmWasm stores them in contract storage with deterministic ordering so history can be replayed from block events.',
         icon: 'link',
       },
       {
         title: 'Verify',
-        body:
-          'Designated verifiers or validators review submissions against policy rules: plausible sensor ranges, photo proof for drilled wells, or reconciled meter data for utility savings. Approval messages flip flags in contract state; rejections keep funds locked or readings unrewarded.',
+        body: 'Designated verifiers or validators review submissions against policy rules: plausible sensor ranges, photo proof for drilled wells, or reconciled meter data for utility savings. Approval messages flip flags in contract state; rejections keep funds locked or readings unrewarded.',
         icon: 'clipboard-check',
       },
       {
         title: 'Reward',
-        body:
-          'Once rules pass, the contract settles: token payouts to sensor operators, escrow releases to well beneficiaries, or footprint certificates summarizing verified savings. Every payout or certificate hash is visible to wallets and indexers without exporting a private CSV.',
+        body: 'Once rules pass, the contract settles: token payouts to sensor operators, escrow releases to well beneficiaries, or footprint certificates summarizing verified savings. Every payout or certificate hash is visible to wallets and indexers without exporting a private CSV.',
         icon: 'award',
       },
     ],
@@ -221,11 +283,7 @@ export const aquachainContent = {
         route: '/water-utilities',
         icon: 'chart-line',
         accent: 'slate' as const,
-        photo: {
-          src: local('utilities-well-monitoring.jpg'),
-          alt: 'Industrial IoT sensors monitoring production water well levels',
-          objectPosition: 'center 45%',
-        },
+        photos: utilitiesPhotos,
       },
       {
         id: 'water-well',
@@ -234,10 +292,7 @@ export const aquachainContent = {
         route: '/water-well-initiative',
         icon: 'hand-holding-droplet',
         accent: 'amber' as const,
-        photo: {
-          src: local('community-well.jpg'),
-          alt: 'Community hand pump and well used for daily water access',
-        },
+        photos: waterWellPhotos,
       },
       {
         id: 'citizen-science',
@@ -246,13 +301,9 @@ export const aquachainContent = {
         route: '/citizen-science',
         icon: 'microscope',
         accent: 'teal' as const,
-        photo: {
-          src: local('citizen-sensor-kit.jpg'),
-          alt: 'Portable water quality sensor kit for field measurements',
-          objectPosition: 'center 45%',
-        },
+        photos: citizenSciencePhotos,
       },
-    ],
+    ] satisfies AcIntegratedModule[],
   },
 
   stack: {

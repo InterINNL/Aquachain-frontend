@@ -9,11 +9,14 @@
 }
 
 .ac-home-hero__copy {
-  padding: var(--ac-space-3xl) var(--ac-space-xl);
+  padding: var(--ac-space-3xl) var(--ac-space-2xl);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 36rem;
+  max-width: 38rem;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .ac-home-hero__copy .ac-kicker {
@@ -132,6 +135,7 @@
 .ac-integrated-card__photo {
   height: 11rem;
   overflow: hidden;
+  position: relative;
 }
 
 .ac-module-card__photo img,
