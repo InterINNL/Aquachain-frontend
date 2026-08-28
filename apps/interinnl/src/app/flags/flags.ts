@@ -4,24 +4,24 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 @Component({
   selector: 'innl-flags',
   template: `
-    <span class="innl-flags" [class.innl-flags--lg]="size === 'lg'">
-      <span class="innl-flag" title="India" aria-label="India">
-        <svg viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <span class="innl-flags" [class.innl-flags--lg]="size === 'lg'" role="group" [attr.aria-label]="labels ? null : 'India and Netherlands flags'">
+      <span class="innl-flag" role="img" aria-label="India flag">
+        <svg viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
           <rect width="9" height="2" y="0" fill="#FF9933" />
           <rect width="9" height="2" y="2" fill="#fff" />
           <rect width="9" height="2" y="4" fill="#138808" />
           <circle cx="4.5" cy="3" r="0.7" fill="#000080" />
         </svg>
       </span>
-      <span class="innl-flag" title="Netherlands" aria-label="Netherlands">
-        <svg viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <span class="innl-flag" role="img" aria-label="Netherlands flag">
+        <svg viewBox="0 0 9 6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
           <rect width="9" height="2" y="0" fill="#AE1C28" />
           <rect width="9" height="2" y="2" fill="#fff" />
           <rect width="9" height="2" y="4" fill="#21468B" />
         </svg>
       </span>
       @if (labels) {
-        <span class="innl-flags__labels">India · Netherlands</span>
+        <span class="innl-flags__labels" aria-hidden="true">India · Netherlands</span>
       }
     </span>
   `,

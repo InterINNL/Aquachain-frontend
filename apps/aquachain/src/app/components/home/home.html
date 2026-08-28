@@ -25,7 +25,10 @@
       [style.object-position]="content.hero.photo.objectPosition ?? 'center'"
       width="900"
       height="700"
+      sizes="(min-width: 900px) 50vw, 100vw"
       loading="eager"
+      fetchpriority="high"
+      decoding="sync"
     />
     <div class="ac-home-hero__overlay" aria-hidden="true"></div>
   </div>

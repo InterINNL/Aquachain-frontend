@@ -3,10 +3,11 @@
     <div class="innl-hero__copy">
       <img
         class="innl-hero__logo"
-        src="/interinnl-logo.png"
+        src="/interinnl-logo.webp"
         width="200"
         height="200"
-        alt="InterINNL logo: India and Netherlands bridge"
+        alt=""
+        decoding="async"
       />
       <div class="innl-hero__title">
         <p class="innl-hero__tag">{{ content.tagline }}</p>
@@ -42,8 +43,11 @@
           [alt]="photo.alt"
           width="900"
           height="1100"
+          sizes="(min-width: 900px) 45vw, 100vw"
           [class.is-active]="heroIndex() === i"
           [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+          [attr.fetchpriority]="i === 0 ? 'high' : null"
+          [attr.decoding]="i === 0 ? 'sync' : 'async'"
         />
         }
       </div>

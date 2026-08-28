@@ -1,6 +1,7 @@
 /** AquaChain site copy and photo catalog (English). */
 
-const local = (name: string) => `photos/${name}`;
+const localWebp = (name: string) =>
+  `photos/${name.replace(/\.(png|jpe?g)$/i, '')}.webp`;
 
 export interface AcPhoto {
   src: string;
@@ -104,12 +105,12 @@ export interface AgentOpsContent {
 
 const crossExchangePhotos: AcPhoto[] = [
   {
-    src: local('hero-river.jpg'),
+    src: localWebp('hero-river.jpg'),
     alt: 'River flowing through an Indian watershed used for cross-region water accounting',
     objectPosition: 'center center',
   },
   {
-    src: local('field-irrigation.jpg'),
+    src: localWebp('field-irrigation.jpg'),
     alt: 'Irrigation channels linking farm districts to shared water ledgers',
     objectPosition: 'center center',
   },
@@ -117,12 +118,12 @@ const crossExchangePhotos: AcPhoto[] = [
 
 const agentOpsPhotos: AcPhoto[] = [
   {
-    src: local('nqi1nt0hbsw67p315qj4-4111816589.webp'),
+    src: localWebp('nqi1nt0hbsw67p315qj4-4111816589.webp'),
     alt: 'x402 Protocol for developers: monetize APIs in USDC',
     objectPosition: 'center top',
   },
   {
-    src: local('agent-x402-pay-router.svg'),
+    src: localWebp('agent-x402-pay-router.svg'),
     alt: 'Diagram: AquaChain Pay Router with x402 agent-to-agent USDC paid toll calls',
     objectPosition: 'center center',
     fit: 'contain',
@@ -131,12 +132,12 @@ const agentOpsPhotos: AcPhoto[] = [
 
 const localDaoPhotos: AcPhoto[] = [
   {
-    src: local('CS4Water-conference-2048x1536.jpg'),
+    src: localWebp('CS4Water-conference-2048x1536.jpg'),
     alt: 'Community workshop on water stewardship and local governance',
     objectPosition: 'center center',
   },
   {
-    src: local('local-dao-forum.jpg'),
+    src: localWebp('local-dao-forum.jpg'),
     alt: 'Community members discussing sustainability plans together',
     objectPosition: 'center center',
   },
@@ -144,12 +145,12 @@ const localDaoPhotos: AcPhoto[] = [
 
 const waterCreditsPhotos: AcPhoto[] = [
   {
-    src: local('context-monitoring.jpg'),
+    src: localWebp('context-monitoring.jpg'),
     alt: 'Water monitoring dashboard with live sensor readings',
     objectPosition: 'center center',
   },
   {
-    src: local('utilities-well-monitoring.jpg'),
+    src: localWebp('utilities-well-monitoring.jpg'),
     alt: 'Industrial sensors monitoring a production water well in India',
     objectPosition: 'center 45%',
   },
@@ -157,12 +158,12 @@ const waterCreditsPhotos: AcPhoto[] = [
 
 const communityBountyPhotos: AcPhoto[] = [
   {
-    src: local('community-bounty-team.jpg'),
+    src: localWebp('community-bounty-team.jpg'),
     alt: 'Community members collaborating over a shared meal after a volunteer event',
     objectPosition: 'center center',
   },
   {
-    src: local('community-bounty-field.jpg'),
+    src: localWebp('community-bounty-field.jpg'),
     alt: 'Agricultural drone over green fields near an Indian city skyline',
     objectPosition: 'center center',
   },
@@ -170,17 +171,17 @@ const communityBountyPhotos: AcPhoto[] = [
 
 const sustainableActionsPhotos: AcPhoto[] = [
   {
-    src: local('community-volunteers-india.jpg'),
+    src: localWebp('community-volunteers-india.jpg'),
     alt: 'Indian students raising hands during a community water workshop',
     objectPosition: 'center 35%',
   },
   {
-    src: local('sustainable-farming-india.jpg'),
+    src: localWebp('sustainable-farming-india.jpg'),
     alt: 'Farmer operating an agricultural drone over green fields near an Indian city',
     objectPosition: 'center center',
   },
   {
-    src: local('field-irrigation.jpg'),
+    src: localWebp('field-irrigation.jpg'),
     alt: 'Irrigation sprinklers watering crops for efficient water use',
     objectPosition: 'center 55%',
   },
@@ -188,14 +189,14 @@ const sustainableActionsPhotos: AcPhoto[] = [
 
 const citizenSciencePhotos: AcPhoto[] = [
   {
-    src: local(
+    src: localWebp(
       'well-designed-citizen-science-projects-can-help-monitor-sdg-6-864986179.jpg',
     ),
     alt: 'Researchers and volunteers monitoring water quality in a field wetland',
     objectPosition: 'center 40%',
   },
   {
-    src: local('CS4Water-conference-2048x1536.jpg'),
+    src: localWebp('CS4Water-conference-2048x1536.jpg'),
     alt: 'Conference audience at a citizen science for water session',
     objectPosition: 'center center',
   },
@@ -203,14 +204,14 @@ const citizenSciencePhotos: AcPhoto[] = [
 
 const waterWellPhotos: AcPhoto[] = [
   {
-    src: local(
+    src: localWebp(
       'How-to-Make-a-Well-Produce-More-Water-Increase-Well-Yield-with-RAFSUN-Submersible-Pumps-1313991184.jpg',
     ),
     alt: 'Workers installing a submersible pump into a community well',
     objectPosition: 'center center',
   },
   {
-    src: local('water-well-2-600x400-976489662.jpg'),
+    src: localWebp('water-well-2-600x400-976489662.jpg'),
     alt: 'Rural WASH facility with overhead water tank and signage',
     objectPosition: 'center center',
   },
@@ -218,28 +219,28 @@ const waterWellPhotos: AcPhoto[] = [
 
 const utilitiesPhotos: AcPhoto[] = [
   {
-    src: local(
+    src: localWebp(
       '800x400-combined-sewer-overflows-treatment-plant-3285836854.jpg',
     ),
     alt: 'Aerial view of circular wastewater treatment basins in a green field',
     objectPosition: 'center center',
   },
   {
-    src: local(
+    src: localWebp(
       'Best-ETP-plant-supplier-Delhi-NCR-Call-Now-9653247121-08-28-2026_02_16_AM.png',
     ),
     alt: 'Effluent treatment plant with aeration tanks and yellow safety walkways',
     objectPosition: 'center center',
   },
   {
-    src: local(
+    src: localWebp(
       'Best-Water-Filtration-Plant-Manufacturer-in-Delhi-08-28-2026_02_14_AM.png',
     ),
     alt: 'Industrial water filtration plant with blue piping and storage tanks',
     objectPosition: 'center center',
   },
   {
-    src: local(
+    src: localWebp(
       'Best-ZLD-Plant-Manufacturers-Near-Connaught-Place-Delhi-08-28-2026_02_15_AM.png',
     ),
     alt: 'Zero liquid discharge plant with reverse osmosis skids and clear water basin',
@@ -315,7 +316,7 @@ export const aquachainContent = {
     title: 'Water decisions backed by verifiable data',
     lead: 'Citizens deploy sensors, communities fund wells, utilities log usage and earn certificates. Every step can be recorded on-chain for transparency.',
     photo: {
-      src: local('hero-river.jpg'),
+      src: localWebp('hero-river.jpg'),
       alt: 'Mountain lake at dawn with forest shoreline and calm reflective water',
       objectPosition: 'center 40%',
     },
@@ -328,7 +329,7 @@ export const aquachainContent = {
     lead: 'Water quality and access vary sharply between regions. Field readings, funding pledges, and utility savings are often scattered across spreadsheets and siloed systems.',
     body: 'AquaChain demos how Cosmos smart contracts can anchor that data so donors, regulators, and communities read the same numbers from one on-chain source.',
     photo: {
-      src: local('context-monitoring.jpg'),
+      src: localWebp('context-monitoring.jpg'),
       alt: 'Water quality monitoring dashboard with smart sensor readings',
       objectPosition: 'center center',
     },
@@ -449,7 +450,7 @@ export const aquachainContent = {
     closing:
       'Connect Keplr on the configured test chain to try the full loop. Read-only views still load contract state through CosmJS queries so you can inspect maps, KPIs, and tables before signing anything.',
     photo: {
-      src: local('utilities-well-monitoring.jpg'),
+      src: localWebp('utilities-well-monitoring.jpg'),
       alt: 'Industrial sensors monitoring a production water well',
       objectPosition: 'center 45%',
     },
@@ -480,7 +481,7 @@ export const aquachainContent = {
   technology: {
     title: 'Powered by advanced technology',
     photo: {
-      src: local('field-irrigation.jpg'),
+      src: localWebp('field-irrigation.jpg'),
       alt: 'Irrigation sprinklers watering crops in a green field',
       objectPosition: 'center 55%',
     },
@@ -683,7 +684,7 @@ export const aquachainContent = {
       title: 'Citizen Science',
       lead: 'Monitor water quality and quantity. Submit readings and earn rewards when data is verified.',
       photo: {
-        src: local('citizen-sensor-kit.jpg'),
+        src: localWebp('citizen-sensor-kit.jpg'),
         alt: 'Portable water quality sensor kit for field measurements',
       },
     },
@@ -692,7 +693,7 @@ export const aquachainContent = {
       title: 'Water Well Initiative',
       lead: 'Crowdfund well projects on-chain: create, validate, donate, unlock, and disburse.',
       photo: {
-        src: local('community-well.jpg'),
+        src: localWebp('community-well.jpg'),
         alt: 'Community hand pump and well used for daily water access',
         objectPosition: 'center center',
       },
@@ -702,7 +703,7 @@ export const aquachainContent = {
       title: 'Water Utilities',
       lead: 'Register utilities, log usage and savings, validate entries, and issue footprint certificates.',
       photo: {
-        src: local('hero-utilities-plant.jpg'),
+        src: localWebp('hero-utilities-plant.jpg'),
         alt: 'Water treatment facility with pipes and monitoring equipment',
       },
     },
@@ -711,7 +712,7 @@ export const aquachainContent = {
       title: 'Sustainable Actions',
       lead: 'Submit community conservation actions with evidence, verify impact, and reward contributors on-chain.',
       photo: {
-        src: local('community-volunteers-india.jpg'),
+        src: localWebp('community-volunteers-india.jpg'),
         alt: 'Indian students volunteering during a community water workshop',
         objectPosition: 'center 35%',
       },
@@ -721,7 +722,7 @@ export const aquachainContent = {
       title: 'Community Bounty',
       lead: 'Fund sustainability tasks with on-chain escrow. Workers submit before the deadline; the poster approves the winner for payout.',
       photo: {
-        src: local('community-bounty-team.jpg'),
+        src: localWebp('community-bounty-team.jpg'),
         alt: 'Volunteer team sharing a meal after a community sustainability event',
         objectPosition: 'center center',
       },
@@ -731,7 +732,7 @@ export const aquachainContent = {
       title: 'Water Credits',
       lead: 'Mint and trade internal conservation credits. List credits for sale, pay with OSMO, and settle transfers atomically on-chain.',
       photo: {
-        src: local('context-monitoring.jpg'),
+        src: localWebp('context-monitoring.jpg'),
         alt: 'Utility dashboard tracking verified water savings and credit balances',
         objectPosition: 'center center',
       },
@@ -741,7 +742,7 @@ export const aquachainContent = {
       title: 'Local DAO',
       lead: 'Govern neighbourhood water priorities on-chain. Members submit proposals, cast votes, and finalize passed actions after the voting window closes.',
       photo: {
-        src: local('CS4Water-conference-2048x1536.jpg'),
+        src: localWebp('CS4Water-conference-2048x1536.jpg'),
         alt: 'Community workshop on water stewardship and local governance',
         objectPosition: 'center center',
       },
@@ -751,7 +752,7 @@ export const aquachainContent = {
       title: 'Cross Exchange',
       lead: 'IBC-ready demo: swap OSMO for registered Indian regional water ledgers, lock partner units on-chain, and redeem for off-chain stewardship credits.',
       photo: {
-        src: local('hero-river.jpg'),
+        src: localWebp('hero-river.jpg'),
         alt: 'River watershed connecting communities to shared water accounting',
         objectPosition: 'center center',
       },
@@ -761,7 +762,7 @@ export const aquachainContent = {
       title: 'Agent Ops',
       lead: 'AquaChain Pay Router: x402 USDC micropayments for drone agents, with agent-to-agent paid toll calls and Osmosis relay.',
       photo: {
-        src: local('nqi1nt0hbsw67p315qj4-4111816589.webp'),
+        src: localWebp('nqi1nt0hbsw67p315qj4-4111816589.webp'),
         alt: 'x402 Protocol for developers: monetize APIs in USDC',
         objectPosition: 'center top',
       },
@@ -774,7 +775,7 @@ export const aquachainContent = {
     lead: 'Drone agents pay USDC via HTTP 402. Measurements land on Osmosis CosmWasm. Communities govern what happens next.',
     body: 'AquaChain keeps human wallets on Cosmos while autonomous agents use x402 micropayments on Base Sepolia. The Pay Router validates toll payments, normalizes drone JSON, and relays submit_data to citizen-science-registry.',
     photo: {
-      src: local('nqi1nt0hbsw67p315qj4-4111816589.webp'),
+      src: localWebp('nqi1nt0hbsw67p315qj4-4111816589.webp'),
       alt: 'x402 Protocol for developers: monetize APIs in USDC',
       objectPosition: 'center top',
     },

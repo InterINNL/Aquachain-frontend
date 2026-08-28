@@ -70,7 +70,7 @@
   margin: 0.25rem 0 0;
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--innl-india-green);
+  color: #0a4d24;
 }
 
 .innl-stories__role {
@@ -122,18 +122,31 @@
 }
 
 .innl-stories__dot {
-  width: 0.55rem;
-  height: 0.55rem;
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   border: 0;
   padding: 0;
-  background: color-mix(in srgb, var(--innl-navy) 25%, transparent);
+  background: transparent;
   cursor: pointer;
 }
 
-.innl-stories__dot--on {
+.innl-stories__dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--innl-navy) 25%, transparent);
+  transform: translate(-50%, -50%);
+}
+
+.innl-stories__dot--on::before {
   background: var(--innl-navy);
-  transform: scale(1.15);
+  transform: translate(-50%, -50%) scale(1.15);
 }
 
 @media (min-width: 768px) {

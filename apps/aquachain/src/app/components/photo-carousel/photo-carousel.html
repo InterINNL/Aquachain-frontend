@@ -4,12 +4,14 @@
     class="ac-photo-carousel__slide"
     [class.ac-photo-carousel__slide--active]="index === activeIndex()"
     [src]="photo.src"
-    [alt]="photo.alt"
+    [alt]="decorative() ? '' : photo.alt"
     [style.object-position]="photo.objectPosition ?? 'center'"
     [style.object-fit]="photo.fit ?? 'cover'"
     width="400"
     height="220"
-    loading="lazy"
+    [attr.loading]="index === 0 ? 'eager' : 'lazy'"
+    [attr.fetchpriority]="index === 0 ? 'high' : null"
+    [attr.decoding]="index === 0 ? 'sync' : 'async'"
     [attr.aria-hidden]="index === activeIndex() ? null : true"
   />
   }

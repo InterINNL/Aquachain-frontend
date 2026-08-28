@@ -19,6 +19,8 @@ import type { AcPhoto } from '../../content';
 })
 export class PhotoCarousel implements OnInit, OnDestroy {
   readonly photos = input.required<AcPhoto[]>();
+  /** Card thumbnails sit beside titles; skip redundant alt for screen readers. */
+  readonly decorative = input(true);
   readonly activeIndex = signal(0);
 
   private readonly platformId = inject(PLATFORM_ID);

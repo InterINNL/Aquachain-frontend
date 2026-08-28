@@ -144,21 +144,34 @@
 }
 
 .innl-hero__visual-dots button {
-  width: 0.55rem;
-  height: 0.55rem;
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: color-mix(in srgb, #fff 45%, transparent);
+  background: transparent;
   cursor: pointer;
+}
+
+.innl-hero__visual-dots button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, #fff 45%, transparent);
+  transform: translate(-50%, -50%);
   transition:
     transform 0.2s ease,
     background 0.2s ease;
 }
 
-.innl-hero__visual-dots button.is-active {
+.innl-hero__visual-dots button.is-active::before {
   background: #fff;
-  transform: scale(1.15);
+  transform: translate(-50%, -50%) scale(1.15);
 }
 
 .innl-hero__visual-fade {
@@ -204,7 +217,7 @@
   letter-spacing: 0.14em;
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--innl-india-green);
+  color: #0a4d24;
 }
 
 .innl-mission__photo {
