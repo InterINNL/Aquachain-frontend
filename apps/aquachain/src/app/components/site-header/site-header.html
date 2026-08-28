@@ -10,25 +10,78 @@
       <span class="ac-header__name">
         <span class="ac-header__product">{{ content.name }}</span>
         @if (moduleBrand(); as brand) {
-          <span class="ac-header__sep" aria-hidden="true">·</span>
-          <span class="ac-header__module ac-header__module--{{ brand.accent }}">
-            {{ brand.label }}
-          </span>
+        <span class="ac-header__sep" aria-hidden="true">·</span>
+        <span class="ac-header__module ac-header__module--{{ brand.accent }}">
+          {{ brand.label }}
+        </span>
         }
       </span>
     </a>
 
     <nav class="ac-header__nav" aria-label="AquaChain">
-      @for (item of content.nav; track item.route) {
-        <a
-          class="ac-header__link"
-          [routerLink]="item.route"
-          routerLinkActive="is-active"
-          [routerLinkActiveOptions]="{ exact: item.route === '/' }"
-        >
-          {{ item.label }}
-        </a>
+      <a
+        class="ac-header__link"
+        [routerLink]="content.nav.home.route"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ content.nav.home.label }}
+      </a>
+
+      @for (item of content.nav.featuredModules; track item.route) {
+      <a
+        class="ac-header__link ac-header__link--featured"
+        [routerLink]="item.route"
+        routerLinkActive="is-active"
+      >
+        {{ item.label }}
+      </a>
       }
+
+      <div
+        class="ac-header__menu"
+        [class.is-open]="moreMenuOpen()"
+        (click)="$event.stopPropagation()"
+      >
+        <button
+          type="button"
+          class="ac-header__menu-trigger"
+          [class.is-active]="isMoreModuleActive()"
+          [attr.aria-expanded]="moreMenuOpen()"
+          aria-haspopup="true"
+          (click)="toggleMoreMenu($event)"
+        >
+          {{ content.nav.moreMenuLabel }}
+          <fa-icon
+            class="ac-header__menu-chevron"
+            [icon]="['fas', 'chevron-down']"
+            aria-hidden="true"
+          ></fa-icon>
+        </button>
+        <ul class="ac-header__menu-panel" role="menu">
+          @for (item of content.nav.moreModules; track item.route) {
+          <li role="none">
+            <a
+              class="ac-header__menu-link"
+              role="menuitem"
+              [routerLink]="item.route"
+              routerLinkActive="is-active"
+              (click)="close()"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+          }
+        </ul>
+      </div>
+
+      <a
+        class="ac-header__link"
+        [routerLink]="content.nav.contact.route"
+        routerLinkActive="is-active"
+      >
+        {{ content.nav.contact.label }}
+      </a>
     </nav>
 
     <a class="ac-header__back" [href]="content.interinnlUrl">InterINNL</a>
@@ -48,27 +101,62 @@
   </div>
 
   @if (open()) {
-    <button
-      type="button"
-      class="ac-header__overlay"
-      aria-label="Close menu"
+  <button
+    type="button"
+    class="ac-header__overlay"
+    aria-label="Close menu"
+    (click)="close()"
+  ></button>
+  <nav id="ac-drawer" class="ac-header__drawer" aria-label="Mobile">
+    <a
+      class="ac-header__drawer-link"
+      [routerLink]="content.nav.home.route"
+      routerLinkActive="is-active"
+      [routerLinkActiveOptions]="{ exact: true }"
       (click)="close()"
-    ></button>
-    <nav id="ac-drawer" class="ac-header__drawer" aria-label="Mobile">
-      @for (item of content.nav; track item.route) {
-        <a
-          class="ac-header__drawer-link"
-          [routerLink]="item.route"
-          routerLinkActive="is-active"
-          [routerLinkActiveOptions]="{ exact: item.route === '/' }"
-          (click)="close()"
-        >
-          {{ item.label }}
-        </a>
-      }
-      <a class="ac-header__drawer-back" [href]="content.interinnlUrl" (click)="close()">
-        Back to InterINNL
-      </a>
-    </nav>
+    >
+      {{ content.nav.home.label }}
+    </a>
+
+    @for (item of content.nav.featuredModules; track item.route) {
+    <a
+      class="ac-header__drawer-link"
+      [routerLink]="item.route"
+      routerLinkActive="is-active"
+      (click)="close()"
+    >
+      {{ item.label }}
+    </a>
+    }
+
+    <p class="ac-header__drawer-heading">{{ content.nav.moreMenuLabel }}</p>
+    @for (item of content.nav.moreModules; track item.route) {
+    <a
+      class="ac-header__drawer-link ac-header__drawer-link--nested"
+      [routerLink]="item.route"
+      routerLinkActive="is-active"
+      (click)="close()"
+    >
+      {{ item.label }}
+    </a>
+    }
+
+    <a
+      class="ac-header__drawer-link"
+      [routerLink]="content.nav.contact.route"
+      routerLinkActive="is-active"
+      (click)="close()"
+    >
+      {{ content.nav.contact.label }}
+    </a>
+
+    <a
+      class="ac-header__drawer-back"
+      [href]="content.interinnlUrl"
+      (click)="close()"
+    >
+      Back to InterINNL
+    </a>
+  </nav>
   }
 </header>

@@ -52,6 +52,19 @@ export interface HeaderBrand {
   accent: 'teal' | 'amber' | 'slate';
 }
 
+export interface NavLink {
+  label: string;
+  route: string;
+}
+
+export interface SiteNav {
+  home: NavLink;
+  contact: NavLink;
+  featuredModules: NavLink[];
+  moreModules: NavLink[];
+  moreMenuLabel: string;
+}
+
 const crossExchangePhotos: AcPhoto[] = [
   {
     src: local('hero-river.jpg'),
@@ -521,13 +534,23 @@ export const aquachainContent = {
     },
   },
 
-  nav: [
-    { label: 'Home', route: '/' },
-    { label: 'Citizen Science', route: '/citizen-science' },
-    { label: 'Water Well', route: '/water-well-initiative' },
-    { label: 'Water Utilities', route: '/water-utilities' },
-    { label: 'Contact', route: '/contact' },
-  ],
+  nav: {
+    home: { label: 'Home', route: '/' },
+    contact: { label: 'Contact', route: '/contact' },
+    featuredModules: [
+      { label: 'Citizen Science', route: '/citizen-science' },
+      { label: 'Water Well', route: '/water-well-initiative' },
+      { label: 'Water Utilities', route: '/water-utilities' },
+    ],
+    moreModules: [
+      { label: 'Sustainable Actions', route: '/sustainable-actions' },
+      { label: 'Community Bounty', route: '/community-bounty' },
+      { label: 'Water Credits', route: '/water-credits' },
+      { label: 'Local DAO', route: '/local-dao' },
+      { label: 'Cross Exchange', route: '/cross-exchange' },
+    ],
+    moreMenuLabel: 'More modules',
+  } satisfies SiteNav,
 
   moduleLinks: [
     {
