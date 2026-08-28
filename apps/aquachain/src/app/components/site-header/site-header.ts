@@ -1,9 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   HostListener,
   inject,
   signal,
+  viewChild,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -23,6 +25,7 @@ export class SiteHeader {
   readonly open = signal(false);
   readonly moreMenuOpen = signal(false);
 
+  private readonly moreMenuRef = viewChild<ElementRef<HTMLElement>>('moreMenu');
   private readonly router = inject(Router);
 
   readonly moduleBrand = toSignal(
@@ -71,8 +74,16 @@ export class SiteHeader {
     return brand?.accent ?? 'teal';
   }
 
-  @HostListener('document:click')
-  closeMoreMenu(): void {
+  @HostListener('document:click', ['$event'])
+  closeMoreMenu(event: MouseEvent): void {
+    const menu = this.moreMenuRef()?.nativeElement;
+    if (
+      menu &&
+      event.target instanceof Node &&
+      menu.contains(event.target)
+    ) {
+      return;
+    }
     this.moreMenuOpen.set(false);
   }
 
