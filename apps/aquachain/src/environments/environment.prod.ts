@@ -13,7 +13,7 @@ export const environment = {
   WaterCreditMarketplaceContractAddress:
     'osmo1cfymf04ufxh8c5z229v39skdyevy3tw87ywjukfxq6hr7wn7zfwq74c0p6',
   LocalDaoContractAddress:
-    'osmo1m7smfa2kfyj6rmx068hxeapdmvrpza30z8uhj5fgt35z64yyd7qq6w3ctg',
+    'osmo1wyf5hpwpkuml6dtzj7ldek220pqy73j8a4crkp9pdupttrzfs2rq5dtwms',
   CrossPlatformExchangeContractAddress:
     'osmo19szn8salqfrdu4f359h5ft93gh97444rsk53dzm5sehzl0aayskqqrrh56',
   agentGatewayUrl: 'https://aquachain-agent-gateway.onrender.com',

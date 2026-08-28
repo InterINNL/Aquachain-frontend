@@ -28,8 +28,61 @@ export interface DaoVoteRecord {
 export interface ProposalMetadata {
   location?: string;
   summary?: string;
+  deadline?: number | string;
+  reward?: string;
+  recipient?: string;
+  amount?: string;
+  entry_id?: number | string;
   [key: string]: unknown;
 }
+
+export interface DaoActionDefinition {
+  tag: string;
+  label: string;
+  moduleRoute: string;
+  moduleLabel: string;
+  requiresReward: boolean;
+  requiresRecipient: boolean;
+  requiresCreditAmount: boolean;
+  requiresEntryId: boolean;
+  requiresDeadline: boolean;
+}
+
+export const DAO_ACTIONS: readonly DaoActionDefinition[] = [
+  {
+    tag: 'post_bounty',
+    label: 'Post community bounty',
+    moduleRoute: '/community-bounty',
+    moduleLabel: 'Community Bounty',
+    requiresReward: true,
+    requiresRecipient: false,
+    requiresCreditAmount: false,
+    requiresEntryId: false,
+    requiresDeadline: true,
+  },
+  {
+    tag: 'mint_credits',
+    label: 'Mint water credits',
+    moduleRoute: '/water-credits',
+    moduleLabel: 'Water Credits',
+    requiresReward: false,
+    requiresRecipient: true,
+    requiresCreditAmount: true,
+    requiresEntryId: false,
+    requiresDeadline: false,
+  },
+  {
+    tag: 'reward_sensor',
+    label: 'Reward sensor submitter',
+    moduleRoute: '/citizen-science',
+    moduleLabel: 'Citizen Science',
+    requiresReward: true,
+    requiresRecipient: false,
+    requiresCreditAmount: false,
+    requiresEntryId: true,
+    requiresDeadline: false,
+  },
+] as const;
 
 export interface ParsedProposal extends DaoProposal {
   metadata: ProposalMetadata;
@@ -113,14 +166,113 @@ export class LocalDaoService {
     );
   }
 
-  async executeProposal(sender: string, contract: string, proposalId: number) {
+  async executeProposal(
+    sender: string,
+    contract: string,
+    proposalId: number,
+    funds: readonly { denom: string; amount: string }[] = [],
+  ) {
     return this.contractService.simulateAndExecute(
       sender,
       contract,
       { execute_proposal: { proposal_id: proposalId } },
       'execute proposal',
+      funds,
     );
   }
+}
+
+export function daoActionDefinition(actionTag: string): DaoActionDefinition | undefined {
+  return DAO_ACTIONS.find((action) => action.tag === actionTag);
+}
+
+export function moduleLinkForAction(actionTag: string): string | null {
+  return daoActionDefinition(actionTag)?.moduleRoute ?? null;
+}
+
+export function moduleLabelForAction(actionTag: string): string | null {
+  return daoActionDefinition(actionTag)?.moduleLabel ?? null;
+}
+
+export function previewProposalEffect(
+  actionTag: string,
+  metadata: ProposalMetadata,
+  title: string,
+  coinDenom: string,
+): string {
+  const action = daoActionDefinition(actionTag);
+  if (!action) {
+    return 'Select an action to preview the on-chain effect.';
+  }
+
+  switch (actionTag) {
+    case 'post_bounty': {
+      const reward = String(metadata.reward ?? '0');
+      const location = String(metadata.location ?? 'the selected site');
+      return `If passed: posts a ${reward} ${coinDenom} bounty titled "${title}" for ${location}.`;
+    }
+    case 'mint_credits': {
+      const amount = String(metadata.amount ?? '0');
+      const recipient = String(metadata.recipient ?? 'beneficiary');
+      return `If passed: mints ${amount} water credits to ${recipient}.`;
+    }
+    case 'reward_sensor': {
+      const reward = String(metadata.reward ?? '0');
+      const entryId = String(metadata.entry_id ?? '—');
+      return `If passed: rewards citizen-science entry #${entryId} with ${reward} ${coinDenom}.`;
+    }
+    default:
+      return 'If passed: executes the configured on-chain action.';
+  }
+}
+
+export function buildProposalMetadata(form: {
+  location: string;
+  summary?: string;
+  deadline?: string | number;
+  reward?: string;
+  recipient?: string;
+  amount?: string;
+  entry_id?: string | number;
+}): ProposalMetadata {
+  const metadata: ProposalMetadata = {
+    location: String(form.location ?? '').trim(),
+  };
+  const summary = String(form.summary ?? '').trim();
+  if (summary) {
+    metadata.summary = summary;
+  }
+  if (form.deadline !== undefined && form.deadline !== '') {
+    metadata.deadline = Number(form.deadline);
+  }
+  if (form.reward?.trim()) {
+    metadata.reward = form.reward.trim();
+  }
+  if (form.recipient?.trim()) {
+    metadata.recipient = form.recipient.trim();
+  }
+  if (form.amount?.trim()) {
+    metadata.amount = form.amount.trim();
+  }
+  if (form.entry_id !== undefined && form.entry_id !== '') {
+    metadata.entry_id = Number(form.entry_id);
+  }
+  return metadata;
+}
+
+export function executeFundsForProposal(
+  actionTag: string,
+  metadata: ProposalMetadata,
+  coinMinimalDenom: string,
+): { denom: string; amount: string }[] {
+  if (actionTag !== 'post_bounty' && actionTag !== 'reward_sensor') {
+    return [];
+  }
+  const reward = String(metadata.reward ?? '').trim();
+  if (!reward) {
+    return [];
+  }
+  return [{ denom: coinMinimalDenom, amount: reward }];
 }
 
 export function parseProposal(proposal: DaoProposal): ParsedProposal {

@@ -9,6 +9,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -24,10 +25,17 @@ import { WalletService } from '@services/wallet/wallet';
 import { canGoPrev } from '../../utils/pagination';
 import {
   canExecute,
+  DAO_ACTIONS,
+  buildProposalMetadata,
+  daoActionDefinition,
+  executeFundsForProposal,
   isVotingOpen,
   LocalDaoService,
+  moduleLabelForAction,
+  moduleLinkForAction,
   parseProposal,
   ParsedProposal,
+  previewProposalEffect,
   proposalStatusLabel,
   voteCount,
   VoteChoice,
@@ -39,6 +47,7 @@ import { WalletBanner } from '../shared/wallet-banner/wallet-banner';
   selector: 'local-dao',
   imports: [
     CommonModule,
+    RouterModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
@@ -71,6 +80,10 @@ export class LocalDao implements OnInit {
   readonly environment = environment;
   readonly proposalStatusLabel = proposalStatusLabel;
   readonly voteCount = voteCount;
+  readonly daoActions = DAO_ACTIONS;
+  readonly previewProposalEffect = previewProposalEffect;
+  readonly moduleLinkForAction = moduleLinkForAction;
+  readonly moduleLabelForAction = moduleLabelForAction;
 
   private readonly walletService = inject(WalletService);
   private readonly dao = inject(LocalDaoService);
@@ -88,9 +101,14 @@ export class LocalDao implements OnInit {
     this.createForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      action_tag: ['', Validators.required],
+      action_tag: ['post_bounty', Validators.required],
       location: ['', Validators.required],
       summary: [''],
+      deadline: [''],
+      reward: [''],
+      recipient: [''],
+      amount: [''],
+      entry_id: [''],
     });
 
     if (!isPlatformBrowser(this.platformId)) {
@@ -113,8 +131,48 @@ export class LocalDao implements OnInit {
     return isVotingOpen(proposal, Math.floor(Date.now() / 1000));
   }
 
+  selectedActionTag(): string {
+    return String(this.createForm.get('action_tag')?.value ?? '');
+  }
+
+  selectedAction() {
+    return daoActionDefinition(this.selectedActionTag());
+  }
+
+  createEffectPreview(): string {
+    const value = this.createForm.value;
+    return previewProposalEffect(
+      this.selectedActionTag(),
+      buildProposalMetadata(value),
+      String(value.title ?? ''),
+      this.environment.coinDenom,
+    );
+  }
+
+  executedModuleLink(proposal: ParsedProposal): string | null {
+    if (proposal.status !== 'executed') {
+      return null;
+    }
+    return moduleLinkForAction(proposal.action_tag);
+  }
+
   readyToExecute(proposal: ParsedProposal): boolean {
     return canExecute(proposal, Math.floor(Date.now() / 1000));
+  }
+
+  executeHint(proposal: ParsedProposal): string | null {
+    if (!this.readyToExecute(proposal)) {
+      return null;
+    }
+    const action = daoActionDefinition(proposal.action_tag);
+    if (!action?.requiresReward) {
+      return null;
+    }
+    const reward = String(proposal.metadata.reward ?? '');
+    if (!reward) {
+      return `Attach ${this.environment.coinDenom} when finalizing this proposal.`;
+    }
+    return `Finalize with ${reward} ${this.environment.coinMinimalDenom} attached in your wallet.`;
   }
 
   formatEnd(votingEnd: number | string): string {
@@ -161,6 +219,8 @@ export class LocalDao implements OnInit {
       return;
     }
     const value = this.createForm.value;
+    const actionTag = this.selectedActionTag();
+    const metadata = buildProposalMetadata(value);
     await this.runAction(
       () =>
         this.dao.createProposal(
@@ -168,16 +228,15 @@ export class LocalDao implements OnInit {
           this.contractAddress,
           String(value.title),
           String(value.description),
-          String(value.action_tag),
-          {
-            location: String(value.location),
-            summary: String(value.summary ?? ''),
-          },
+          actionTag,
+          metadata,
         ),
       'Proposal Created',
       'Create Failed',
       async () => {
-        this.createForm.reset();
+        this.createForm.reset({
+          action_tag: 'post_bounty',
+        });
         this.proposalPage = 1;
         this.proposalCursors = [];
         await this.loadProposals();
@@ -210,12 +269,18 @@ export class LocalDao implements OnInit {
     if (!this.selected) {
       return;
     }
+    const funds = executeFundsForProposal(
+      this.selected.action_tag,
+      this.selected.metadata,
+      this.environment.coinMinimalDenom,
+    );
     await this.runAction(
       () =>
         this.dao.executeProposal(
           this.walletAddress,
           this.contractAddress,
           this.selected!.id,
+          funds,
         ),
       'Proposal Finalized',
       'Execute Failed',

@@ -3,6 +3,7 @@ import {
   canExecute,
   isVotingOpen,
   parseProposal,
+  previewProposalEffect,
   proposalStatusLabel,
   voteCount,
 } from '@services/local-dao/local-dao';
@@ -94,5 +95,17 @@ describe('local-dao helpers', () => {
       },
       200,
     )).toBe(true);
+  });
+
+  it('previews post_bounty effect copy', () => {
+    const text = previewProposalEffect(
+      'post_bounty',
+      { location: 'Delhi, India', reward: '5000000', deadline: 9999 },
+      'Yamuna cleanup crew',
+      'OSMO',
+    );
+    expect(text).toContain('5000000');
+    expect(text).toContain('Yamuna cleanup crew');
+    expect(text).toContain('Delhi, India');
   });
 });

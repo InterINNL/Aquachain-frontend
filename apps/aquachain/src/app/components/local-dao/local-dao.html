@@ -99,13 +99,12 @@
                 <input id="daoTitle" class="form-control" formControlName="title" />
               </div>
               <div class="mb-3">
-                <label class="form-label" for="daoTag">Action tag</label>
-                <input
-                  id="daoTag"
-                  class="form-control"
-                  formControlName="action_tag"
-                  placeholder="fund_cleanup"
-                />
+                <label class="form-label" for="daoTag">Action</label>
+                <select id="daoTag" class="form-select" formControlName="action_tag">
+                  <option *ngFor="let action of daoActions" [value]="action.tag">
+                    {{ action.label }}
+                  </option>
+                </select>
               </div>
               <div class="mb-3">
                 <label class="form-label" for="daoLocation">Location</label>
@@ -114,6 +113,55 @@
                   class="form-control"
                   formControlName="location"
                   placeholder="Delhi, India"
+                />
+              </div>
+              <div class="mb-3" *ngIf="selectedAction()?.requiresDeadline">
+                <label class="form-label" for="daoDeadline">Bounty deadline (Unix seconds)</label>
+                <input
+                  id="daoDeadline"
+                  class="form-control"
+                  type="number"
+                  formControlName="deadline"
+                  placeholder="1893456000"
+                />
+              </div>
+              <div class="mb-3" *ngIf="selectedAction()?.requiresReward">
+                <label class="form-label" for="daoReward">
+                  Reward ({{ environment.coinMinimalDenom }})
+                </label>
+                <input
+                  id="daoReward"
+                  class="form-control"
+                  formControlName="reward"
+                  placeholder="5000000"
+                />
+              </div>
+              <div class="mb-3" *ngIf="selectedAction()?.requiresRecipient">
+                <label class="form-label" for="daoRecipient">Credit recipient (osmo1…)</label>
+                <input
+                  id="daoRecipient"
+                  class="form-control"
+                  formControlName="recipient"
+                  placeholder="osmo1…"
+                />
+              </div>
+              <div class="mb-3" *ngIf="selectedAction()?.requiresCreditAmount">
+                <label class="form-label" for="daoAmount">Credits to mint</label>
+                <input
+                  id="daoAmount"
+                  class="form-control"
+                  formControlName="amount"
+                  placeholder="100"
+                />
+              </div>
+              <div class="mb-3" *ngIf="selectedAction()?.requiresEntryId">
+                <label class="form-label" for="daoEntry">Citizen-science entry ID</label>
+                <input
+                  id="daoEntry"
+                  class="form-control"
+                  type="number"
+                  formControlName="entry_id"
+                  placeholder="1"
                 />
               </div>
               <div class="mb-3">
@@ -129,6 +177,7 @@
                 <label class="form-label" for="daoSummary">Summary (optional)</label>
                 <input id="daoSummary" class="form-control" formControlName="summary" />
               </div>
+              <p class="small text-muted mb-3">{{ createEffectPreview() }}</p>
               <button
                 type="submit"
                 class="btn btn-primary"
@@ -170,6 +219,21 @@
             <p class="text-muted" *ngIf="selected.description">
               {{ selected.description }}
             </p>
+            <p class="small text-muted" *ngIf="selected.status !== 'executed'">
+              {{
+                previewProposalEffect(
+                  selected.action_tag,
+                  selected.metadata,
+                  selected.title,
+                  environment.coinDenom
+                )
+              }}
+            </p>
+            <p class="mb-3" *ngIf="executedModuleLink(selected) as moduleLink">
+              <a class="btn btn-sm btn-outline-primary" [routerLink]="moduleLink">
+                Open {{ moduleLabelForAction(selected.action_tag) }}
+              </a>
+            </p>
 
             <div class="d-flex flex-wrap gap-2 mb-3" *ngIf="votingOpen(selected) && !walletVote">
               <button
@@ -201,6 +265,9 @@
               You voted: <strong>{{ walletVote }}</strong>
             </p>
 
+            <p class="small text-warning mb-2" *ngIf="executeHint(selected) as hint">
+              {{ hint }}
+            </p>
             <button
               *ngIf="readyToExecute(selected)"
               type="button"
