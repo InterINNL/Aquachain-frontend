@@ -190,8 +190,8 @@
 }
 
 .ac-home-steps__header {
-  max-width: 40rem;
-  margin: 0 auto var(--ac-space-xl);
+  max-width: 48rem;
+  margin: 0 auto var(--ac-space-2xl);
   text-align: center;
 }
 
@@ -204,6 +204,10 @@
   line-height: 1.65;
   color: var(--ac-slate);
   margin: 0;
+
+  + .ac-home-steps__intro {
+    margin-top: var(--ac-space-sm);
+  }
 }
 
 .ac-home-steps__layout {
@@ -211,12 +215,6 @@
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: var(--ac-space-2xl);
   align-items: stretch;
-}
-
-.ac-home-steps__main {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ac-space-md);
 }
 
 .ac-home-steps__photo {
@@ -237,6 +235,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--ac-space-md);
+  align-content: start;
 }
 
 .ac-step {
@@ -273,13 +272,6 @@
   color: var(--ac-slate);
   margin: 0;
   line-height: 1.55;
-}
-
-.ac-home-steps__closing {
-  font-size: 0.9375rem;
-  line-height: 1.65;
-  color: var(--ac-navy);
-  margin: 0;
 }
 
 .ac-home-technology {

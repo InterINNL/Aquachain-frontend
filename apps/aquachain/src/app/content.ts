@@ -140,9 +140,12 @@ export const aquachainContent = {
 
   howItWorks: {
     title: 'How AquaChain works',
-    lead: 'One pattern across all three modules: capture on-chain, verify, then settle.',
+    lead:
+      'The demo follows one pattern across all three modules: capture intent on-chain, let independent verifiers approve it, then settle outcomes automatically.',
     intro:
-      'Contributors sign with Keplr. CosmWasm on wasmd holds the state so history cannot be rewritten from the UI alone.',
+      'Field contributors, donors, and utility operators sign transactions with Keplr. CosmWasm on wasmd stores the state so no single frontend can rewrite history after submission.',
+    closing:
+      'Connect Keplr on the configured test chain to try the full loop. Read-only views still load contract state through CosmJS queries so you can inspect maps, KPIs, and tables before signing anything.',
     photo: {
       src: local('utilities-well-monitoring.jpg'),
       alt: 'Industrial sensors monitoring a production water well',
@@ -151,27 +154,29 @@ export const aquachainContent = {
     steps: [
       {
         title: 'Collect',
-        body: 'Register sensors, well projects, or utility accounts on-chain. Each registration is a signed transaction others can query immediately.',
+        body:
+          'Participants register the entities the chain must track: sensors with coordinates, well projects with funding goals, or company accounts with baseline usage. Each registration is a signed transaction that creates on-chain state other users can query immediately.',
         icon: 'satellite-dish',
       },
       {
         title: 'Record',
-        body: 'Readings, pledges, milestone proof, and usage logs arrive as contract messages with deterministic ordering in block history.',
+        body:
+          'Day-to-day events land as contract messages: sensor readings, donation pledges, milestone evidence, usage logs, or certificate requests. CosmWasm stores them in contract storage with deterministic ordering so history can be replayed from block events.',
         icon: 'link',
       },
       {
         title: 'Verify',
-        body: 'Verifiers approve or reject against policy: sensor ranges, well progress, or reconciled meter savings.',
+        body:
+          'Designated verifiers or validators review submissions against policy rules: plausible sensor ranges, photo proof for drilled wells, or reconciled meter data for utility savings. Approval messages flip flags in contract state; rejections keep funds locked or readings unrewarded.',
         icon: 'clipboard-check',
       },
       {
         title: 'Reward',
-        body: 'Contracts settle payouts, escrow releases, or footprint certificates. Every outcome is visible to wallets and indexers.',
+        body:
+          'Once rules pass, the contract settles: token payouts to sensor operators, escrow releases to well beneficiaries, or footprint certificates summarizing verified savings. Every payout or certificate hash is visible to wallets and indexers without exporting a private CSV.',
         icon: 'award',
       },
     ],
-    closing:
-      'Connect Keplr on the test chain for the full loop. Read-only views load contract state through CosmJS before you sign.',
   },
 
   technology: {
