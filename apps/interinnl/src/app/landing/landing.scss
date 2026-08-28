@@ -43,11 +43,11 @@
 }
 
 .innl-hero__title {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
 }
 
 .innl-hero__tag {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.45rem;
   font-family: var(--innl-display);
   font-size: clamp(0.9rem, 2vw, 1.05rem);
   letter-spacing: 0.12em;
@@ -57,6 +57,7 @@
 .innl-hero__flags {
   display: flex;
   align-items: center;
+  transform: translateY(2px);
 }
 
 .innl-hero__line {
