@@ -63,4 +63,11 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./components/local-dao/local-dao').then((m) => m.LocalDao),
   },
+  {
+    path: 'cross-exchange',
+    loadComponent: () =>
+      import('./components/cross-exchange/cross-exchange').then(
+        (m) => m.CrossExchange,
+      ),
+  },
 ];

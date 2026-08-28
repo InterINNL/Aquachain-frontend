@@ -9,6 +9,7 @@ export const environment = {
   CommunityBountyContractAddress: '',
   WaterCreditMarketplaceContractAddress: '',
   LocalDaoContractAddress: '',
+  CrossPlatformExchangeContractAddress: '',
   explorerBaseUrl: 'https://your-explorer-url',
   gasPrice: '0.025ustake',
   gasMultiplier: 1.5,

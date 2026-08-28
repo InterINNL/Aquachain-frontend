@@ -1,0 +1,168 @@
+<module-shell moduleKey="cross-exchange">
+  <wallet-banner *ngIf="walletWarning"></wallet-banner>
+
+  <div
+    *ngIf="missingContract"
+    class="ac-alert-banner ac-alert-banner--info"
+    role="alert"
+  >
+    Contract not configured. Deploy cross-platform-exchange and set
+    <code>CrossPlatformExchangeContractAddress</code> in the app environment.
+  </div>
+
+  <div *ngIf="!missingContract">
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="ac-card mb-3">
+          <div class="ac-card__header"><h5>Partner ledgers</h5></div>
+          <div class="ac-card__body">
+            <div *ngIf="loadingPartners" class="ac-loading">
+              <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+              Loading…
+            </div>
+            <div class="table-responsive" *ngIf="!loadingPartners">
+              <table class="ac-data-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>Partner</th>
+                    <th>Region</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let partner of partners"
+                    [class.is-selected]="selected?.denom === partner.denom"
+                  >
+                    <td>
+                      <div>{{ truncate(partner.label, 22) }}</div>
+                      <small class="text-muted">{{ partner.denom }}</small>
+                    </td>
+                    <td>{{ truncate(partner.region, 18) }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-primary"
+                        (click)="selectPartner(partner)"
+                      >
+                        Open
+                      </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="partners.length === 0">
+                    <td colspan="3" class="text-muted text-center py-3">
+                      No partners registered yet
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <nav class="mt-2" *ngIf="partners.length > 0 || partnerPage > 1">
+              <ul class="pagination pagination-sm justify-content-center mb-0">
+                <li class="page-item" [class.disabled]="!canGoPrev(partnerPage)">
+                  <button
+                    class="page-link"
+                    (click)="prevPartners()"
+                    [disabled]="!canGoPrev(partnerPage)"
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li class="page-item disabled">
+                  <span class="page-link">Page {{ partnerPage }}</span>
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="!canGoNextPage(partnerHasNext)"
+                >
+                  <button
+                    class="page-link"
+                    (click)="nextPartners()"
+                    [disabled]="!canGoNextPage(partnerHasNext)"
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="ac-card sticky-top-detail">
+          <div class="ac-card__header"><h5>Swap & balances</h5></div>
+          <div class="ac-card__body" *ngIf="selected; else pickPartner">
+            <p class="mb-1"><strong>{{ selected.label }}</strong></p>
+            <p class="mb-1"><strong>Region:</strong> {{ selected.region }}</p>
+            <p class="mb-1"><strong>Denom:</strong> {{ selected.denom }}</p>
+            <p class="mb-1" *ngIf="selected.rate">
+              <strong>Rate:</strong>
+              {{ formatRate(selected.rate, baseSymbol()) }}
+            </p>
+            <p class="mb-3" *ngIf="walletAddress">
+              <strong>Your locked balance:</strong>
+              {{ amountCount(selected.locked) }} units
+            </p>
+
+            <form [formGroup]="swapForm" (ngSubmit)="onSwap()" class="mb-4">
+              <div class="mb-3">
+                <label class="form-label" for="swapDirection">Direction</label>
+                <select id="swapDirection" class="form-select" formControlName="direction">
+                  <option value="base_to_partner">
+                    Base → partner (send {{ baseSymbol() }})
+                  </option>
+                  <option value="partner_to_base">
+                    Partner → base (use locked units)
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="swapAmount">Amount</label>
+                <input
+                  id="swapAmount"
+                  class="form-control"
+                  formControlName="amount"
+                  placeholder="Use multiples of the registered rate"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="swapForm.invalid || busyAction"
+              >
+                Swap
+              </button>
+            </form>
+
+            <form [formGroup]="withdrawForm" (ngSubmit)="onWithdraw()">
+              <div class="mb-3">
+                <label class="form-label" for="withdrawAmount">
+                  Withdraw locked partner units
+                </label>
+                <input
+                  id="withdrawAmount"
+                  class="form-control"
+                  formControlName="amount"
+                  placeholder="Off-chain redemption demo"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-outline-secondary"
+                [disabled]="withdrawForm.invalid || busyAction"
+              >
+                Withdraw
+              </button>
+            </form>
+          </div>
+          <ng-template #pickPartner>
+            <div class="ac-card__body text-muted">
+              Select a partner ledger to swap or view your locked balance.
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</module-shell>

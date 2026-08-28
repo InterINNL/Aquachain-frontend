@@ -22,7 +22,8 @@ export type ModuleHeroKey =
   | 'sustainable-actions'
   | 'community-bounty'
   | 'water-credits'
-  | 'local-dao';
+  | 'local-dao'
+  | 'cross-exchange';
 
 export interface AcModule {
   id: string;
@@ -50,6 +51,19 @@ export interface HeaderBrand {
   icon: string;
   accent: 'teal' | 'amber' | 'slate';
 }
+
+const crossExchangePhotos: AcPhoto[] = [
+  {
+    src: local('hero-river.jpg'),
+    alt: 'River flowing through an Indian watershed used for cross-region water accounting',
+    objectPosition: 'center center',
+  },
+  {
+    src: local('field-irrigation.jpg'),
+    alt: 'Irrigation channels linking farm districts to shared water ledgers',
+    objectPosition: 'center center',
+  },
+];
 
 const localDaoPhotos: AcPhoto[] = [
   {
@@ -215,6 +229,11 @@ export const aquachainContent = {
       icon: 'landmark',
       accent: 'teal',
     },
+    '/cross-exchange': {
+      label: 'Cross Exchange',
+      icon: 'right-left',
+      accent: 'amber',
+    },
     '/contact': {
       label: 'Contact',
       icon: 'envelope',
@@ -247,7 +266,7 @@ export const aquachainContent = {
   },
 
   modulesSection: {
-    title: 'Seven modules',
+    title: 'Eight modules',
     lead: 'Pick a demo path. Each module maps to a CosmWasm contract.',
   },
 
@@ -328,6 +347,17 @@ export const aquachainContent = {
       icon: 'landmark',
       accent: 'teal' as const,
       photos: localDaoPhotos,
+    },
+    {
+      id: 'cross-exchange',
+      name: 'Cross Exchange',
+      kicker: 'Partner ledger swaps',
+      blurb:
+        'Swap OSMO against registered regional partner ledgers at fixed admin rates. Lock partner units on-chain and withdraw for off-chain redemption demos.',
+      route: '/cross-exchange',
+      icon: 'right-left',
+      accent: 'amber' as const,
+      photos: crossExchangePhotos,
     },
   ] satisfies AcModule[],
 
@@ -542,6 +572,12 @@ export const aquachainContent = {
       hint: 'Propose and vote on local water projects',
       route: '/local-dao',
     },
+    {
+      key: 'cross-exchange' as ModuleHeroKey,
+      label: 'Cross Exchange',
+      hint: 'Swap base tokens for partner ledger units',
+      route: '/cross-exchange',
+    },
   ],
 
   moduleHeroes: {
@@ -610,6 +646,16 @@ export const aquachainContent = {
       photo: {
         src: local('CS4Water-conference-2048x1536.jpg'),
         alt: 'Community workshop on water stewardship and local governance',
+        objectPosition: 'center center',
+      },
+    },
+    'cross-exchange': {
+      kicker: 'Module 8',
+      title: 'Cross Exchange',
+      lead: 'Bridge demo liquidity between OSMO and registered Indian regional partner ledgers using fixed on-chain rates and escrowed balances.',
+      photo: {
+        src: local('hero-river.jpg'),
+        alt: 'River watershed connecting communities to shared water accounting',
         objectPosition: 'center center',
       },
     },
