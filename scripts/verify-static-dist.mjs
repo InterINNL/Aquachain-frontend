@@ -60,6 +60,14 @@ async function mustDiscoverAgents() {
   }
 
   const llms = await readFile(join(root, 'llms.txt'), 'utf8');
+  if (!/^#\s+.+/m.test(llms)) {
+    console.error('llms.txt must start with an H1 heading');
+    process.exitCode = 1;
+  }
+  if (!/\[[^\]]+\]\(https?:\/\//.test(llms)) {
+    console.error('llms.txt must use markdown links [title](https://...)');
+    process.exitCode = 1;
+  }
   for (const needle of [
     'contact+innl@interchouette.net',
     'contact+aquachain@interchouette.net',
@@ -69,6 +77,7 @@ async function mustDiscoverAgents() {
     'agent-ops',
     'Aquachain-agent-gateway',
     'x402',
+    '[Hub home]',
   ]) {
     if (!llms.includes(needle)) {
       console.error(`llms.txt must mention: ${needle}`);

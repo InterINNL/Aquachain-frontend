@@ -1,71 +1,57 @@
 # InterINNL
 
-India and Netherlands tech bridge: AI, Rust, Python, open source, and water / climate demos.
+> India and Netherlands tech bridge for AI, Rust, Python, open source, and water / climate demos. AquaChain is the live CosmWasm demo; Agent Ops covers x402 USDC for autonomous field agents.
 
 ## Site map
 
-- Hub home: https://interinnl.interchouette.net/
-- AquaChain demo: https://interinnl.interchouette.net/aquachain/
-- Agent Ops (Module 9, x402 USDC): https://interinnl.interchouette.net/aquachain/agent-ops
-- Contact (AquaChain): https://interinnl.interchouette.net/aquachain/contact
+- [Hub home](https://interinnl.interchouette.net/): InterINNL landing page
+- [AquaChain demo](https://interinnl.interchouette.net/aquachain/): nine-module water stewardship demo on Osmosis
+- [Agent Ops](https://interinnl.interchouette.net/aquachain/agent-ops): x402 USDC pay router and agent gateway story
+- [Contact](https://interinnl.interchouette.net/aquachain/contact): message the AquaChain / InterINNL team
 
-## AquaChain modules (CosmWasm on Osmosis)
+## AquaChain modules
 
-1. Citizen Science - https://interinnl.interchouette.net/aquachain/citizen-science
-2. Water Well Initiative - https://interinnl.interchouette.net/aquachain/water-well-initiative
-3. Water Utilities - https://interinnl.interchouette.net/aquachain/water-utilities
-4. Sustainable Actions - https://interinnl.interchouette.net/aquachain/sustainable-actions
-5. Community Bounty - https://interinnl.interchouette.net/aquachain/community-bounty
-6. Water Credits - https://interinnl.interchouette.net/aquachain/water-credits
-7. Local DAO - https://interinnl.interchouette.net/aquachain/local-dao
-8. Cross Exchange - https://interinnl.interchouette.net/aquachain/cross-exchange
-9. Agent Ops (x402 Pay Router) - https://interinnl.interchouette.net/aquachain/agent-ops
+- [Citizen Science](https://interinnl.interchouette.net/aquachain/citizen-science): register sensors, submit readings, verifier rewards
+- [Water Well Initiative](https://interinnl.interchouette.net/aquachain/water-well-initiative): crowdfund wells with milestone escrow
+- [Water Utilities](https://interinnl.interchouette.net/aquachain/water-utilities): utility footprint certificates
+- [Sustainable Actions](https://interinnl.interchouette.net/aquachain/sustainable-actions): community eco actions and rewards
+- [Community Bounty](https://interinnl.interchouette.net/aquachain/community-bounty): escrowed sustainability bounties
+- [Water Credits](https://interinnl.interchouette.net/aquachain/water-credits): internal conservation credit marketplace
+- [Local DAO](https://interinnl.interchouette.net/aquachain/local-dao): community proposals and voting
+- [Cross Exchange](https://interinnl.interchouette.net/aquachain/cross-exchange): fixed-rate partner ledger swaps
+- [Agent Ops](https://interinnl.interchouette.net/aquachain/agent-ops): x402 Pay Router for agent-to-agent USDC toll calls
 
-## Agent gateway (Phase G0 / G1)
+## Agent gateway
 
-Humans use Keplr on Osmosis. Autonomous agents pay USDC via HTTP 402 (x402 on Base Sepolia) through the AquaChain agent gateway, which relays drone measurements to citizen-science-registry on osmo-test-5.
+Humans use Keplr on Osmosis. Autonomous agents pay USDC via HTTP 402 (x402 on Base Sepolia); the gateway verifies payment and relays measurements to citizen-science-registry on osmo-test-5.
 
-- Repo: https://github.com/InterINNL/Aquachain-agent-gateway
-- Site module: https://interinnl.interchouette.net/aquachain/agent-ops
-- Flow: agent POST /v1/measurements (402) -> x402 verify/settle -> Osmosis CosmWasm relay
+- [Agent gateway repo](https://github.com/InterINNL/Aquachain-agent-gateway): Rust axum service (verify/settle, Osmosis relay)
+- [Agent Ops module](https://interinnl.interchouette.net/aquachain/agent-ops): site walkthrough, curl sample, gateway panel when configured
 
 ## Contact
 
-- InterINNL hub: contact+innl@interchouette.net
-- AquaChain demo: contact+aquachain@interchouette.net
-- LinkedIn group: https://www.linkedin.com/groups/42420002/
-- GitHub org: https://github.com/InterINNL
+- [InterINNL hub email](mailto:contact+innl@interchouette.net): general InterINNL contact
+- [AquaChain email](mailto:contact+aquachain@interchouette.net): demo and collaboration questions
+- [LinkedIn group](https://www.linkedin.com/groups/42420002/): community and hackathon interest
+- [GitHub org](https://github.com/InterINNL): open-source repositories
 
 ## GitHub
 
-- Frontend: https://github.com/InterINNL/Aquachain-frontend
-- Contracts: https://github.com/InterINNL/Aquachain-contracts
-- Agent gateway: https://github.com/InterINNL/Aquachain-agent-gateway
+- [Aquachain-frontend](https://github.com/InterINNL/Aquachain-frontend): Nx hub + AquaChain Angular apps
+- [Aquachain-contracts](https://github.com/InterINNL/Aquachain-contracts): CosmWasm modules on Osmosis
+- [Aquachain-agent-gateway](https://github.com/InterINNL/Aquachain-agent-gateway): x402 USDC HTTP API and Osmosis relay
 
 ## Browser agents (WebMCP)
 
-Discovery card: https://interinnl.interchouette.net/.well-known/mcp.json
+- [MCP discovery card](https://interinnl.interchouette.net/.well-known/mcp.json): site metadata for agents (WebMCP only, no remote endpoint)
 
-Tools are registered in the Angular app when a user or agent opens the site in a WebMCP-capable browser. No remote Streamable HTTP endpoint.
+Tools register in the Angular app when opened in a WebMCP-capable browser:
 
-### Hub tools (interinnl.interchouette.net/)
+- `get_site_overview`, `get_contact`, `list_public_pages`, `list_projects`, `open_public_page` (hub)
+- `get_aquachain_overview`, `list_modules`, `open_module`, `get_contact`, `get_site_discovery` (AquaChain)
+- `send_aquachain_contact` (declarative form tool on the contact page)
 
-- get_site_overview
-- get_contact
-- list_public_pages
-- list_projects
-- open_public_page
+## Optional
 
-### AquaChain tools (interinnl.interchouette.net/aquachain/)
-
-- get_aquachain_overview
-- list_modules
-- open_module
-- get_contact
-- get_site_discovery
-- send_aquachain_contact (declarative form tool on the contact page)
-
-## Crawler hints
-
-- Sitemap: https://interinnl.interchouette.net/sitemap.xml
-- Robots: https://interinnl.interchouette.net/robots.txt
+- [Sitemap](https://interinnl.interchouette.net/sitemap.xml): canonical URLs for crawlers
+- [Robots](https://interinnl.interchouette.net/robots.txt): crawl policy

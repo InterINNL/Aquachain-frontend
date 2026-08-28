@@ -17,5 +17,5 @@
     "required": false,
     "schemes": []
   },
-  "instructions": "Read llms.txt for the site map and module list. On the hub or AquaChain app, use WebMCP tools: get_site_overview, get_contact, list_public_pages, list_projects, open_public_page (hub); get_aquachain_overview, list_modules, open_module, get_contact, get_site_discovery (AquaChain). Agent Ops (Module 9) covers x402 USDC pay router and the AquaChain agent gateway (G0/G1). No remote MCP server; tools run in the visitor browser."
+  "instructions": "Read llms.txt for the site map and module list. On the hub or AquaChain app, use WebMCP tools: get_site_overview, get_contact, list_public_pages, list_projects, open_public_page (hub); get_aquachain_overview, list_modules, open_module, get_contact, get_site_discovery (AquaChain). Agent Ops documents the x402 USDC pay router and agent gateway. No remote MCP server; tools run in the visitor browser."
 }
