@@ -60,7 +60,8 @@ export function contactText(): string {
 
 export function siteDiscoveryText(): string {
   return [
-    `Site map: ${SITE_ORIGIN}/llms.txt`,
+    `AquaChain llms.txt: ${AQUACHAIN_ORIGIN}/llms.txt`,
+    `Hub llms.txt: ${SITE_ORIGIN}/llms.txt`,
     `MCP card: ${SITE_ORIGIN}/.well-known/mcp.json`,
     `Sitemap: ${SITE_ORIGIN}/sitemap.xml`,
     `Hub: ${SITE_ORIGIN}/`,

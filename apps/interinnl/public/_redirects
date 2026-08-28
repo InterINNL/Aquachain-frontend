@@ -1,6 +1,7 @@
 # Host-level SPA routing for interinnl.interchouette.net (Render static publish root).
 # Only this file at the site root. Do not add _redirects under /aquachain/.
 
+/aquachain/llms.txt       /aquachain/llms.txt                           200
 /aquachain              /aquachain/                                   301
 /aquachain/             /aquachain/index.html                         200
 /aquachain/agent-ops    /aquachain/agent-ops/index.html               200

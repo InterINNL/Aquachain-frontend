@@ -8,6 +8,7 @@
 - [AquaChain demo](https://interinnl.interchouette.net/aquachain/): nine-module water stewardship demo on Osmosis
 - [Agent Ops](https://interinnl.interchouette.net/aquachain/agent-ops): x402 USDC pay router and agent gateway story
 - [Contact](https://interinnl.interchouette.net/aquachain/contact): message the AquaChain / InterINNL team
+- [AquaChain llms.txt](https://interinnl.interchouette.net/aquachain/llms.txt): scoped agent index for /aquachain/
 
 ## AquaChain modules
 

@@ -1,0 +1,52 @@
+# AquaChain
+
+> CosmWasm water-stewardship demo on Osmosis: nine modules for sensors, wells, utilities, bounties, credits, governance, and x402 agent field ops. Part of [InterINNL](https://interinnl.interchouette.net/).
+
+## Demo home
+
+- [AquaChain home](https://interinnl.interchouette.net/aquachain/): module grid and how-it-works overview
+- [Contact](https://interinnl.interchouette.net/aquachain/contact): email the team or use the WebMCP contact form
+
+## Modules
+
+- [Citizen Science](https://interinnl.interchouette.net/aquachain/citizen-science): register sensors, submit readings, verifier rewards
+- [Water Well Initiative](https://interinnl.interchouette.net/aquachain/water-well-initiative): crowdfund wells with milestone escrow
+- [Water Utilities](https://interinnl.interchouette.net/aquachain/water-utilities): utility footprint certificates
+- [Sustainable Actions](https://interinnl.interchouette.net/aquachain/sustainable-actions): community eco actions and rewards
+- [Community Bounty](https://interinnl.interchouette.net/aquachain/community-bounty): escrowed sustainability bounties
+- [Water Credits](https://interinnl.interchouette.net/aquachain/water-credits): internal conservation credit marketplace
+- [Local DAO](https://interinnl.interchouette.net/aquachain/local-dao): community proposals and voting
+- [Cross Exchange](https://interinnl.interchouette.net/aquachain/cross-exchange): fixed-rate partner ledger swaps
+- [Agent Ops](https://interinnl.interchouette.net/aquachain/agent-ops): x402 USDC pay router for autonomous agents
+
+## Agent gateway
+
+Humans use Keplr on Osmosis (`osmo-test-5`). Autonomous agents pay USDC via HTTP 402 (x402 on Base Sepolia); the gateway verifies payment and relays drone measurements to citizen-science-registry.
+
+- [Agent gateway repo](https://github.com/InterINNL/Aquachain-agent-gateway): Rust axum service (verify/settle, Osmosis relay)
+- [Agent Ops module](https://interinnl.interchouette.net/aquachain/agent-ops): curl sample, gateway status panel when configured in prod
+
+## Contact and code
+
+- [AquaChain email](mailto:contact+aquachain@interchouette.net): demo and collaboration questions
+- [Frontend repo](https://github.com/InterINNL/Aquachain-frontend): Nx hub + AquaChain Angular apps
+- [Contracts repo](https://github.com/InterINNL/Aquachain-contracts): CosmWasm modules on Osmosis
+
+## Browser agents (WebMCP)
+
+Tools register when this app opens in a WebMCP-capable browser:
+
+- `get_aquachain_overview`: tagline, stack, InterINNL context
+- `list_modules`: nine modules with routes and blurbs
+- `open_module`: navigate to a module route
+- `get_contact`: AquaChain email and GitHub repos
+- `get_site_discovery`: hub sitemap and MCP discovery URLs
+- `send_aquachain_contact`: declarative form tool on the contact page
+
+Hub-wide discovery card (shared): [/.well-known/mcp.json](https://interinnl.interchouette.net/.well-known/mcp.json)
+
+## Optional
+
+- [InterINNL hub llms.txt](https://interinnl.interchouette.net/llms.txt): full site map including this demo
+- [Hub home](https://interinnl.interchouette.net/): InterINNL community landing
+- [Sitemap](https://interinnl.interchouette.net/sitemap.xml): canonical URLs for crawlers

@@ -19,6 +19,7 @@ const required = [
   'aquachain/contact/index.html',
   'aquachain/citizen-science/index.html',
   'aquachain/agent-ops/index.html',
+  'aquachain/llms.txt',
 ];
 
 const htmlSamples = [
@@ -94,6 +95,22 @@ async function mustDiscoverAgents() {
   const contactHtml = await readFile(join(root, 'aquachain/contact/index.html'), 'utf8');
   if (!contactHtml.includes('Contact AquaChain')) {
     console.error('prerendered aquachain/contact must have route-specific title');
+    process.exitCode = 1;
+  }
+
+  const acLlms = await readFile(join(root, 'aquachain/llms.txt'), 'utf8');
+  if (!/^#\s+AquaChain/m.test(acLlms)) {
+    console.error('aquachain/llms.txt must start with H1 AquaChain');
+    process.exitCode = 1;
+  }
+  if (!/\[[^\]]+\]\(https?:\/\//.test(acLlms)) {
+    console.error('aquachain/llms.txt must use markdown links [title](https://...)');
+    process.exitCode = 1;
+  }
+
+  const acIndex = await readFile(join(root, 'aquachain/index.html'), 'utf8');
+  if (!acIndex.includes('/aquachain/llms.txt')) {
+    console.error('aquachain index.html must link describedby /aquachain/llms.txt');
     process.exitCode = 1;
   }
 }
