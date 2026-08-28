@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+  <title id="title">AquaChain Pay Router</title>
+  <desc id="desc">x402 agent-to-agent USDC paid toll calls through the AquaChain gateway</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f4f1ea"/>
+      <stop offset="100%" stop-color="#e8eef4"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a6b7a"/>
+      <stop offset="100%" stop-color="#0c2340"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a6b7a"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c58a1a"/>
+    </marker>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect x="0" y="0" width="800" height="6" fill="#0c2340"/>
+
+  <text x="400" y="52" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#0c2340">AquaChain Pay Router</text>
+  <text x="400" y="82" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="15" fill="#3d4f5f">x402 | Agent-to-Agent USDC | Paid toll calls</text>
+
+  <rect x="48" y="130" width="150" height="88" rx="12" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
+  <circle cx="88" cy="162" r="18" fill="#1a6b7a" opacity="0.15"/>
+  <text x="88" y="168" text-anchor="middle" font-size="18" fill="#1a6b7a">A1</text>
+  <text x="123" y="158" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" font-weight="600" fill="#0c2340">Drone Agent</text>
+  <text x="123" y="178" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">HTTP 402 request</text>
+  <text x="123" y="196" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">Base Sepolia wallet</text>
+
+  <path d="M210 174 H270" stroke="#1a6b7a" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="240" y="162" text-anchor="middle" font-size="11" fill="#1a6b7a">402</text>
+
+  <rect x="280" y="108" width="240" height="132" rx="16" fill="url(#teal)"/>
+  <text x="400" y="142" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="18" font-weight="700" fill="#ffffff">Pay Router</text>
+  <text x="400" y="168" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="13" fill="#d7ecef">verify | settle | relay</text>
+  <rect x="310" y="182" width="84" height="28" rx="14" fill="#ffffff" opacity="0.95"/>
+  <text x="352" y="201" text-anchor="middle" font-size="12" font-weight="700" fill="#0c2340">USDC</text>
+  <rect x="406" y="182" width="84" height="28" rx="14" fill="#ffffff" opacity="0.95"/>
+  <text x="448" y="201" text-anchor="middle" font-size="12" font-weight="700" fill="#0c2340">x402</text>
+
+  <path d="M530 174 H590" stroke="#c58a1a" stroke-width="3" marker-end="url(#arrowAmber)"/>
+  <text x="560" y="162" text-anchor="middle" font-size="11" fill="#c58a1a">relay</text>
+
+  <rect x="602" y="130" width="150" height="88" rx="12" fill="#ffffff" stroke="#c58a1a" stroke-width="2"/>
+  <text x="677" y="158" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" font-weight="600" fill="#0c2340">Osmosis</text>
+  <text x="677" y="178" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">CosmWasm record</text>
+  <text x="677" y="196" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">Citizen Science</text>
+
+  <rect x="280" y="280" width="240" height="72" rx="12" fill="#ffffff" stroke="#3d4f5f" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="400" y="308" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#0c2340">Agent-to-Agent toll lane</text>
+  <text x="400" y="330" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">Micropayment per API call - no Keplr for machines</text>
+
+  <rect x="602" y="280" width="150" height="72" rx="12" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
+  <circle cx="642" cy="316" r="16" fill="#1a6b7a" opacity="0.15"/>
+  <text x="642" y="322" text-anchor="middle" font-size="16" fill="#1a6b7a">A2</text>
+  <text x="692" y="312" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#0c2340">Verifier</text>
+  <text x="692" y="332" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">Paid toll response</text>
+
+  <path d="M520 318 H590" stroke="#1a6b7a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+
+  <text x="400" y="410" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="13" fill="#3d4f5f">Agents pay USDC on Base | stewardship data lands on Osmosis</text>
+</svg>

@@ -29,6 +29,6 @@ describe('AgentOps', () => {
   });
 
   it('should show agent ops title', () => {
-    expect(fixture.nativeElement.textContent).toContain('Agent field ops');
+    expect(fixture.nativeElement.textContent).toContain('Agent Ops');
   });
 });

@@ -1,15 +1,16 @@
 <div class="ac-photo-carousel" role="group" aria-roledescription="carousel">
   @for (photo of photos(); track photo.src; let index = $index) {
-    <img
-      class="ac-photo-carousel__slide"
-      [class.ac-photo-carousel__slide--active]="index === activeIndex()"
-      [src]="photo.src"
-      [alt]="photo.alt"
-      [style.object-position]="photo.objectPosition ?? 'center'"
-      width="400"
-      height="220"
-      loading="lazy"
-      [attr.aria-hidden]="index === activeIndex() ? null : true"
-    />
+  <img
+    class="ac-photo-carousel__slide"
+    [class.ac-photo-carousel__slide--active]="index === activeIndex()"
+    [src]="photo.src"
+    [alt]="photo.alt"
+    [style.object-position]="photo.objectPosition ?? 'center'"
+    [style.object-fit]="photo.fit ?? 'cover'"
+    width="400"
+    height="220"
+    loading="lazy"
+    [attr.aria-hidden]="index === activeIndex() ? null : true"
+  />
   }
 </div>

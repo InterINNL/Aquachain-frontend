@@ -6,6 +6,7 @@ export interface AcPhoto {
   src: string;
   alt: string;
   objectPosition?: string;
+  fit?: 'cover' | 'contain';
 }
 
 export interface ModuleHero {
@@ -23,7 +24,8 @@ export type ModuleHeroKey =
   | 'community-bounty'
   | 'water-credits'
   | 'local-dao'
-  | 'cross-exchange';
+  | 'cross-exchange'
+  | 'agent-ops';
 
 export interface AcModule {
   id: string;
@@ -98,11 +100,6 @@ export interface AgentOpsContent {
     dao: NavLink;
     citizenScience: NavLink;
   };
-  homeTeaser: {
-    title: string;
-    body: string;
-    cta: NavLink;
-  };
 }
 
 const crossExchangePhotos: AcPhoto[] = [
@@ -115,6 +112,20 @@ const crossExchangePhotos: AcPhoto[] = [
     src: local('field-irrigation.jpg'),
     alt: 'Irrigation channels linking farm districts to shared water ledgers',
     objectPosition: 'center center',
+  },
+];
+
+const agentOpsPhotos: AcPhoto[] = [
+  {
+    src: local('nqi1nt0hbsw67p315qj4-4111816589.webp'),
+    alt: 'x402 Protocol for developers: monetize APIs in USDC',
+    objectPosition: 'center top',
+  },
+  {
+    src: local('agent-x402-pay-router.svg'),
+    alt: 'Diagram: AquaChain Pay Router with x402 agent-to-agent USDC paid toll calls',
+    objectPosition: 'center center',
+    fit: 'contain',
   },
 ];
 
@@ -309,7 +320,7 @@ export const aquachainContent = {
       objectPosition: 'center 40%',
     },
     primaryCta: { label: 'Explore Citizen Science', route: '/citizen-science' },
-    secondaryCta: { label: 'Agent field ops', route: '/agent-ops' },
+    secondaryCta: { label: 'Agent Ops (Module 9)', route: '/agent-ops' },
   },
 
   context: {
@@ -324,8 +335,8 @@ export const aquachainContent = {
   },
 
   modulesSection: {
-    title: 'Eight modules',
-    lead: 'Pick a demo path. Each module maps to a CosmWasm contract.',
+    title: 'Nine modules',
+    lead: 'Eight CosmWasm demos on Osmosis plus Agent Ops: x402 USDC pay router for autonomous field agents.',
   },
 
   modules: [
@@ -416,6 +427,17 @@ export const aquachainContent = {
       icon: 'right-left',
       accent: 'amber' as const,
       photos: crossExchangePhotos,
+    },
+    {
+      id: 'agent-ops',
+      name: 'Agent Ops',
+      kicker: 'Module 9 · x402 Pay Router',
+      blurb:
+        'Autonomous agents pay USDC per API call via HTTP 402. AquaChain Pay Router verifies x402, relays drone readings to Osmosis, and supports agent-to-agent paid toll calls.',
+      route: '/agent-ops',
+      icon: 'robot',
+      accent: 'amber' as const,
+      photos: agentOpsPhotos,
     },
   ] satisfies AcModule[],
 
@@ -647,6 +669,12 @@ export const aquachainContent = {
       hint: 'Swap base tokens for partner ledger units',
       route: '/cross-exchange',
     },
+    {
+      key: 'agent-ops' as ModuleHeroKey,
+      label: 'Agent Ops',
+      hint: 'x402 USDC pay router for autonomous agents',
+      route: '/agent-ops',
+    },
   ],
 
   moduleHeroes: {
@@ -728,17 +756,27 @@ export const aquachainContent = {
         objectPosition: 'center center',
       },
     },
+    'agent-ops': {
+      kicker: 'Module 9',
+      title: 'Agent Ops',
+      lead: 'AquaChain Pay Router: x402 USDC micropayments for drone agents, with agent-to-agent paid toll calls and Osmosis relay.',
+      photo: {
+        src: local('nqi1nt0hbsw67p315qj4-4111816589.webp'),
+        alt: 'x402 Protocol for developers: monetize APIs in USDC',
+        objectPosition: 'center top',
+      },
+    },
   } satisfies Record<ModuleHeroKey, ModuleHero>,
 
   agentOps: {
-    kicker: 'Phase G · Agents + x402',
-    title: 'Agent field ops',
+    kicker: 'Module 9 · x402 Pay Router',
+    title: 'Agent Ops',
     lead: 'Drone agents pay USDC via HTTP 402. Measurements land on Osmosis CosmWasm. Communities govern what happens next.',
-    body: 'AquaChain keeps human wallets on Cosmos while autonomous agents use x402 micropayments on Base Sepolia. The agent gateway validates drone readings and relays them to citizen-science-registry.',
+    body: 'AquaChain keeps human wallets on Cosmos while autonomous agents use x402 micropayments on Base Sepolia. The Pay Router validates toll payments, normalizes drone JSON, and relays submit_data to citizen-science-registry.',
     photo: {
-      src: local('agri-drone.jpg'),
-      alt: 'Agricultural drone flying over fields for water and crop monitoring',
-      objectPosition: 'center center',
+      src: local('nqi1nt0hbsw67p315qj4-4111816589.webp'),
+      alt: 'x402 Protocol for developers: monetize APIs in USDC',
+      objectPosition: 'center top',
     },
     samplePayload: {
       lat: '28.70',
@@ -796,28 +834,25 @@ export const aquachainContent = {
         },
         {
           label: 'Gateway',
-          detail: 'Verifies payment, normalizes drone JSON, signs Osmosis relay tx',
+          detail:
+            'Verifies payment, normalizes drone JSON, signs Osmosis relay tx',
         },
         {
           label: 'Humans',
-          detail: 'Keplr + OSMO on osmo-test-5 for wells, DAO votes, and bounties',
+          detail:
+            'Keplr + OSMO on osmo-test-5 for wells, DAO votes, and bounties',
         },
       ],
     },
     gateway: {
-      title: 'Agent gateway (G0 scaffold)',
-      lead: 'G1 connects x402 settlement and live Osmosis relay. G0 exposes capabilities, validates payloads, and returns 402 payment requirements.',
+      title: 'AquaChain Pay Router',
+      lead: 'Live x402 verify/settle on Base Sepolia. Agent-to-agent USDC toll calls. Osmosis relay to citizen-science-registry when configured.',
       notConfigured:
         'Set agentGatewayUrl in the app environment to probe a running gateway (/v1/capabilities).',
     },
     links: {
       dao: { label: 'Local DAO', route: '/local-dao' },
       citizenScience: { label: 'Citizen Science', route: '/citizen-science' },
-    },
-    homeTeaser: {
-      title: 'New: agent field ops',
-      body: 'Autonomous drones can pay per reading with x402 USDC while the public record stays on Osmosis.',
-      cta: { label: 'See agent loop', route: '/agent-ops' },
     },
   } satisfies AgentOpsContent,
 };

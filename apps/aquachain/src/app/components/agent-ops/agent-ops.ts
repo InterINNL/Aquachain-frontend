@@ -13,10 +13,12 @@ import {
 } from '@services/agent-gateway/agent-gateway';
 import { environment } from '@env/environment';
 import { aquachainContent } from '../../content';
+import { ModuleShell } from '../module-shell/module-shell';
+import { PhotoCarousel } from '../photo-carousel/photo-carousel';
 
 @Component({
   selector: 'agent-ops',
-  imports: [FontAwesomeModule, RouterModule],
+  imports: [FontAwesomeModule, RouterModule, ModuleShell, PhotoCarousel],
   templateUrl: './agent-ops.html',
   styleUrl: './agent-ops.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +26,8 @@ import { aquachainContent } from '../../content';
 export class AgentOps {
   readonly content = aquachainContent;
   readonly gatewayConfigured = Boolean(environment.agentGatewayUrl);
+  readonly carouselPhotos =
+    aquachainContent.modules.find((m) => m.id === 'agent-ops')?.photos ?? [];
   private readonly gateway = inject(AgentGatewayService);
 
   readonly loading = signal(false);
