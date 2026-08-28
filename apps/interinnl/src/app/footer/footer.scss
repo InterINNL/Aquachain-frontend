@@ -42,6 +42,32 @@
   margin-bottom: 0.85rem !important;
 }
 
+.innl-footer__social {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.innl-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  background: rgb(255 255 255 / 12%);
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.innl-footer__social-link:hover {
+  background: rgb(255 255 255 / 22%);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
 .innl-footer h3 {
   margin: 0 0 0.75rem;
   font-size: 0.8rem;
