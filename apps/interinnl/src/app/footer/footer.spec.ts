@@ -18,24 +18,36 @@ describe('Footer', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should show social icons under Connect with correct links', () => {
+  it('keeps Connect text links and adds icons below them', () => {
     const root = fixture.nativeElement as HTMLElement;
     const connect = root.querySelector('.innl-footer__connect');
     expect(connect).toBeTruthy();
 
+    const text = connect?.textContent ?? '';
+    expect(text).toContain('GitHub');
+    expect(text).toContain('LinkedIn group');
+    expect(text).toContain(interinnlContent.links.contactEmail);
+
     const social = connect?.querySelector('.innl-footer__social');
     expect(social).toBeTruthy();
 
-    const github = social?.querySelector(
-      'a.innl-footer__social-link--github',
-    ) as HTMLAnchorElement | null;
-    expect(github?.href).toBe(interinnlContent.links.githubOrg);
-    expect(github?.getAttribute('aria-label')).toBe('InterINNL on GitHub');
+    const icons = social?.querySelectorAll(
+      'a.innl-footer__social-link',
+    ) as NodeListOf<HTMLAnchorElement>;
+    expect(icons.length).toBe(2);
+    expect(icons[0].href).toBe(interinnlContent.links.githubOrg);
+    expect(icons[0].getAttribute('aria-label')).toBe('InterINNL on GitHub');
+    expect(icons[1].href).toBe(interinnlContent.links.linkedinGroup);
+    expect(icons[1].getAttribute('aria-label')).toBe('InterINNL on LinkedIn');
 
-    const linkedin = social?.querySelector(
-      'a.innl-footer__social-link--linkedin',
-    ) as HTMLAnchorElement | null;
-    expect(linkedin?.href).toBe(interinnlContent.links.linkedinGroup);
-    expect(linkedin?.getAttribute('aria-label')).toBe('InterINNL on LinkedIn');
+    const soon = connect?.querySelector('.innl-footer__soon');
+    expect(soon).toBeTruthy();
+    expect(social).toBeTruthy();
+    if (!soon || !social) {
+      return;
+    }
+    expect(
+      soon.compareDocumentPosition(social) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
   });
 });
