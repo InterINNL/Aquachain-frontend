@@ -27,8 +27,12 @@ import {
   CrossPlatformExchangeService,
   ExchangePartner,
   ExchangeRate,
-  formatRate,
+  formatRateHuman,
+  previewSwap,
+  suggestedOsmoAmounts,
+  suggestedPartnerAmounts,
   SwapDirection,
+  SwapPreview,
 } from '@services/cross-platform-exchange/cross-platform-exchange';
 import { ModuleShell } from '../module-shell/module-shell';
 import { WalletBanner } from '../shared/wallet-banner/wallet-banner';
@@ -72,8 +76,51 @@ export class CrossExchange implements OnInit {
   readonly pageSize = pageSize;
   readonly canGoPrev = canGoPrev;
   readonly environment = environment;
-  readonly formatRate = formatRate;
+  readonly formatRateHuman = formatRateHuman;
   readonly amountCount = amountCount;
+
+  get swapDirection(): SwapDirection {
+    return (this.swapForm?.value?.direction as SwapDirection) ?? 'base_to_partner';
+  }
+
+  get swapPreview(): SwapPreview | null {
+    if (!this.selected?.rate) {
+      return null;
+    }
+    const amount = String(this.swapForm?.value?.amount ?? '');
+    return previewSwap(
+      this.swapDirection,
+      this.selected.rate,
+      amount,
+      environment.coinDecimals,
+    );
+  }
+
+  get quickAmounts(): string[] {
+    if (!this.selected?.rate) {
+      return [];
+    }
+    return this.swapDirection === 'base_to_partner'
+      ? suggestedOsmoAmounts(this.selected.rate, environment.coinDecimals)
+      : suggestedPartnerAmounts(this.selected.rate);
+  }
+
+  amountLabel(): string {
+    return this.swapDirection === 'base_to_partner'
+      ? 'Amount (OSMO)'
+      : 'Ledger units';
+  }
+
+  amountPlaceholder(): string {
+    return this.swapDirection === 'base_to_partner'
+      ? 'e.g. 1 for one OSMO'
+      : 'e.g. 50 ledger units';
+  }
+
+  applyQuickAmount(value: string) {
+    this.swapForm.patchValue({ amount: value });
+    this.cdr.markForCheck();
+  }
 
   private readonly walletService = inject(WalletService);
   private readonly exchange = inject(CrossPlatformExchangeService);
@@ -90,7 +137,7 @@ export class CrossExchange implements OnInit {
   ngOnInit() {
     this.swapForm = this.fb.group({
       direction: ['base_to_partner' as SwapDirection, Validators.required],
-      amount: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
+      amount: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
     });
 
     this.withdrawForm = this.fb.group({
@@ -110,7 +157,7 @@ export class CrossExchange implements OnInit {
   }
 
   baseSymbol(): string {
-    return environment.coinMinimalDenom || 'uosmo';
+    return environment.coinDenom || 'OSMO';
   }
 
   canGoNextPage(hasNext: boolean): boolean {
@@ -144,10 +191,23 @@ export class CrossExchange implements OnInit {
     }
     const value = this.swapForm.value;
     const direction = value.direction as SwapDirection;
-    const amount = String(value.amount);
+    const preview = previewSwap(
+      direction,
+      this.selected.rate!,
+      String(value.amount),
+      environment.coinDecimals,
+    );
+    if (!preview?.exact) {
+      this.toastr.showError(
+        preview?.hint ?? 'Enter an amount that matches the registered rate.',
+        'Invalid swap amount',
+      );
+      return;
+    }
+    const chainAmount = preview.chainAmount;
     const funds =
       direction === 'base_to_partner'
-        ? [{ denom: environment.coinMinimalDenom, amount }]
+        ? [{ denom: environment.coinMinimalDenom, amount: chainAmount }]
         : [];
 
     await this.runAction(
@@ -157,12 +217,13 @@ export class CrossExchange implements OnInit {
           this.contractAddress,
           this.selected!.denom,
           direction,
-          amount,
+          chainAmount,
           funds,
         ),
       'Swap Complete',
       'Swap Failed',
       async () => {
+        this.swapForm.patchValue({ amount: '' });
         await this.loadPartners();
         if (this.selected) {
           await this.refreshSelected();

@@ -1,7 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
   amountCount,
-  formatRate,
+  formatRateHuman,
+  osmoToUosmo,
+  previewSwap,
+  suggestedOsmoAmounts,
 } from '@services/cross-platform-exchange/cross-platform-exchange';
 
 vi.mock('@services/wallet/wallet', () => ({
@@ -36,18 +39,31 @@ describe('CrossExchange', () => {
 });
 
 describe('cross-exchange helpers', () => {
-  it('formats rate and amounts', () => {
-    expect(
-      formatRate(
-        {
-          partner_denom: 'gujarat-water-unit',
-          base_amount: '100',
-          partner_amount: '10',
-        },
-        'uosmo',
-      ),
-    ).toBe('100 uosmo = 10 partner units');
+  const gujaratRate = {
+    partner_denom: 'gujarat-water-unit',
+    base_amount: '1000000',
+    partner_amount: '100',
+  };
+
+  it('formats human OSMO rates', () => {
+    expect(formatRateHuman(gujaratRate)).toBe('1 OSMO = 100 ledger units');
     expect(amountCount('5')).toBe('5');
     expect(amountCount(undefined)).toBe('0');
+  });
+
+  it('converts OSMO input to uosmo for chain swaps', () => {
+    expect(osmoToUosmo('2')).toBe('2000000');
+    expect(osmoToUosmo('1.5')).toBe('1500000');
+  });
+
+  it('previews exact swap output for whole OSMO amounts', () => {
+    const preview = previewSwap('base_to_partner', gujaratRate, '2');
+    expect(preview?.exact).toBe(true);
+    expect(preview?.chainAmount).toBe('2000000');
+    expect(preview?.outputLabel).toBe('200 ledger units');
+  });
+
+  it('suggests demo-friendly OSMO quick picks', () => {
+    expect(suggestedOsmoAmounts(gujaratRate)).toEqual(['1', '2', '5']);
   });
 });

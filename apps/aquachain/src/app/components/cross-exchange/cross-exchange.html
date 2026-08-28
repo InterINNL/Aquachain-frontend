@@ -98,11 +98,11 @@
             <p class="mb-1"><strong>Denom:</strong> {{ selected.denom }}</p>
             <p class="mb-1" *ngIf="selected.rate">
               <strong>Rate:</strong>
-              {{ formatRate(selected.rate, baseSymbol()) }}
+              {{ formatRateHuman(selected.rate, environment.coinDecimals) }}
             </p>
             <p class="mb-3" *ngIf="walletAddress">
               <strong>Your locked balance:</strong>
-              {{ amountCount(selected.locked) }} units
+              {{ amountCount(selected.locked) }} ledger units
             </p>
 
             <form [formGroup]="swapForm" (ngSubmit)="onSwap()" class="mb-4">
@@ -110,26 +110,45 @@
                 <label class="form-label" for="swapDirection">Direction</label>
                 <select id="swapDirection" class="form-select" formControlName="direction">
                   <option value="base_to_partner">
-                    Base → partner (send {{ baseSymbol() }})
+                    OSMO → partner ledger (pay with {{ baseSymbol() }})
                   </option>
                   <option value="partner_to_base">
-                    Partner → base (use locked units)
+                    Partner ledger → OSMO (redeem locked units)
                   </option>
                 </select>
               </div>
-              <div class="mb-3">
-                <label class="form-label" for="swapAmount">Amount</label>
+              <div class="mb-2">
+                <label class="form-label" for="swapAmount">{{ amountLabel() }}</label>
                 <input
                   id="swapAmount"
                   class="form-control"
                   formControlName="amount"
-                  placeholder="Use multiples of the registered rate"
+                  [placeholder]="amountPlaceholder()"
                 />
+              </div>
+              <div class="d-flex flex-wrap gap-2 mb-3" *ngIf="quickAmounts.length">
+                <span class="small text-muted align-self-center">Quick:</span>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary"
+                  *ngFor="let pick of quickAmounts"
+                  (click)="applyQuickAmount(pick)"
+                >
+                  {{ pick }}
+                </button>
+              </div>
+              <div
+                class="alert alert-light py-2 small mb-3"
+                *ngIf="swapPreview as preview"
+                [class.alert-warning]="!preview.exact"
+              >
+                <strong>You receive:</strong> {{ preview.outputLabel }}
+                <div class="text-muted mt-1">{{ preview.hint }}</div>
               </div>
               <button
                 type="submit"
                 class="btn btn-primary"
-                [disabled]="swapForm.invalid || busyAction"
+                [disabled]="swapForm.invalid || busyAction || !swapPreview?.exact"
               >
                 Swap
               </button>
