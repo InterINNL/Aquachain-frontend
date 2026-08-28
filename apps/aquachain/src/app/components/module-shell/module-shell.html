@@ -1,9 +1,13 @@
-<section class="ac-module-hero">
+<section
+  class="ac-module-hero"
+  [class.ac-module-hero--agent-ops]="moduleKey() === 'agent-ops'"
+>
   <div class="ac-module-hero__visual">
     <img
       [src]="hero().photo.src"
       [alt]="hero().photo.alt"
       [style.object-position]="photoObjectPosition()"
+      [style.object-fit]="hero().photo.fit ?? 'cover'"
       width="1400"
       height="400"
       sizes="100vw"

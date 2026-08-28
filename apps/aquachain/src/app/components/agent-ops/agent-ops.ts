@@ -16,20 +16,18 @@ import {
 import { environment } from '@env/environment';
 import { aquachainContent } from '../../content';
 import { ModuleShell } from '../module-shell/module-shell';
-import { PhotoCarousel } from '../photo-carousel/photo-carousel';
 
 @Component({
   selector: 'agent-ops',
-  imports: [FontAwesomeModule, RouterModule, ModuleShell, PhotoCarousel],
+  imports: [FontAwesomeModule, RouterModule, ModuleShell],
   templateUrl: './agent-ops.html',
   styleUrl: './agent-ops.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AgentOps {
   readonly content = aquachainContent;
+  readonly payRouterDiagramSrc = 'photos/agent-x402-pay-router.svg';
   readonly gatewayConfigured = Boolean(environment.agentGatewayUrl);
-  readonly carouselPhotos =
-    aquachainContent.modules.find((m) => m.id === 'agent-ops')?.photos ?? [];
   private readonly gateway = inject(AgentGatewayService);
   private readonly platformId = inject(PLATFORM_ID);
 
@@ -42,6 +40,10 @@ export class AgentOps {
     if (isPlatformBrowser(this.platformId) && this.gatewayConfigured) {
       void this.loadGateway();
     }
+  }
+
+  formatPhase(phase: string): string {
+    return phase.toUpperCase();
   }
 
   sampleJson(): string {

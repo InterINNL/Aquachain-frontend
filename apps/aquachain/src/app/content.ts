@@ -762,13 +762,13 @@ export const aquachainContent = {
       },
     },
     'agent-ops': {
-      kicker: 'Module 9',
+      kicker: 'Module 9 · Agent Ops',
       title: 'Agent Ops',
       lead: 'AquaChain Pay Router: x402 USDC micropayments for drone agents, with agent-to-agent paid toll calls and Osmosis relay.',
       photo: {
-        src: localPhoto('nqi1nt0hbsw67p315qj4-4111816589.webp'),
-        alt: 'x402 Protocol for developers: monetize APIs in USDC',
-        objectPosition: 'center top',
+        src: localPhoto('agent-x402-pay-router.svg'),
+        alt: 'AquaChain Pay Router diagram',
+        fit: 'contain',
       },
     },
   } satisfies Record<ModuleHeroKey, ModuleHero>,

@@ -9,15 +9,18 @@
     </div>
   </div>
 
-  <section class="ac-agent-carousel-section">
+  <section class="ac-agent-diagram-section">
     <h2 class="ac-section-title">Pay Router at a glance</h2>
-    <div class="ac-agent-carousel-wrap">
-      <ac-photo-carousel [photos]="carouselPhotos" [decorative]="false" />
-    </div>
-    <p class="ac-agent-note">
-      Slide 1: x402 USDC for API monetization. Slide 2: AquaChain Pay Router
-      diagram (agent toll calls, verify/settle, Osmosis relay).
-    </p>
+    <figure class="ac-agent-diagram">
+      <img
+        [src]="payRouterDiagramSrc"
+        alt="AquaChain Pay Router: x402 USDC agent-to-agent paid toll calls through verify, settle, and Osmosis relay"
+        width="800"
+        height="450"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
   </section>
 
   <section class="ac-agent-section">
@@ -87,16 +90,28 @@
     } @if (health(); as h) {
     <div class="ac-kpi-grid ac-agent-kpi">
       <div class="ac-kpi">
-        <span class="ac-kpi__label">Phase</span>
-        <span class="ac-kpi__value">{{ h.phase }}</span>
+        <div class="ac-kpi__label">Phase</div>
+        <div class="ac-kpi__value">{{ formatPhase(h.phase) }}</div>
       </div>
       <div class="ac-kpi">
-        <span class="ac-kpi__label">x402 ready</span>
-        <span class="ac-kpi__value">{{ h.x402_ready ? 'yes' : 'no' }}</span>
+        <div class="ac-kpi__label">x402 ready</div>
+        <div
+          class="ac-kpi__value"
+          [class.ac-kpi__value--success]="h.x402_ready"
+          [class.ac-kpi__value--warning]="!h.x402_ready"
+        >
+          {{ h.x402_ready ? 'Yes' : 'No' }}
+        </div>
       </div>
       <div class="ac-kpi">
-        <span class="ac-kpi__label">Osmosis relay</span>
-        <span class="ac-kpi__value">{{ h.relay_ready ? 'yes' : 'no' }}</span>
+        <div class="ac-kpi__label">Osmosis relay</div>
+        <div
+          class="ac-kpi__value"
+          [class.ac-kpi__value--success]="h.relay_ready"
+          [class.ac-kpi__value--warning]="!h.relay_ready"
+        >
+          {{ h.relay_ready ? 'Yes' : 'No' }}
+        </div>
       </div>
     </div>
     } @if (capabilities(); as caps) {

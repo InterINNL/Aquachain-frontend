@@ -18,7 +18,6 @@
     </marker>
   </defs>
   <rect width="800" height="450" fill="url(#bg)"/>
-  <rect x="0" y="0" width="800" height="6" fill="#0c2340"/>
 
   <text x="400" y="52" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#0c2340">AquaChain Pay Router</text>
   <text x="400" y="82" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="15" fill="#3d4f5f">x402 | Agent-to-Agent USDC | Paid toll calls</text>

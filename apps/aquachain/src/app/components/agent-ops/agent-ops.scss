@@ -32,25 +32,28 @@
   margin-bottom: var(--ac-space-2xl);
 }
 
-.ac-agent-carousel-section {
+.ac-agent-diagram-section {
   margin-bottom: var(--ac-space-2xl);
 }
 
-.ac-agent-carousel-wrap {
-  margin-top: var(--ac-space-md);
+.ac-agent-diagram {
+  margin: var(--ac-space-md) 0 0;
+  padding: var(--ac-space-lg);
   border-radius: var(--ac-radius-lg);
-  overflow: hidden;
   border: 1px solid rgb(12 35 64 / 10%);
-  height: 16rem;
-  background: var(--ac-sand);
+  background: linear-gradient(
+    165deg,
+    var(--ac-sand) 0%,
+    rgb(232 238 244 / 85%) 100%
+  );
 }
 
-.ac-agent-carousel-wrap .ac-photo-carousel,
-.ac-agent-carousel-wrap .ac-photo-carousel__slide {
-  height: 100%;
+.ac-agent-diagram img {
+  display: block;
   width: 100%;
-  object-fit: contain;
-  background: var(--ac-sand);
+  max-width: 52rem;
+  height: auto;
+  margin: 0 auto;
 }
 
 .ac-agent-steps {

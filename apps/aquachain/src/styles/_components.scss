@@ -109,10 +109,18 @@
 }
 
 .ac-kpi {
+  display: flex;
+  flex-direction: column;
   background: var(--ac-white);
   border-radius: var(--ac-radius);
   border: 1px solid var(--ac-sand-dark);
   padding: var(--ac-space-md);
+}
+
+.ac-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: var(--ac-space-md);
 }
 
 .ac-kpi__label {

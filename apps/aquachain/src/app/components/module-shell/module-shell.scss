@@ -59,3 +59,31 @@
 .ac-module-body__inner {
   min-height: 12rem;
 }
+
+.ac-module-hero--agent-ops {
+  min-height: 12rem;
+  background: var(--ac-sand);
+}
+
+.ac-module-hero--agent-ops .ac-module-hero__visual {
+  background: var(--ac-sand);
+}
+
+.ac-module-hero--agent-ops .ac-module-hero__visual img {
+  object-fit: contain;
+  padding: var(--ac-space-md) var(--ac-space-lg);
+  box-sizing: border-box;
+}
+
+.ac-module-hero--agent-ops .ac-module-hero__overlay {
+  background: linear-gradient(
+    180deg,
+    rgb(8 26 48 / 35%) 0%,
+    rgb(8 26 48 / 82%) 72%,
+    rgb(8 26 48 / 92%) 100%
+  );
+}
+
+.ac-module-hero--agent-ops .ac-module-hero__copy {
+  padding-top: var(--ac-space-3xl);
+}
