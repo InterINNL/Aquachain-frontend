@@ -13,6 +13,11 @@ import {
   GatewayCapabilities,
   GatewayHealth,
 } from '@services/agent-gateway/agent-gateway';
+import {
+  agentTypeLabel,
+  FieldAgent,
+  FieldAgentsService,
+} from '@services/field-agents/field-agents';
 import { environment } from '@env/environment';
 import { aquachainContent } from '../../content';
 import { ModuleShell } from '../module-shell/module-shell';
@@ -28,17 +33,28 @@ export class AgentOps {
   readonly content = aquachainContent;
   readonly payRouterDiagramSrc = 'photos/agent-x402-pay-router.svg';
   readonly gatewayConfigured = Boolean(environment.agentGatewayUrl);
+  readonly csrConfigured = Boolean(environment.CitizenScienceContractAddress);
+  readonly agentTypeLabel = agentTypeLabel;
   private readonly gateway = inject(AgentGatewayService);
+  private readonly fieldAgents = inject(FieldAgentsService);
   private readonly platformId = inject(PLATFORM_ID);
 
   readonly loading = signal(false);
+  readonly agentsLoading = signal(false);
   readonly gatewayError = signal('');
+  readonly agentsError = signal('');
   readonly capabilities = signal<GatewayCapabilities | null>(null);
   readonly health = signal<GatewayHealth | null>(null);
+  readonly agents = signal<FieldAgent[]>([]);
 
   constructor() {
-    if (isPlatformBrowser(this.platformId) && this.gatewayConfigured) {
-      void this.loadGateway();
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.gatewayConfigured) {
+        void this.loadGateway();
+      }
+      if (this.csrConfigured) {
+        void this.loadAgents();
+      }
     }
   }
 
@@ -75,6 +91,24 @@ export class AgentOps {
       );
     } finally {
       this.loading.set(false);
+    }
+  }
+
+  async loadAgents(): Promise<void> {
+    this.agentsLoading.set(true);
+    this.agentsError.set('');
+    try {
+      const listed = await this.fieldAgents.listAgents(
+        environment.CitizenScienceContractAddress,
+        10,
+      );
+      this.agents.set(listed);
+    } catch (error) {
+      this.agentsError.set(
+        error instanceof Error ? error.message : 'Could not load field agents',
+      );
+    } finally {
+      this.agentsLoading.set(false);
     }
   }
 }

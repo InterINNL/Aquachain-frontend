@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   CitizenScienceContractAddress:
-    'osmo1z86906nkwg3x7tuj3huvve52td3lx9lle6c89v6tcycy2pyg3s4qz3we47',
+    'osmo1s2a2f6je78ga2atc3rzq76lmzs9kane9h9fa3w62rjvcw5mk5lvsyxwtm4',
   WaterWellContractAddress:
     'osmo17q79kccte8p9hn88n9la84v5p86rrf53qpn9qdvzpr0x30p4hgqqtw4nvp',
   UtilityWaterFootprintContractAddress:

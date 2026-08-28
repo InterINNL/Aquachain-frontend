@@ -71,6 +71,44 @@
   </section>
 
   <section class="ac-agent-section">
+    <h2 class="ac-section-title">{{ content.agentOps.agents.title }}</h2>
+    <p class="ac-lead">{{ content.agentOps.agents.lead }}</p>
+    @if (agentsLoading()) {
+    <p class="ac-loading-row">
+      <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+      Loading registered agents…
+    </p>
+    } @else if (agentsError()) {
+    <div class="ac-alert-banner ac-alert-banner--info" role="alert">
+      {{ agentsError() }}
+    </div>
+    } @else if (agents().length === 0) {
+    <p class="ac-agent-note">{{ content.agentOps.agents.empty }}</p>
+    } @else {
+    <div class="table-responsive">
+      <table class="ac-data-table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Operator</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (agent of agents(); track agent.id) {
+          <tr>
+            <td>{{ agent.name }}</td>
+            <td>{{ agentTypeLabel(agent.agent_type) }}</td>
+            <td><code>{{ agent.operator }}</code></td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    }
+  </section>
+
+  <section class="ac-agent-section">
     <h2 class="ac-section-title">{{ content.agentOps.gateway.title }}</h2>
     <p class="ac-lead">{{ content.agentOps.gateway.lead }}</p>
 
@@ -126,6 +164,10 @@
     }
 
     <p class="ac-agent-links">
+      <a [href]="content.agentOps.links.x402.href" target="_blank" rel="noopener noreferrer"
+        >{{ content.agentOps.links.x402.label }}</a
+      >
+      ·
       <a [routerLink]="content.agentOps.links.dao.route"
         >{{ content.agentOps.links.dao.label }}</a
       >

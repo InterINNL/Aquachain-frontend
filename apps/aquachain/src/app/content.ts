@@ -101,7 +101,13 @@ export interface AgentOpsContent {
     lead: string;
     notConfigured: string;
   };
+  agents: {
+    title: string;
+    lead: string;
+    empty: string;
+  };
   links: {
+    x402: { label: string; href: string };
     dao: NavLink;
     citizenScience: NavLink;
   };
@@ -324,8 +330,8 @@ export const aquachainContent = {
       alt: 'Mountain lake at dawn with forest shoreline and calm reflective water',
       objectPosition: 'center 40%',
     },
-    primaryCta: { label: 'Explore Citizen Science', route: '/citizen-science' },
-    secondaryCta: { label: 'Agent Ops (Module 9)', route: '/agent-ops' },
+    primaryCta: { label: 'Agent Ops (Module 9)', route: '/agent-ops' },
+    secondaryCta: { label: 'Explore Citizen Science', route: '/citizen-science' },
   },
 
   context: {
@@ -416,7 +422,7 @@ export const aquachainContent = {
       name: 'Local DAO',
       kicker: 'Community governance',
       blurb:
-        'Create proposals for local water projects, vote yes/no/abstain, and finalize outcomes once voting ends and quorum is met.',
+        'Create proposals with executable actions (fund bounties, mint credits, reward sensors), vote yes/no/abstain, and finalize on-chain effects after quorum.',
       route: '/local-dao',
       icon: 'landmark',
       accent: 'teal' as const,
@@ -448,11 +454,11 @@ export const aquachainContent = {
 
   howItWorks: {
     title: 'How AquaChain works',
-    lead: 'The demo follows one pattern across all three modules: capture intent on-chain, let independent verifiers approve it, then settle outcomes automatically.',
+    lead: 'One loop across field sensors, agent APIs, and community governance: capture data, verify it, reward stewards, and execute passed DAO actions on-chain.',
     intro:
-      'Field contributors, donors, and utility operators sign transactions with Keplr. CosmWasm on wasmd stores the state so no single frontend can rewrite history after submission.',
+      'Field contributors, autonomous agents, and utility operators sign transactions with Keplr (humans) or x402 USDC (agents). CosmWasm on Osmosis stores the record so no single frontend can rewrite history.',
     closing:
-      'Connect Keplr on the configured test chain to try the full loop. Read-only views still load contract state through CosmJS queries so you can inspect maps, KPIs, and tables before signing anything.',
+      'Connect Keplr on osmo-test-5 to vote, fund bounties, and finalize DAO proposals. Read-only views load contract state through CosmJS queries before you sign anything.',
     photo: {
       src: localPhoto('utilities-well-monitoring.jpg'),
       alt: 'Industrial sensors monitoring a production water well',
@@ -479,11 +485,16 @@ export const aquachainContent = {
         body: 'Once rules pass, the contract settles: token payouts to sensor operators, escrow releases to well beneficiaries, or footprint certificates summarizing verified savings. Every payout or certificate hash is visible to wallets and indexers without exporting a private CSV.',
         icon: 'award',
       },
+      {
+        title: 'Govern',
+        body: 'Local DAO members vote on proposals whose passed actions post bounties, mint credits, or reward verified sensor entries through real CosmWasm messages.',
+        icon: 'landmark',
+      },
     ],
   },
 
   technology: {
-    title: 'Powered by advanced technology',
+    title: 'Built for verifiable field ops',
     photo: {
       src: localPhoto('field-irrigation.jpg'),
       alt: 'Irrigation sprinklers watering crops in a green field',
@@ -491,24 +502,24 @@ export const aquachainContent = {
     },
     items: [
       {
-        title: 'Blockchain Security',
-        body: 'All data and transactions are secured on the Cosmos blockchain, ensuring transparency and immutability.',
+        title: 'CosmWasm on Osmosis',
+        body: 'Nine stewardship modules share one testnet deployment pattern: signed executes, queryable maps, and deterministic contract storage.',
         icon: 'link',
       },
       {
-        title: 'AI-Powered Analytics',
-        body: 'Advanced algorithms analyze water data to provide insights and recommendations for sustainable practices.',
-        icon: 'brain',
+        title: 'Agent API (x402)',
+        body: 'Autonomous clients pay USDC per HTTP call on Base Sepolia; the Pay Router verifies payment and relays readings to citizen-science-registry.',
+        icon: 'robot',
       },
       {
-        title: 'IoT Integration',
-        body: 'Seamless connection with IoT sensors for real-time water quality and quantity monitoring.',
+        title: 'Field sensor registry',
+        body: 'GPS-tagged sensors and drone agents register on-chain, stream JSON readings, and pass verifier review before rewards.',
         icon: 'satellite-dish',
       },
       {
-        title: 'Reward Mechanisms',
-        body: 'Token-based incentives for sustainable water management practices and data contributions.',
-        icon: 'award',
+        title: 'Executable governance',
+        body: 'Local DAO proposals finalize into cross-contract actions instead of metadata-only tags.',
+        icon: 'landmark',
       },
     ],
   },
@@ -744,7 +755,7 @@ export const aquachainContent = {
     'local-dao': {
       kicker: 'Module 7',
       title: 'Local DAO',
-      lead: 'Govern neighbourhood water priorities on-chain. Members submit proposals, cast votes, and finalize passed actions after the voting window closes.',
+      lead: 'Govern neighbourhood water priorities on-chain. Submit typed proposals, vote, and finalize actions that post bounties or mint credits.',
       photo: {
         src: localPhoto('CS4Water-conference-2048x1536.jpg'),
         alt: 'Community workshop on water stewardship and local governance',
@@ -821,7 +832,7 @@ export const aquachainContent = {
         },
         {
           title: 'Govern',
-          body: 'Local DAO proposals can fund bounties or rewards when thresholds are met (G2).',
+          body: 'Local DAO proposals fund bounties or sensor rewards when voters approve executable actions.',
           icon: 'landmark',
         },
       ],
@@ -855,7 +866,13 @@ export const aquachainContent = {
       notConfigured:
         'Set agentGatewayUrl in the app environment to probe a running gateway (/v1/capabilities).',
     },
+    agents: {
+      title: 'Registered field agents',
+      lead: 'On-chain registry for drone capture agents and verifier bots participating in the India demo loop.',
+      empty: 'No agents registered on this contract yet.',
+    },
     links: {
+      x402: { label: 'x402 protocol', href: 'https://www.x402.org/' },
       dao: { label: 'Local DAO', route: '/local-dao' },
       citizenScience: { label: 'Citizen Science', route: '/citizen-science' },
     },

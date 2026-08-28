@@ -34,4 +34,23 @@ describe('aquachain-e2e', () => {
     cy.get('.ac-tab-bar__tab').first().click();
     cy.get('.ac-kpi').should('exist');
   });
+
+  it('should show agent ops loop and x402 docs link', () => {
+    cy.visit('/agent-ops');
+    cy.contains('Pay · Measure · Record · Verify · Govern').should('be.visible');
+    cy.contains('a', 'x402 protocol')
+      .should('have.attr', 'href')
+      .and('include', 'x402.org');
+  });
+
+  it('should preview local DAO executable action', () => {
+    cy.visit('/local-dao');
+    cy.get('#daoTag').should('exist');
+    cy.get('#daoTitle').type('Yamuna turbidity bounty');
+    cy.get('#daoLocation').type('Delhi, India');
+    cy.get('#daoDeadline').type('1893456000');
+    cy.get('#daoReward').type('5000000');
+    cy.contains('If passed:').should('be.visible');
+    cy.contains('Yamuna turbidity bounty').should('be.visible');
+  });
 });
