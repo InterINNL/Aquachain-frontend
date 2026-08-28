@@ -206,23 +206,36 @@
   margin: 0;
 }
 
+.ac-home-steps__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--ac-space-2xl);
+  align-items: stretch;
+}
+
+.ac-home-steps__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ac-space-md);
+}
+
 .ac-home-steps__photo {
   border-radius: var(--ac-radius-xl);
   overflow: hidden;
   box-shadow: var(--ac-shadow);
-  margin-bottom: var(--ac-space-xl);
-  max-height: 16rem;
+  min-height: 100%;
 }
 
 .ac-home-steps__photo img {
   width: 100%;
-  height: 16rem;
+  height: 100%;
+  min-height: 18rem;
   object-fit: cover;
 }
 
 .ac-home-steps {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: var(--ac-space-md);
 }
 
@@ -266,11 +279,7 @@
   font-size: 0.9375rem;
   line-height: 1.65;
   color: var(--ac-navy);
-  margin: var(--ac-space-xl) auto 0;
-  max-width: 40rem;
-  text-align: center;
-  padding-top: var(--ac-space-lg);
-  border-top: 1px solid var(--ac-sand-dark);
+  margin: 0;
 }
 
 .ac-home-technology {
@@ -494,12 +503,13 @@
   }
 
   .ac-home-context__grid,
-  .ac-home-technology__layout {
+  .ac-home-technology__layout,
+  .ac-home-steps__layout {
     grid-template-columns: 1fr;
   }
 
-  .ac-home-steps {
-    grid-template-columns: 1fr 1fr;
+  .ac-home-steps__photo img {
+    min-height: 14rem;
   }
 
   .ac-home-modules,
