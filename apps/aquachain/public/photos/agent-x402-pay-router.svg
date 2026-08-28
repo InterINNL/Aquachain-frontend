@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
   <title id="title">AquaChain Pay Router</title>
-  <desc id="desc">x402 agent-to-agent USDC paid toll calls through the AquaChain gateway</desc>
+  <desc id="desc">Autonomous agents pay USDC on Base Sepolia testnet via x402; the gateway relays water readings to Osmosis testnet.</desc>
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#f4f1ea"/>
@@ -10,55 +10,92 @@
       <stop offset="0%" stop-color="#1a6b7a"/>
       <stop offset="100%" stop-color="#0c2340"/>
     </linearGradient>
-    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+    <marker id="arrowTeal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
       <path d="M0,0 L8,4 L0,8 Z" fill="#1a6b7a"/>
     </marker>
-    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
       <path d="M0,0 L8,4 L0,8 Z" fill="#c58a1a"/>
     </marker>
+    <style>
+      text { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .title { font-size: 26px; font-weight: 700; fill: #0c2340; }
+      .subtitle { font-size: 14px; fill: #3d4f5f; }
+      .zone-label { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+      .box-title { font-size: 15px; font-weight: 700; fill: #0c2340; }
+      .box-body { font-size: 12px; fill: #3d4f5f; }
+      .box-body-light { font-size: 12px; fill: #d7ecef; }
+      .edge-label { font-size: 11px; font-weight: 600; }
+      .footer { font-size: 12px; fill: #3d4f5f; }
+    </style>
   </defs>
-  <rect width="800" height="450" fill="url(#bg)"/>
 
-  <text x="400" y="52" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#0c2340">AquaChain Pay Router</text>
-  <text x="400" y="82" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="15" fill="#3d4f5f">x402 | Agent-to-Agent USDC | Paid toll calls</text>
+  <rect width="900" height="520" fill="url(#bg)"/>
 
-  <rect x="48" y="130" width="150" height="88" rx="12" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
-  <circle cx="88" cy="162" r="18" fill="#1a6b7a" opacity="0.15"/>
-  <text x="88" y="168" text-anchor="middle" font-size="18" fill="#1a6b7a">A1</text>
-  <text x="123" y="158" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" font-weight="600" fill="#0c2340">Drone Agent</text>
-  <text x="123" y="178" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">HTTP 402 request</text>
-  <text x="123" y="196" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">Base Sepolia wallet</text>
+  <text x="450" y="42" text-anchor="middle" class="title">AquaChain Pay Router</text>
+  <text x="450" y="68" text-anchor="middle" class="subtitle">x402 micropayments on Base Sepolia testnet, relay to Osmosis testnet</text>
 
-  <path d="M210 174 H270" stroke="#1a6b7a" stroke-width="3" marker-end="url(#arrow)"/>
-  <text x="240" y="162" text-anchor="middle" font-size="11" fill="#1a6b7a">402</text>
+  <!-- Base Sepolia zone -->
+  <rect x="24" y="92" width="248" height="300" rx="10" fill="#eef6f8" stroke="#1a6b7a" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="148" y="114" text-anchor="middle" class="zone-label" fill="#1a6b7a">Base Sepolia testnet</text>
+  <text x="148" y="130" text-anchor="middle" class="box-body">chain id 84532</text>
 
-  <rect x="280" y="108" width="240" height="132" rx="16" fill="url(#teal)"/>
-  <text x="400" y="142" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="18" font-weight="700" fill="#ffffff">Pay Router</text>
-  <text x="400" y="168" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="13" fill="#d7ecef">verify | settle | relay</text>
-  <rect x="310" y="182" width="84" height="28" rx="14" fill="#ffffff" opacity="0.95"/>
-  <text x="352" y="201" text-anchor="middle" font-size="12" font-weight="700" fill="#0c2340">USDC</text>
-  <rect x="406" y="182" width="84" height="28" rx="14" fill="#ffffff" opacity="0.95"/>
-  <text x="448" y="201" text-anchor="middle" font-size="12" font-weight="700" fill="#0c2340">x402</text>
+  <rect x="44" y="152" width="208" height="96" rx="10" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
+  <circle cx="72" cy="182" r="16" fill="#1a6b7a" opacity="0.18"/>
+  <text x="72" y="187" text-anchor="middle" font-size="14" font-weight="700" fill="#1a6b7a">A1</text>
+  <text x="98" y="176" class="box-title">Drone agent</text>
+  <text x="98" y="196" class="box-body">POST /v1/measurements</text>
+  <text x="98" y="214" class="box-body">pays USDC via x402</text>
+  <text x="98" y="232" class="box-body">EVM wallet on testnet</text>
 
-  <path d="M530 174 H590" stroke="#c58a1a" stroke-width="3" marker-end="url(#arrowAmber)"/>
-  <text x="560" y="162" text-anchor="middle" font-size="11" fill="#c58a1a">relay</text>
+  <rect x="44" y="268" width="208" height="56" rx="8" fill="#ffffff" stroke="#3d4f5f" stroke-width="1.5"/>
+  <text x="148" y="292" text-anchor="middle" class="box-title">USDC test token</text>
+  <text x="148" y="310" text-anchor="middle" class="box-body">Circle faucet, not mainnet</text>
 
-  <rect x="602" y="130" width="150" height="88" rx="12" fill="#ffffff" stroke="#c58a1a" stroke-width="2"/>
-  <text x="677" y="158" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" font-weight="600" fill="#0c2340">Osmosis</text>
-  <text x="677" y="178" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">CosmWasm record</text>
-  <text x="677" y="196" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">Citizen Science</text>
+  <!-- Gateway -->
+  <rect x="300" y="120" width="300" height="148" rx="14" fill="url(#teal)"/>
+  <text x="450" y="152" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">Agent gateway</text>
+  <text x="450" y="174" text-anchor="middle" class="box-body-light">HTTP 402, verify, settle, relay</text>
+  <rect x="330" y="188" width="88" height="28" rx="14" fill="#ffffff"/>
+  <text x="374" y="207" text-anchor="middle" font-size="12" font-weight="700" fill="#0c2340">USDC</text>
+  <rect x="432" y="188" width="88" height="28" rx="14" fill="#ffffff"/>
+  <text x="476" y="207" text-anchor="middle" font-size="12" font-weight="700" fill="#0c2340">x402</text>
+  <text x="450" y="248" text-anchor="middle" class="box-body-light">aquachain-agent-gateway.onrender.com</text>
 
-  <rect x="280" y="280" width="240" height="72" rx="12" fill="#ffffff" stroke="#3d4f5f" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="400" y="308" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#0c2340">Agent-to-Agent toll lane</text>
-  <text x="400" y="330" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">Micropayment per API call - no Keplr for machines</text>
+  <!-- Osmosis zone -->
+  <rect x="628" y="92" width="248" height="300" rx="10" fill="#fef6e8" stroke="#c58a1a" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="752" y="114" text-anchor="middle" class="zone-label" fill="#c58a1a">Osmosis testnet</text>
+  <text x="752" y="130" text-anchor="middle" class="box-body">osmo-test-5</text>
 
-  <rect x="602" y="280" width="150" height="72" rx="12" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
-  <circle cx="642" cy="316" r="16" fill="#1a6b7a" opacity="0.15"/>
-  <text x="642" y="322" text-anchor="middle" font-size="16" fill="#1a6b7a">A2</text>
-  <text x="692" y="312" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#0c2340">Verifier</text>
-  <text x="692" y="332" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="12" fill="#3d4f5f">Paid toll response</text>
+  <rect x="648" y="152" width="208" height="96" rx="10" fill="#ffffff" stroke="#c58a1a" stroke-width="2"/>
+  <text x="752" y="182" text-anchor="middle" class="box-title">Citizen Science Registry</text>
+  <text x="752" y="202" text-anchor="middle" class="box-body">CosmWasm submit_data</text>
+  <text x="752" y="220" text-anchor="middle" class="box-body">signed by relayer wallet</text>
+  <text x="752" y="238" text-anchor="middle" class="box-body">no x402 on Cosmos side</text>
 
-  <path d="M520 318 H590" stroke="#1a6b7a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <rect x="648" y="268" width="208" height="96" rx="10" fill="#ffffff" stroke="#1a6b7a" stroke-width="2"/>
+  <circle cx="676" cy="298" r="14" fill="#1a6b7a" opacity="0.18"/>
+  <text x="676" y="303" text-anchor="middle" font-size="13" font-weight="700" fill="#1a6b7a">A2</text>
+  <text x="702" y="292" class="box-title">Verifier agent</text>
+  <text x="702" y="310" class="box-body">paid toll response</text>
+  <text x="702" y="328" class="box-body">same x402 lane</text>
+  <text x="702" y="346" class="box-body">reads on-chain data</text>
 
-  <text x="400" y="410" text-anchor="middle" font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="13" fill="#3d4f5f">Agents pay USDC on Base | stewardship data lands on Osmosis</text>
+  <!-- Arrows -->
+  <path d="M252 200 H292" stroke="#1a6b7a" stroke-width="3" marker-end="url(#arrowTeal)"/>
+  <text x="272" y="188" text-anchor="middle" class="edge-label" fill="#1a6b7a">402</text>
+
+  <path d="M600 200 H628" stroke="#c58a1a" stroke-width="3" marker-end="url(#arrowAmber)"/>
+  <text x="614" y="188" text-anchor="middle" class="edge-label" fill="#c58a1a">relay</text>
+
+  <path d="M450 268 V318" stroke="#1a6b7a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowTeal)"/>
+  <text x="462" y="298" class="edge-label" fill="#1a6b7a">payTo</text>
+
+  <rect x="318" y="328" width="264" height="52" rx="10" fill="#ffffff" stroke="#3d4f5f" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="450" y="352" text-anchor="middle" class="box-title">Agent-to-agent toll lane</text>
+  <text x="450" y="370" text-anchor="middle" class="box-body">machines pay per call; humans keep Keplr on Cosmos</text>
+
+  <path d="M648 316 H600" stroke="#1a6b7a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowTeal)"/>
+
+  <text x="450" y="468" text-anchor="middle" class="footer">Two testnets: EVM payments on Base Sepolia, stewardship records on Osmosis</text>
+  <text x="450" y="488" text-anchor="middle" class="footer">Fund payer wallets with test ETH (gas) and test USDC; pay-to only receives tolls</text>
 </svg>
