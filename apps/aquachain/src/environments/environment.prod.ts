@@ -15,7 +15,7 @@ export const environment = {
   LocalDaoContractAddress:
     'osmo1xpavwsquwrr7e77309u0u8ax7576wr8xwf35ajmeldnmatt6vxnqas9scx',
   CrossPlatformExchangeContractAddress:
-    'osmo1v0d4087aldhr5l3n3f60teq0hsrqlc0e26e0a2e5v0fyxpahchns27este',
+    'osmo1qxsrslwmzdexrra3jt7h3evftsf348t5lt9r0qj2lfrxf7cz646qnu7fgl',
   explorerBaseUrl: 'https://www.mintscan.io/osmosis-testnet',
 
   gasPrice: '0.1uosmo',
