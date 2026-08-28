@@ -28,3 +28,4 @@ mkdir -p "$LEGACY"
 cp -a "$SITE/." "$LEGACY/"
 
 echo "Site ready: $SITE (also mirrored to $LEGACY for Render publish path)"
+node "$ROOT/scripts/verify-static-dist.mjs"

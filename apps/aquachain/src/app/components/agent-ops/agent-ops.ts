@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  PLATFORM_ID,
   signal,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -29,6 +31,7 @@ export class AgentOps {
   readonly carouselPhotos =
     aquachainContent.modules.find((m) => m.id === 'agent-ops')?.photos ?? [];
   private readonly gateway = inject(AgentGatewayService);
+  private readonly platformId = inject(PLATFORM_ID);
 
   readonly loading = signal(false);
   readonly gatewayError = signal('');
@@ -36,7 +39,7 @@ export class AgentOps {
   readonly health = signal<GatewayHealth | null>(null);
 
   constructor() {
-    if (this.gatewayConfigured) {
+    if (isPlatformBrowser(this.platformId) && this.gatewayConfigured) {
       void this.loadGateway();
     }
   }

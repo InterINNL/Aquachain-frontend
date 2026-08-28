@@ -31,7 +31,13 @@
           </p>
         }
 
-        <form class="ac-contact__form" [formGroup]="form" (ngSubmit)="submit()">
+        <form
+          class="ac-contact__form"
+          toolname="send_aquachain_contact"
+          tooldescription="Send a message about AquaChain demo or InterINNL collaboration."
+          [formGroup]="form"
+          (ngSubmit)="submit()"
+        >
           <input
             #honeypotField
             type="text"

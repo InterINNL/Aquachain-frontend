@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title">
+  <title id="title">InterINNL</title>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2744"/>
+      <stop offset="100%" stop-color="#1a4d6e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="600" y="280" text-anchor="middle" font-family="Source Sans 3, Segoe UI, sans-serif" font-size="72" font-weight="700" fill="#ffffff">InterINNL</text>
+  <text x="600" y="360" text-anchor="middle" font-family="Source Sans 3, Segoe UI, sans-serif" font-size="32" fill="#c5dde8">India | Netherlands | AquaChain</text>
+</svg>

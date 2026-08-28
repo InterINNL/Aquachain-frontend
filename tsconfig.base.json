@@ -17,7 +17,8 @@
     "ignoreDeprecations": "6.0",
     "paths": {
       "@env/*": ["apps/aquachain/src/environments/*"],
-      "@services/*": ["apps/aquachain/src/app/services/*"]
+      "@services/*": ["apps/aquachain/src/app/services/*"],
+      "@site-seo": ["libs/site-seo/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

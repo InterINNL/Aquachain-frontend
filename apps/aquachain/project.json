@@ -12,6 +12,11 @@
       "options": {
         "outputPath": "dist/apps/aquachain",
         "browser": "apps/aquachain/src/main.ts",
+        "server": "apps/aquachain/src/main.server.ts",
+        "outputMode": "static",
+        "ssr": {
+          "entry": "apps/aquachain/src/server.ts"
+        },
         "polyfills": ["zone.js", "apps/aquachain/src/polyfills.ts"],
         "allowedCommonJsDependencies": ["bootstrap", "@cosmjs", "leaflet"],
         "tsConfig": "apps/aquachain/tsconfig.app.json",

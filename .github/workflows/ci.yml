@@ -27,8 +27,8 @@ jobs:
 
       - run: npm ci
       - uses: nrwl/nx-set-shas@v4
-      - run: npx nx run-many -t lint -p interinnl,aquachain
-      - run: npx nx run-many -t test -p interinnl,aquachain
+      - run: npx nx run-many -t lint -p interinnl,aquachain,site-seo
+      - run: npx nx run-many -t test -p interinnl,aquachain,site-seo
       - run: npm run build:site
 
       - name: Trigger Render deploy

@@ -12,6 +12,11 @@
       "options": {
         "outputPath": "dist/apps/interinnl",
         "browser": "apps/interinnl/src/main.ts",
+        "server": "apps/interinnl/src/main.server.ts",
+        "outputMode": "static",
+        "ssr": {
+          "entry": "apps/interinnl/src/server.ts"
+        },
         "polyfills": ["zone.js"],
         "tsConfig": "apps/interinnl/tsconfig.app.json",
         "inlineStyleLanguage": "scss",

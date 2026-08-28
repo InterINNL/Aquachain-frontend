@@ -1,0 +1,71 @@
+# InterINNL
+
+India and Netherlands tech bridge: AI, Rust, Python, open source, and water / climate demos.
+
+## Site map
+
+- Hub home: https://interinnl.interchouette.net/
+- AquaChain demo: https://interinnl.interchouette.net/aquachain/
+- Agent Ops (Module 9, x402 USDC): https://interinnl.interchouette.net/aquachain/agent-ops
+- Contact (AquaChain): https://interinnl.interchouette.net/aquachain/contact
+
+## AquaChain modules (CosmWasm on Osmosis)
+
+1. Citizen Science - https://interinnl.interchouette.net/aquachain/citizen-science
+2. Water Well Initiative - https://interinnl.interchouette.net/aquachain/water-well-initiative
+3. Water Utilities - https://interinnl.interchouette.net/aquachain/water-utilities
+4. Sustainable Actions - https://interinnl.interchouette.net/aquachain/sustainable-actions
+5. Community Bounty - https://interinnl.interchouette.net/aquachain/community-bounty
+6. Water Credits - https://interinnl.interchouette.net/aquachain/water-credits
+7. Local DAO - https://interinnl.interchouette.net/aquachain/local-dao
+8. Cross Exchange - https://interinnl.interchouette.net/aquachain/cross-exchange
+9. Agent Ops (x402 Pay Router) - https://interinnl.interchouette.net/aquachain/agent-ops
+
+## Agent gateway (Phase G0 / G1)
+
+Humans use Keplr on Osmosis. Autonomous agents pay USDC via HTTP 402 (x402 on Base Sepolia) through the AquaChain agent gateway, which relays drone measurements to citizen-science-registry on osmo-test-5.
+
+- Repo: https://github.com/InterINNL/Aquachain-agent-gateway
+- Site module: https://interinnl.interchouette.net/aquachain/agent-ops
+- Flow: agent POST /v1/measurements (402) -> x402 verify/settle -> Osmosis CosmWasm relay
+
+## Contact
+
+- InterINNL hub: contact+innl@interchouette.net
+- AquaChain demo: contact+aquachain@interchouette.net
+- LinkedIn group: https://www.linkedin.com/groups/42420002/
+- GitHub org: https://github.com/InterINNL
+
+## GitHub
+
+- Frontend: https://github.com/InterINNL/Aquachain-frontend
+- Contracts: https://github.com/InterINNL/Aquachain-contracts
+- Agent gateway: https://github.com/InterINNL/Aquachain-agent-gateway
+
+## Browser agents (WebMCP)
+
+Discovery card: https://interinnl.interchouette.net/.well-known/mcp.json
+
+Tools are registered in the Angular app when a user or agent opens the site in a WebMCP-capable browser. No remote Streamable HTTP endpoint.
+
+### Hub tools (interinnl.interchouette.net/)
+
+- get_site_overview
+- get_contact
+- list_public_pages
+- list_projects
+- open_public_page
+
+### AquaChain tools (interinnl.interchouette.net/aquachain/)
+
+- get_aquachain_overview
+- list_modules
+- open_module
+- get_contact
+- get_site_discovery
+- send_aquachain_contact (declarative form tool on the contact page)
+
+## Crawler hints
+
+- Sitemap: https://interinnl.interchouette.net/sitemap.xml
+- Robots: https://interinnl.interchouette.net/robots.txt

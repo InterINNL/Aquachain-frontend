@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://interinnl.interchouette.net/sitemap.xml

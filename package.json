@@ -10,8 +10,8 @@
     "build:interinnl": "nx build interinnl",
     "build:aquachain": "nx build aquachain",
     "build:site": "./scripts/build-site.sh",
-    "test": "nx run-many -t test -p interinnl,aquachain",
-    "lint": "nx run-many -t lint -p interinnl,aquachain",
+    "test": "nx run-many -t test -p interinnl,aquachain,site-seo",
+    "lint": "nx run-many -t lint -p interinnl,aquachain,site-seo",
     "e2e": "nx e2e aquachain-e2e",
     "e2e:interinnl": "nx e2e interinnl-e2e",
     "serve:site": "serve -s dist/site"
