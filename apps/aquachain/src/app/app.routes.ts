@@ -37,4 +37,11 @@ export const appRoutes: Route[] = [
         (m) => m.CitizenScience,
       ),
   },
+  {
+    path: 'sustainable-actions',
+    loadComponent: () =>
+      import('./components/sustainable-actions/sustainable-actions').then(
+        (m) => m.SustainableActions,
+      ),
+  },
 ];

@@ -16,7 +16,10 @@ export interface ModuleHero {
 }
 
 export type ModuleHeroKey =
-  'citizen-science' | 'water-well-initiative' | 'water-utilities';
+  | 'citizen-science'
+  | 'water-well-initiative'
+  | 'water-utilities'
+  | 'sustainable-actions';
 
 export interface AcModule {
   id: string;
@@ -132,6 +135,11 @@ export const aquachainContent = {
       icon: 'chart-line',
       accent: 'slate',
     },
+    '/sustainable-actions': {
+      label: 'Sustainable Actions',
+      icon: 'leaf',
+      accent: 'teal',
+    },
     '/contact': {
       label: 'Contact',
       icon: 'envelope',
@@ -164,7 +172,7 @@ export const aquachainContent = {
   },
 
   modulesSection: {
-    title: 'Three modules',
+    title: 'Four modules',
     lead: 'Pick a demo path. Each module maps to a CosmWasm contract.',
   },
 
@@ -201,6 +209,17 @@ export const aquachainContent = {
       icon: 'chart-line',
       accent: 'slate' as const,
       photos: utilitiesPhotos,
+    },
+    {
+      id: 'sustainable-actions',
+      name: 'Sustainable Actions',
+      kicker: 'Community rewards',
+      blurb:
+        'Log cleanups and conservation work with evidence, earn verifier approval, and receive on-chain rewards for verified impact.',
+      route: '/sustainable-actions',
+      icon: 'leaf',
+      accent: 'teal' as const,
+      photos: citizenSciencePhotos,
     },
   ] satisfies AcModule[],
 
@@ -392,6 +411,12 @@ export const aquachainContent = {
       hint: 'Usage logs and footprint certificates',
       route: '/water-utilities',
     },
+    {
+      key: 'sustainable-actions' as ModuleHeroKey,
+      label: 'Sustainable Actions',
+      hint: 'Verify eco actions and reward impact',
+      route: '/sustainable-actions',
+    },
   ],
 
   moduleHeroes: {
@@ -421,6 +446,15 @@ export const aquachainContent = {
       photo: {
         src: local('hero-utilities-plant.jpg'),
         alt: 'Water treatment facility with pipes and monitoring equipment',
+      },
+    },
+    'sustainable-actions': {
+      kicker: 'Module 4',
+      title: 'Sustainable Actions',
+      lead: 'Submit community conservation actions with evidence, verify impact, and reward contributors on-chain.',
+      photo: {
+        src: local('citizen-sensor-kit.jpg'),
+        alt: 'Volunteers preparing field equipment for a water conservation activity',
       },
     },
   } satisfies Record<ModuleHeroKey, ModuleHero>,

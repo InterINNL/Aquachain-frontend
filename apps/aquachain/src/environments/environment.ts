@@ -5,6 +5,7 @@ export const environment = {
   WaterWellContractAddress:
     'wasm1w50vqkv30lhmkyq4786kgfxezhwstq20rvxjynye9l03vsy89fuql29zsg',
   UtilityWaterFootprintContractAddress: '',
+  SustainableActionRewardsContractAddress: '',
   explorerBaseUrl: 'https://your-explorer-url',
   gasPrice: '0.025ustake',
   gasMultiplier: 1.5,

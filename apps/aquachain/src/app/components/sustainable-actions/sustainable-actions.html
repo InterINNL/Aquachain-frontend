@@ -1,0 +1,250 @@
+<module-shell moduleKey="sustainable-actions">
+  <wallet-banner *ngIf="walletWarning"></wallet-banner>
+
+  <div
+    *ngIf="missingContract"
+    class="ac-alert-banner ac-alert-banner--info"
+    role="alert"
+  >
+    Contract not configured. Deploy sustainable-action-rewards and set
+    <code>SustainableActionRewardsContractAddress</code> in the app environment.
+  </div>
+
+  <div *ngIf="!missingContract">
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="ac-card mb-3" *ngIf="walletAddress">
+          <div class="ac-card__body">
+            <p class="mb-0">
+              <strong>Your verified impact:</strong> {{ walletImpact }} points
+            </p>
+          </div>
+        </div>
+
+        <div class="ac-card mb-3">
+          <div class="ac-card__header d-flex justify-content-between align-items-center">
+            <h5>Community actions</h5>
+            <span class="ac-badge" *ngIf="amVerifier">Verifier</span>
+          </div>
+          <div class="ac-card__body">
+            <div *ngIf="loadingActions" class="ac-loading">
+              <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+              Loading…
+            </div>
+            <div class="table-responsive" *ngIf="!loadingActions">
+              <table class="ac-data-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let action of actions"
+                    [class.is-selected]="selected?.id === action.id"
+                  >
+                    <td>{{ action.id }}</td>
+                    <td>{{ truncate(action.title, 22) }}</td>
+                    <td>{{ truncate(action.location, 16) }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-primary"
+                        (click)="selectAction(action)"
+                      >
+                        Open
+                      </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="actions.length === 0">
+                    <td colspan="4" class="text-muted text-center py-3">
+                      No actions yet
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <nav class="mt-2" *ngIf="actions.length > 0 || actionPage > 1">
+              <ul class="pagination pagination-sm justify-content-center mb-0">
+                <li class="page-item" [class.disabled]="!canGoPrev(actionPage)">
+                  <button
+                    class="page-link"
+                    (click)="prevActions()"
+                    [disabled]="!canGoPrev(actionPage)"
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li class="page-item disabled">
+                  <span class="page-link">Page {{ actionPage }}</span>
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="!canGoNextPage(actionHasNext)"
+                >
+                  <button
+                    class="page-link"
+                    (click)="nextActions()"
+                    [disabled]="!canGoNextPage(actionHasNext)"
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="ac-card mb-3">
+          <div class="ac-card__header"><h5>Submit action</h5></div>
+          <div class="ac-card__body">
+            <form [formGroup]="submitForm" (ngSubmit)="onSubmitAction()">
+              <div class="mb-3">
+                <label class="form-label" for="saTitle">Title</label>
+                <input id="saTitle" class="form-control" formControlName="title" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="saLocation">Location</label>
+                <input
+                  id="saLocation"
+                  class="form-control"
+                  formControlName="location"
+                  placeholder="City, India"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="saDesc">Description</label>
+                <textarea
+                  id="saDesc"
+                  class="form-control"
+                  rows="2"
+                  formControlName="description"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="saImpact">Impact points</label>
+                <input
+                  id="saImpact"
+                  class="form-control"
+                  formControlName="impact_points"
+                  placeholder="e.g. 100"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="submitForm.invalid || busyAction"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="ac-card">
+          <div class="ac-card__header"><h5>Verifiers (admin)</h5></div>
+          <div class="ac-card__body">
+            <div class="input-group mb-2">
+              <input
+                class="form-control"
+                [(ngModel)]="verifierAddress"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="osmo1…"
+              />
+            </div>
+            <div class="d-flex gap-2">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-success"
+                (click)="onAddVerifier()"
+                [disabled]="busyAction"
+              >
+                Add
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+                (click)="onRemoveVerifier()"
+                [disabled]="busyAction"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="ac-card sticky-top-detail">
+          <div class="ac-card__header"><h5>Action detail</h5></div>
+          <div class="ac-card__body" *ngIf="selected; else pickAction">
+            <p class="mb-1">
+              <strong>#{{ selected.id }}</strong> {{ selected.title }}
+            </p>
+            <p class="mb-1"><strong>Location:</strong> {{ selected.location }}</p>
+            <p class="mb-1">
+              <strong>Impact:</strong> {{ selected.impact_points }} points
+            </p>
+            <p class="mb-1">
+              <strong>Actor:</strong> {{ truncate(selected.actor, 36) }}
+            </p>
+            <p class="mb-3">
+              <span
+                class="badge me-1"
+                [ngClass]="selected.verified ? 'bg-success' : 'bg-secondary'"
+                >{{ selected.verified ? 'Verified' : 'Pending' }}</span
+              >
+              <span
+                class="badge"
+                [ngClass]="selected.rewarded ? 'bg-warning' : 'bg-light text-dark'"
+                >{{ selected.rewarded ? 'Rewarded' : 'Unrewarded' }}</span
+              >
+            </p>
+            <p class="text-muted" *ngIf="selected.description">
+              {{ selected.description }}
+            </p>
+
+            <div class="d-flex flex-wrap gap-2 mb-3" *ngIf="!selected.verified">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-success"
+                (click)="onVerifySelected()"
+                [disabled]="busyAction"
+              >
+                Verify
+              </button>
+            </div>
+
+            <div
+              class="input-group mb-0"
+              *ngIf="selected.verified && !selected.rewarded"
+            >
+              <input
+                class="form-control"
+                [(ngModel)]="rewardAmount"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Reward amount ({{ environment.coinMinimalDenom }})"
+              />
+              <button
+                type="button"
+                class="btn btn-warning"
+                (click)="onRewardSelected()"
+                [disabled]="busyAction"
+              >
+                Reward
+              </button>
+            </div>
+          </div>
+          <ng-template #pickAction>
+            <div class="ac-card__body text-muted">
+              Select an action to verify or send a reward.
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</module-shell>
