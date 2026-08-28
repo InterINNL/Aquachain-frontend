@@ -1,0 +1,259 @@
+<module-shell moduleKey="water-credits">
+  <wallet-banner *ngIf="walletWarning"></wallet-banner>
+
+  <div
+    *ngIf="missingContract"
+    class="ac-alert-banner ac-alert-banner--info"
+    role="alert"
+  >
+    Contract not configured. Deploy water-credit-marketplace and set
+    <code>WaterCreditMarketplaceContractAddress</code> in the app environment.
+  </div>
+
+  <div *ngIf="!missingContract">
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="ac-card mb-3" *ngIf="walletAddress">
+          <div class="ac-card__body">
+            <p class="mb-0">
+              <strong>Your water credits:</strong> {{ walletBalance }}
+            </p>
+          </div>
+        </div>
+
+        <div class="ac-card mb-3">
+          <div class="ac-card__header d-flex justify-content-between align-items-center">
+            <h5>Market listings</h5>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              (click)="toggleActiveFilter()"
+            >
+              {{ showActiveOnly ? 'Active only' : 'All listings' }}
+            </button>
+          </div>
+          <div class="ac-card__body">
+            <div *ngIf="loadingListings" class="ac-loading">
+              <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+              Loading…
+            </div>
+            <div class="table-responsive" *ngIf="!loadingListings">
+              <table class="ac-data-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Region</th>
+                    <th>Credits</th>
+                    <th>Price</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let listing of listings"
+                    [class.is-selected]="selected?.id === listing.id"
+                  >
+                    <td>{{ listing.id }}</td>
+                    <td>{{ truncate(listing.region, 18) }}</td>
+                    <td>{{ listing.credits }}</td>
+                    <td>{{ listing.price }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-primary"
+                        (click)="selectListing(listing)"
+                      >
+                        Open
+                      </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="listings.length === 0">
+                    <td colspan="5" class="text-muted text-center py-3">
+                      No listings yet
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <nav class="mt-2" *ngIf="listings.length > 0 || listingPage > 1">
+              <ul class="pagination pagination-sm justify-content-center mb-0">
+                <li class="page-item" [class.disabled]="!canGoPrev(listingPage)">
+                  <button
+                    class="page-link"
+                    (click)="prevListings()"
+                    [disabled]="!canGoPrev(listingPage)"
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li class="page-item disabled">
+                  <span class="page-link">Page {{ listingPage }}</span>
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="!canGoNextPage(listingHasNext)"
+                >
+                  <button
+                    class="page-link"
+                    (click)="nextListings()"
+                    [disabled]="!canGoNextPage(listingHasNext)"
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="ac-card mb-3">
+          <div class="ac-card__header"><h5>List credits for sale</h5></div>
+          <div class="ac-card__body">
+            <form [formGroup]="listForm" (ngSubmit)="onListCredits()">
+              <div class="mb-3">
+                <label class="form-label" for="wcCredits">Credits to sell</label>
+                <input id="wcCredits" class="form-control" formControlName="credits" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="wcPrice">
+                  Total price ({{ environment.coinMinimalDenom }})
+                </label>
+                <input id="wcPrice" class="form-control" formControlName="price" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="wcRegion">Region</label>
+                <input
+                  id="wcRegion"
+                  class="form-control"
+                  formControlName="region"
+                  placeholder="Delhi NCR, India"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="wcExpiry">Expiry (days, optional)</label>
+                <input id="wcExpiry" class="form-control" formControlName="expiry_days" />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="listForm.invalid || busyAction"
+              >
+                Create listing
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="ac-card mb-3">
+          <div class="ac-card__header"><h5>Transfer credits</h5></div>
+          <div class="ac-card__body">
+            <form [formGroup]="transferForm" (ngSubmit)="onTransferCredits()">
+              <div class="mb-3">
+                <label class="form-label" for="wcRecipient">Recipient</label>
+                <input id="wcRecipient" class="form-control" formControlName="recipient" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="wcAmount">Amount</label>
+                <input id="wcAmount" class="form-control" formControlName="amount" />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-outline-primary"
+                [disabled]="transferForm.invalid || busyAction"
+              >
+                Transfer
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="ac-card">
+          <div class="ac-card__header"><h5>Mint credits (admin)</h5></div>
+          <div class="ac-card__body">
+            <form [formGroup]="mintForm" (ngSubmit)="onMintCredits()">
+              <div class="mb-3">
+                <label class="form-label" for="wcMintRecipient">Recipient</label>
+                <input id="wcMintRecipient" class="form-control" formControlName="recipient" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="wcMintAmount">Amount</label>
+                <input id="wcMintAmount" class="form-control" formControlName="amount" />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-outline-secondary"
+                [disabled]="mintForm.invalid || busyAction"
+              >
+                Mint
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="ac-card sticky-top-detail">
+          <div class="ac-card__header"><h5>Listing detail</h5></div>
+          <div class="ac-card__body" *ngIf="selected; else pickListing">
+            <p class="mb-1">
+              <strong>#{{ selected.id }}</strong> {{ selected.region }}
+            </p>
+            <p class="mb-1">
+              <strong>Credits:</strong> {{ selected.credits }}
+            </p>
+            <p class="mb-1">
+              <strong>Price:</strong> {{ selected.price }}
+              {{ environment.coinMinimalDenom }}
+            </p>
+            <p class="mb-1">
+              <strong>Seller:</strong> {{ truncate(selected.seller, 36) }}
+            </p>
+            <p class="mb-2">
+              <strong>Expires:</strong> {{ formatExpiry(selected.expires_at) }}
+            </p>
+            <p class="mb-3">
+              <span
+                class="badge me-1"
+                [ngClass]="selected.active ? 'bg-success' : 'bg-secondary'"
+              >
+                {{ selected.active ? 'Active' : 'Closed' }}
+              </span>
+              <span
+                class="badge bg-light text-dark"
+                *ngIf="isBuyable(selected)"
+              >
+                Buyable
+              </span>
+            </p>
+
+            <div class="d-flex flex-wrap gap-2">
+              <button
+                *ngIf="isBuyable(selected)"
+                type="button"
+                class="btn btn-sm btn-warning"
+                (click)="onBuySelected()"
+                [disabled]="busyAction"
+              >
+                Buy for {{ selected.price }} {{ environment.coinMinimalDenom }}
+              </button>
+              <button
+                *ngIf="isSeller(selected) && selected.active"
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                (click)="onCancelSelected()"
+                [disabled]="busyAction"
+              >
+                Cancel listing
+              </button>
+            </div>
+          </div>
+          <ng-template #pickListing>
+            <div class="ac-card__body text-muted">
+              Select a listing to buy credits or manage your sale.
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</module-shell>

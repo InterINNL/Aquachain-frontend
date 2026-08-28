@@ -20,7 +20,8 @@ export type ModuleHeroKey =
   | 'water-well-initiative'
   | 'water-utilities'
   | 'sustainable-actions'
-  | 'community-bounty';
+  | 'community-bounty'
+  | 'water-credits';
 
 export interface AcModule {
   id: string;
@@ -48,6 +49,19 @@ export interface HeaderBrand {
   icon: string;
   accent: 'teal' | 'amber' | 'slate';
 }
+
+const waterCreditsPhotos: AcPhoto[] = [
+  {
+    src: local('context-monitoring.jpg'),
+    alt: 'Water monitoring dashboard with live sensor readings',
+    objectPosition: 'center center',
+  },
+  {
+    src: local('utilities-well-monitoring.jpg'),
+    alt: 'Industrial sensors monitoring a production water well in India',
+    objectPosition: 'center 45%',
+  },
+];
 
 const communityBountyPhotos: AcPhoto[] = [
   {
@@ -177,6 +191,11 @@ export const aquachainContent = {
       icon: 'people-group',
       accent: 'amber',
     },
+    '/water-credits': {
+      label: 'Water Credits',
+      icon: 'coins',
+      accent: 'slate',
+    },
     '/contact': {
       label: 'Contact',
       icon: 'envelope',
@@ -209,7 +228,7 @@ export const aquachainContent = {
   },
 
   modulesSection: {
-    title: 'Five modules',
+    title: 'Six modules',
     lead: 'Pick a demo path. Each module maps to a CosmWasm contract.',
   },
 
@@ -268,6 +287,17 @@ export const aquachainContent = {
       icon: 'people-group',
       accent: 'amber' as const,
       photos: communityBountyPhotos,
+    },
+    {
+      id: 'water-credits',
+      name: 'Water Credits',
+      kicker: 'Conservation marketplace',
+      blurb:
+        'Trade internal water-conservation credits on a simple ledger. List balances for sale, buy with native tokens, or transfer credits peer to peer.',
+      route: '/water-credits',
+      icon: 'coins',
+      accent: 'slate' as const,
+      photos: waterCreditsPhotos,
     },
   ] satisfies AcModule[],
 
@@ -470,6 +500,12 @@ export const aquachainContent = {
       hint: 'Escrow tasks and pay winners',
       route: '/community-bounty',
     },
+    {
+      key: 'water-credits' as ModuleHeroKey,
+      label: 'Water Credits',
+      hint: 'Buy and sell conservation credits',
+      route: '/water-credits',
+    },
   ],
 
   moduleHeroes: {
@@ -518,6 +554,16 @@ export const aquachainContent = {
       photo: {
         src: local('community-bounty-team.jpg'),
         alt: 'Volunteer team sharing a meal after a community sustainability event',
+        objectPosition: 'center center',
+      },
+    },
+    'water-credits': {
+      kicker: 'Module 6',
+      title: 'Water Credits',
+      lead: 'Mint and trade internal conservation credits. List credits for sale, pay with OSMO, and settle transfers atomically on-chain.',
+      photo: {
+        src: local('context-monitoring.jpg'),
+        alt: 'Utility dashboard tracking verified water savings and credit balances',
         objectPosition: 'center center',
       },
     },

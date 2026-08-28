@@ -51,4 +51,11 @@ export const appRoutes: Route[] = [
         (m) => m.CommunityBounty,
       ),
   },
+  {
+    path: 'water-credits',
+    loadComponent: () =>
+      import('./components/water-credits/water-credits').then(
+        (m) => m.WaterCredits,
+      ),
+  },
 ];
