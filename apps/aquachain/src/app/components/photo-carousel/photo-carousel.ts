@@ -36,8 +36,4 @@ export class PhotoCarousel implements OnInit, OnDestroy {
       clearInterval(this.intervalId);
     }
   }
-
-  selectSlide(index: number): void {
-    this.activeIndex.set(index);
-  }
 }

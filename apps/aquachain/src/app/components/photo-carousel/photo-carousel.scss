@@ -18,29 +18,3 @@
 .ac-photo-carousel__slide--active {
   opacity: 1;
 }
-
-.ac-photo-carousel__dots {
-  position: absolute;
-  bottom: 0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 0.35rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 999px;
-  background: rgb(0 0 0 / 35%);
-}
-
-.ac-photo-carousel__dot {
-  width: 0.45rem;
-  height: 0.45rem;
-  border: none;
-  border-radius: 50%;
-  padding: 0;
-  background: rgb(255 255 255 / 45%);
-  cursor: pointer;
-}
-
-.ac-photo-carousel__dot--active {
-  background: var(--ac-white);
-}

@@ -12,16 +12,4 @@
       [attr.aria-hidden]="index === activeIndex() ? null : true"
     />
   }
-  @if (photos().length > 1) {
-    <div class="ac-photo-carousel__dots" aria-hidden="true">
-      @for (photo of photos(); track photo.src; let index = $index) {
-        <button
-          type="button"
-          class="ac-photo-carousel__dot"
-          [class.ac-photo-carousel__dot--active]="index === activeIndex()"
-          (click)="selectSlide(index); $event.preventDefault(); $event.stopPropagation()"
-        ></button>
-      }
-    </div>
-  }
 </div>
