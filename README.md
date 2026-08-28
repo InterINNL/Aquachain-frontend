@@ -60,6 +60,7 @@ SPA routing is defined in `apps/interinnl/public/_redirects` (copied to the publ
 | **Sustainable Actions**   | Eco community actions + rewards    | Wired to CosmWasm + Keplr |
 | **Community Bounty**      | Escrowed sustainability tasks      | Wired to CosmWasm + Keplr |
 | **Water Credits**         | Conservation credit marketplace    | Wired to CosmWasm + Keplr |
+| **Local DAO**             | Community proposals and voting     | Wired to CosmWasm + Keplr |
 
 Demo geography in seeds and copy uses Indian cities and regions (Delhi, Bengaluru, Udaipur, Mumbai, etc.).
 

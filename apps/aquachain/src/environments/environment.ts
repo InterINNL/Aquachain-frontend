@@ -8,6 +8,7 @@ export const environment = {
   SustainableActionRewardsContractAddress: '',
   CommunityBountyContractAddress: '',
   WaterCreditMarketplaceContractAddress: '',
+  LocalDaoContractAddress: '',
   explorerBaseUrl: 'https://your-explorer-url',
   gasPrice: '0.025ustake',
   gasMultiplier: 1.5,

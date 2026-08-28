@@ -12,6 +12,8 @@ export const environment = {
     'osmo1a2pufn9ssg7fzp70l4rgfhg4mvz88y9f8n983enxg6xgkqsfay6q63hm5l',
   WaterCreditMarketplaceContractAddress:
     'osmo12cgaffy7nzxmdawfkjdslgnutrzqlkwwj20ktsjjua93r6mqsedqektnus',
+  LocalDaoContractAddress:
+    'osmo1xpavwsquwrr7e77309u0u8ax7576wr8xwf35ajmeldnmatt6vxnqas9scx',
   explorerBaseUrl: 'https://www.mintscan.io/osmosis-testnet',
 
   gasPrice: '0.1uosmo',

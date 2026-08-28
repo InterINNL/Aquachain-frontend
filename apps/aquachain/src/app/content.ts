@@ -21,7 +21,8 @@ export type ModuleHeroKey =
   | 'water-utilities'
   | 'sustainable-actions'
   | 'community-bounty'
-  | 'water-credits';
+  | 'water-credits'
+  | 'local-dao';
 
 export interface AcModule {
   id: string;
@@ -49,6 +50,19 @@ export interface HeaderBrand {
   icon: string;
   accent: 'teal' | 'amber' | 'slate';
 }
+
+const localDaoPhotos: AcPhoto[] = [
+  {
+    src: local('CS4Water-conference-2048x1536.jpg'),
+    alt: 'Community workshop on water stewardship and local governance',
+    objectPosition: 'center center',
+  },
+  {
+    src: local('local-dao-forum.jpg'),
+    alt: 'Community members discussing sustainability plans together',
+    objectPosition: 'center center',
+  },
+];
 
 const waterCreditsPhotos: AcPhoto[] = [
   {
@@ -196,6 +210,11 @@ export const aquachainContent = {
       icon: 'coins',
       accent: 'slate',
     },
+    '/local-dao': {
+      label: 'Local DAO',
+      icon: 'landmark',
+      accent: 'teal',
+    },
     '/contact': {
       label: 'Contact',
       icon: 'envelope',
@@ -228,7 +247,7 @@ export const aquachainContent = {
   },
 
   modulesSection: {
-    title: 'Six modules',
+    title: 'Seven modules',
     lead: 'Pick a demo path. Each module maps to a CosmWasm contract.',
   },
 
@@ -298,6 +317,17 @@ export const aquachainContent = {
       icon: 'coins',
       accent: 'slate' as const,
       photos: waterCreditsPhotos,
+    },
+    {
+      id: 'local-dao',
+      name: 'Local DAO',
+      kicker: 'Community governance',
+      blurb:
+        'Create proposals for local water projects, vote yes/no/abstain, and finalize outcomes once voting ends and quorum is met.',
+      route: '/local-dao',
+      icon: 'landmark',
+      accent: 'teal' as const,
+      photos: localDaoPhotos,
     },
   ] satisfies AcModule[],
 
@@ -506,6 +536,12 @@ export const aquachainContent = {
       hint: 'Buy and sell conservation credits',
       route: '/water-credits',
     },
+    {
+      key: 'local-dao' as ModuleHeroKey,
+      label: 'Local DAO',
+      hint: 'Propose and vote on local water projects',
+      route: '/local-dao',
+    },
   ],
 
   moduleHeroes: {
@@ -564,6 +600,16 @@ export const aquachainContent = {
       photo: {
         src: local('context-monitoring.jpg'),
         alt: 'Utility dashboard tracking verified water savings and credit balances',
+        objectPosition: 'center center',
+      },
+    },
+    'local-dao': {
+      kicker: 'Module 7',
+      title: 'Local DAO',
+      lead: 'Govern neighbourhood water priorities on-chain. Members submit proposals, cast votes, and finalize passed actions after the voting window closes.',
+      photo: {
+        src: local('CS4Water-conference-2048x1536.jpg'),
+        alt: 'Community workshop on water stewardship and local governance',
         objectPosition: 'center center',
       },
     },

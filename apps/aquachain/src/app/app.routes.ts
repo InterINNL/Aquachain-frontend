@@ -58,4 +58,9 @@ export const appRoutes: Route[] = [
         (m) => m.WaterCredits,
       ),
   },
+  {
+    path: 'local-dao',
+    loadComponent: () =>
+      import('./components/local-dao/local-dao').then((m) => m.LocalDao),
+  },
 ];

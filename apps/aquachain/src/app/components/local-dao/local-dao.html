@@ -1,0 +1,223 @@
+<module-shell moduleKey="local-dao">
+  <wallet-banner *ngIf="walletWarning"></wallet-banner>
+
+  <div
+    *ngIf="missingContract"
+    class="ac-alert-banner ac-alert-banner--info"
+    role="alert"
+  >
+    Contract not configured. Deploy local-dao and set
+    <code>LocalDaoContractAddress</code> in the app environment.
+  </div>
+
+  <div *ngIf="!missingContract">
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="ac-card mb-3">
+          <div class="ac-card__header"><h5>Proposals</h5></div>
+          <div class="ac-card__body">
+            <div *ngIf="loadingProposals" class="ac-loading">
+              <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+              Loading…
+            </div>
+            <div class="table-responsive" *ngIf="!loadingProposals">
+              <table class="ac-data-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let proposal of proposals"
+                    [class.is-selected]="selected?.id === proposal.id"
+                  >
+                    <td>{{ proposal.id }}</td>
+                    <td>
+                      <div>{{ truncate(proposal.title, 22) }}</div>
+                      <small class="text-muted">{{ truncate(proposal.location, 16) }}</small>
+                    </td>
+                    <td>{{ proposalStatusLabel(proposal.status) }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-primary"
+                        (click)="selectProposal(proposal)"
+                      >
+                        Open
+                      </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="proposals.length === 0">
+                    <td colspan="4" class="text-muted text-center py-3">
+                      No proposals yet
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <nav class="mt-2" *ngIf="proposals.length > 0 || proposalPage > 1">
+              <ul class="pagination pagination-sm justify-content-center mb-0">
+                <li class="page-item" [class.disabled]="!canGoPrev(proposalPage)">
+                  <button
+                    class="page-link"
+                    (click)="prevProposals()"
+                    [disabled]="!canGoPrev(proposalPage)"
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li class="page-item disabled">
+                  <span class="page-link">Page {{ proposalPage }}</span>
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="!canGoNextPage(proposalHasNext)"
+                >
+                  <button
+                    class="page-link"
+                    (click)="nextProposals()"
+                    [disabled]="!canGoNextPage(proposalHasNext)"
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="ac-card">
+          <div class="ac-card__header"><h5>Create proposal</h5></div>
+          <div class="ac-card__body">
+            <form [formGroup]="createForm" (ngSubmit)="onCreateProposal()">
+              <div class="mb-3">
+                <label class="form-label" for="daoTitle">Title</label>
+                <input id="daoTitle" class="form-control" formControlName="title" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="daoTag">Action tag</label>
+                <input
+                  id="daoTag"
+                  class="form-control"
+                  formControlName="action_tag"
+                  placeholder="fund_cleanup"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="daoLocation">Location</label>
+                <input
+                  id="daoLocation"
+                  class="form-control"
+                  formControlName="location"
+                  placeholder="Delhi, India"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="daoDesc">Description</label>
+                <textarea
+                  id="daoDesc"
+                  class="form-control"
+                  rows="3"
+                  formControlName="description"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="daoSummary">Summary (optional)</label>
+                <input id="daoSummary" class="form-control" formControlName="summary" />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="createForm.invalid || busyAction"
+              >
+                Submit proposal
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="ac-card sticky-top-detail">
+          <div class="ac-card__header"><h5>Proposal detail</h5></div>
+          <div class="ac-card__body" *ngIf="selected; else pickProposal">
+            <p class="mb-1">
+              <strong>#{{ selected.id }}</strong> {{ selected.title }}
+            </p>
+            <p class="mb-1"><strong>Location:</strong> {{ selected.location }}</p>
+            <p class="mb-1"><strong>Action:</strong> {{ selected.action_tag }}</p>
+            <p class="mb-1">
+              <strong>Voting ends:</strong> {{ formatEnd(selected.voting_end) }}
+            </p>
+            <p class="mb-2">
+              <span class="badge me-1 bg-secondary">
+                {{ proposalStatusLabel(selected.status) }}
+              </span>
+              <span class="badge bg-light text-dark me-1">
+                Yes {{ voteCount(selected.yes_votes) }}
+              </span>
+              <span class="badge bg-light text-dark me-1">
+                No {{ voteCount(selected.no_votes) }}
+              </span>
+              <span class="badge bg-light text-dark">
+                Abstain {{ voteCount(selected.abstain_votes) }}
+              </span>
+            </p>
+            <p class="text-muted" *ngIf="selected.description">
+              {{ selected.description }}
+            </p>
+
+            <div class="d-flex flex-wrap gap-2 mb-3" *ngIf="votingOpen(selected) && !walletVote">
+              <button
+                type="button"
+                class="btn btn-sm btn-success"
+                (click)="onVote('yes')"
+                [disabled]="busyAction"
+              >
+                Vote yes
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                (click)="onVote('no')"
+                [disabled]="busyAction"
+              >
+                Vote no
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+                (click)="onVote('abstain')"
+                [disabled]="busyAction"
+              >
+                Abstain
+              </button>
+            </div>
+            <p class="small text-muted mb-3" *ngIf="walletVote">
+              You voted: <strong>{{ walletVote }}</strong>
+            </p>
+
+            <button
+              *ngIf="readyToExecute(selected)"
+              type="button"
+              class="btn btn-sm btn-warning"
+              (click)="onExecuteSelected()"
+              [disabled]="busyAction"
+            >
+              Finalize after voting period
+            </button>
+          </div>
+          <ng-template #pickProposal>
+            <div class="ac-card__body text-muted">
+              Select a proposal to vote or finalize results.
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</module-shell>
