@@ -13,7 +13,7 @@ export const environment = {
   WaterCreditMarketplaceContractAddress:
     'osmo1cfymf04ufxh8c5z229v39skdyevy3tw87ywjukfxq6hr7wn7zfwq74c0p6',
   LocalDaoContractAddress:
-    'osmo1wyf5hpwpkuml6dtzj7ldek220pqy73j8a4crkp9pdupttrzfs2rq5dtwms',
+    'osmo1uc2fd0vpkjfzcuu2xtxclj8ftaj2xezhlhxq7exmahtmlqyljxnsnnw7t3',
   CrossPlatformExchangeContractAddress:
     'osmo19szn8salqfrdu4f359h5ft93gh97444rsk53dzm5sehzl0aayskqqrrh56',
   agentGatewayUrl: 'https://x402.interchouette.net',
