@@ -40,6 +40,7 @@ import {
   voteCount,
   VoteChoice,
 } from '@services/local-dao/local-dao';
+import { humanizeContractError } from '@services/contract/contract-errors';
 import { ModuleShell } from '../module-shell/module-shell';
 import { WalletBanner } from '../shared/wallet-banner/wallet-banner';
 
@@ -248,6 +249,20 @@ export class LocalDao implements OnInit {
     if (!this.selected) {
       return;
     }
+    try {
+      await this.ensureWallet();
+      await this.refreshWalletVote();
+    } catch (err: unknown) {
+      this.toastr.showError(humanizeContractError(err), 'Wallet Connection Failed');
+      return;
+    }
+    if (this.walletVote) {
+      this.toastr.showError(
+        `You already voted ${this.walletVote} on this proposal.`,
+        'Already voted',
+      );
+      return;
+    }
     await this.runAction(
       () =>
         this.dao.vote(
@@ -341,18 +356,7 @@ export class LocalDao implements OnInit {
         this.selected.id,
         this.walletAddress,
       );
-      const vote = record.vote;
-      if (typeof vote === 'object' && vote !== null && !Array.isArray(vote)) {
-        if ('yes' in vote) {
-          this.walletVote = 'yes';
-        } else if ('no' in vote) {
-          this.walletVote = 'no';
-        } else {
-          this.walletVote = 'abstain';
-        }
-      } else {
-        this.walletVote = null;
-      }
+      this.walletVote = normalizeVoteChoice(record.vote);
     } catch {
       this.walletVote = null;
     }
@@ -388,10 +392,7 @@ export class LocalDao implements OnInit {
         }
       }
     } catch (err: unknown) {
-      this.toastr.showError(
-        err instanceof Error ? err.message : String(err),
-        errorTitle,
-      );
+      this.toastr.showError(humanizeContractError(err), errorTitle);
     } finally {
       this.busyAction = false;
     }
@@ -405,4 +406,24 @@ export class LocalDao implements OnInit {
     this.walletAddress = address;
     return address;
   }
+}
+
+function normalizeVoteChoice(
+  vote: VoteChoice | { yes?: null } | { no?: null } | { abstain?: null },
+): VoteChoice | null {
+  if (typeof vote === 'string') {
+    return vote;
+  }
+  if (vote && typeof vote === 'object') {
+    if ('yes' in vote) {
+      return 'yes';
+    }
+    if ('no' in vote) {
+      return 'no';
+    }
+    if ('abstain' in vote) {
+      return 'abstain';
+    }
+  }
+  return null;
 }
